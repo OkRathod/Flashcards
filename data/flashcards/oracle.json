@@ -1,0 +1,767 @@
+[
+  {
+    "id": 1,
+    "question": "What is DBMS and how does it differ from a file management system?",
+    "answer": "DBMS (Database Management System) is software that enables users to store, manage, and retrieve data efficiently and securely. Unlike file management systems, DBMS provides centralized data management, reduces redundancy, ensures data integrity, supports concurrent access, and provides security controls.",
+    "syntax": "Conceptual - no SQL required",
+    "difficulty": "beginner",
+    "tags": ["dbms", "fundamentals"],
+    "category": "database-fundamentals"
+  },
+  {
+    "id": 2,
+    "question": "What is RDBMS? Give examples.",
+    "answer": "RDBMS (Relational Database Management System) stores data in tables with rows and columns, following relational model principles. It supports relationships between tables, ACID properties, and SQL. Examples include MySQL, PostgreSQL, Oracle, SQL Server, and SQLite.",
+    "syntax": "Examples: MySQL, Oracle, PostgreSQL, SQL Server",
+    "difficulty": "beginner",
+    "tags": ["rdbms", "examples"],
+    "category": "database-fundamentals"
+  },
+  {
+    "id": 3,
+    "question": "What is SQL and what are its types?",
+    "answer": "SQL (Structured Query Language) is a standardized language for managing relational databases. Types: DDL (Data Definition Language), DML (Data Manipulation Language), DQL (Data Query Language), DCL (Data Control Language), and TCL (Transaction Control Language).",
+    "syntax": "DDL: CREATE, ALTER, DROP\nDML: INSERT, UPDATE, DELETE\nDQL: SELECT\nDCL: GRANT, REVOKE\nTCL: COMMIT, ROLLBACK",
+    "difficulty": "beginner",
+    "tags": ["sql", "types", "commands"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 4,
+    "question": "What is a primary key?",
+    "answer": "A primary key is a column or combination of columns that uniquely identifies each row in a table. It cannot contain NULL values and ensures entity integrity. Each table can have only one primary key.",
+    "syntax": "CREATE TABLE students (\n  id INT PRIMARY KEY,\n  name VARCHAR(50)\n);",
+    "difficulty": "beginner",
+    "tags": ["primary-key", "constraints"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 5,
+    "question": "What is a foreign key?",
+    "answer": "A foreign key is a column or combination of columns that references the primary key of another table. It establishes and enforces relationships between tables and maintains referential integrity.",
+    "syntax": "CREATE TABLE orders (\n  id INT PRIMARY KEY,\n  customer_id INT,\n  FOREIGN KEY (customer_id) REFERENCES customers(id)\n);",
+    "difficulty": "beginner",
+    "tags": ["foreign-key", "relationships"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 6,
+    "question": "What are constraints in SQL? Name the types.",
+    "answer": "Constraints are rules that enforce data integrity. Types: PRIMARY KEY (unique identifier), FOREIGN KEY (referential integrity), UNIQUE (no duplicates), NOT NULL (mandatory values), CHECK (custom conditions), and DEFAULT (default values).",
+    "syntax": "CREATE TABLE employees (\n  id INT PRIMARY KEY,\n  email VARCHAR(100) UNIQUE,\n  age INT CHECK (age >= 18),\n  name VARCHAR(50) NOT NULL\n);",
+    "difficulty": "beginner",
+    "tags": ["constraints", "data-integrity"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 7,
+    "question": "Explain the difference between DELETE, DROP, and TRUNCATE.",
+    "answer": "DELETE removes specific rows based on conditions, is a DML command, can be rolled back, and triggers are fired. DROP removes entire table structure and data (DDL). TRUNCATE removes all rows quickly, is DDL, cannot be rolled back, and doesn't fire triggers.",
+    "syntax": "DELETE FROM table WHERE condition;\nDROP TABLE table_name;\nTRUNCATE TABLE table_name;",
+    "difficulty": "beginner",
+    "tags": ["delete", "drop", "truncate"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 8,
+    "question": "What are the different types of SQL JOINs?",
+    "answer": "INNER JOIN returns matching records from both tables. LEFT JOIN returns all records from left table and matching from right. RIGHT JOIN returns all records from right table and matching from left. FULL OUTER JOIN returns all records from both tables.",
+    "syntax": "SELECT * FROM table1 t1\nINNER JOIN table2 t2 ON t1.id = t2.id;\nLEFT JOIN table2 t2 ON t1.id = t2.id;\nRIGHT JOIN table2 t2 ON t1.id = t2.id;\nFULL OUTER JOIN table2 t2 ON t1.id = t2.id;",
+    "difficulty": "beginner",
+    "tags": ["joins", "inner", "outer"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 9,
+    "question": "What is the difference between UNION and UNION ALL?",
+    "answer": "UNION combines results from multiple SELECT statements and removes duplicate rows. UNION ALL combines results but includes all rows, including duplicates. UNION ALL is faster as it doesn't perform deduplication.",
+    "syntax": "SELECT name FROM table1\nUNION\nSELECT name FROM table2;\n\nSELECT name FROM table1\nUNION ALL\nSELECT name FROM table2;",
+    "difficulty": "beginner",
+    "tags": ["union", "union-all", "set-operations"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 10,
+    "question": "What is the difference between WHERE and HAVING clauses?",
+    "answer": "WHERE filters rows before grouping and cannot use aggregate functions. HAVING filters groups after aggregation and can use aggregate functions like COUNT, SUM, AVG. WHERE comes before GROUP BY, HAVING comes after.",
+    "syntax": "SELECT department, COUNT(*) as emp_count\nFROM employees\nWHERE salary > 30000\nGROUP BY department\nHAVING COUNT(*) > 5;",
+    "difficulty": "intermediate",
+    "tags": ["where", "having", "aggregation"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 11,
+    "question": "What is NULL in SQL and how do you handle it?",
+    "answer": "NULL represents absence of a value - not zero or empty string. Use IS NULL or IS NOT NULL to check. Functions like COALESCE, ISNULL, or CASE can handle NULL values. Aggregate functions typically ignore NULLs except COUNT(*).",
+    "syntax": "SELECT * FROM table WHERE column IS NULL;\nSELECT COALESCE(column, 'Default') FROM table;\nSELECT ISNULL(column, 0) FROM table;",
+    "difficulty": "beginner",
+    "tags": ["null", "coalesce", "isnull"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 12,
+    "question": "What are aggregate functions? Name the common ones.",
+    "answer": "Aggregate functions perform calculations on multiple rows and return a single result. Common ones: COUNT (counts rows), SUM (total), AVG (average), MIN (minimum), MAX (maximum). Usually used with GROUP BY.",
+    "syntax": "SELECT department,\n  COUNT(*) as total_employees,\n  AVG(salary) as avg_salary,\n  MAX(salary) as max_salary\nFROM employees\nGROUP BY department;",
+    "difficulty": "beginner",
+    "tags": ["aggregate", "count", "sum", "avg"],
+    "category": "sql-functions"
+  },
+  {
+    "id": 13,
+    "question": "What is a subquery? Differentiate between nested and correlated subqueries.",
+    "answer": "A subquery is a query within another query. Nested subquery executes independently first, then outer query uses its result. Correlated subquery references outer query columns and executes for each row of outer query.",
+    "syntax": "-- Nested\nSELECT * FROM employees\nWHERE dept_id IN (SELECT id FROM departments WHERE location = 'NYC');\n\n-- Correlated\nSELECT * FROM employees e1\nWHERE salary > (SELECT AVG(salary) FROM employees e2 WHERE e2.dept_id = e1.dept_id);",
+    "difficulty": "intermediate",
+    "tags": ["subquery", "nested", "correlated"],
+    "category": "sql-advanced"
+  },
+  {
+    "id": 14,
+    "question": "What is normalization and explain 1NF, 2NF, 3NF?",
+    "answer": "Normalization reduces data redundancy and improves integrity. 1NF: Atomic values, no repeating groups. 2NF: 1NF + non-key attributes fully dependent on primary key. 3NF: 2NF + no transitive dependencies (non-key attributes not dependent on other non-key attributes).",
+    "syntax": "Example: Split STUDENT(ID, Name, Course1, Course2) into STUDENT(ID, Name) and ENROLLMENT(StudentID, CourseID)",
+    "difficulty": "intermediate",
+    "tags": ["normalization", "1nf", "2nf", "3nf"],
+    "category": "database-design"
+  },
+  {
+    "id": 15,
+    "question": "What are indexes and why are they important?",
+    "answer": "Indexes are database objects that improve query performance by creating shortcuts to data. They speed up SELECT operations but slow down INSERT/UPDATE/DELETE. Types include clustered (data stored in index order) and non-clustered (separate structure pointing to data).",
+    "syntax": "CREATE INDEX idx_employee_name ON employees(name);\nCREATE UNIQUE INDEX idx_employee_email ON employees(email);",
+    "difficulty": "intermediate",
+    "tags": ["indexes", "performance", "clustered"],
+    "category": "performance"
+  },
+  {
+    "id": 16,
+    "question": "What are ACID properties in database transactions?",
+    "answer": "ACID ensures reliable database transactions. Atomicity (all or nothing), Consistency (valid state transitions), Isolation (concurrent transactions don't interfere), Durability (committed changes persist even after system failure).",
+    "syntax": "BEGIN TRANSACTION;\nUPDATE accounts SET balance = balance - 100 WHERE id = 1;\nUPDATE accounts SET balance = balance + 100 WHERE id = 2;\nCOMMIT;",
+    "difficulty": "beginner",
+    "tags": ["acid", "transactions", "atomicity"],
+    "category": "database-fundamentals"
+  },
+  {
+    "id": 17,
+    "question": "What is a view in SQL?",
+    "answer": "A view is a virtual table based on the result of a SELECT statement. It doesn't store data physically but provides a way to present data from one or more tables. Views can simplify complex queries, provide security, and offer data abstraction.",
+    "syntax": "CREATE VIEW active_employees AS\nSELECT id, name, department\nFROM employees\nWHERE status = 'Active';",
+    "difficulty": "beginner",
+    "tags": ["view", "virtual-table"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 18,
+    "question": "What are the common SQL string functions?",
+    "answer": "Common string functions: LENGTH/LEN (string length), SUBSTRING/SUBSTR (extract part), UPPER/LOWER (case conversion), TRIM (remove spaces), CONCAT (join strings), REPLACE (substitute text), CHARINDEX/INSTR (find position).",
+    "syntax": "SELECT UPPER(name) as upper_name,\n  LENGTH(name) as name_length,\n  SUBSTRING(name, 1, 3) as first_three,\n  TRIM(name) as trimmed_name\nFROM employees;",
+    "difficulty": "beginner",
+    "tags": ["string-functions", "upper", "substring"],
+    "category": "sql-functions"
+  },
+  {
+    "id": 19,
+    "question": "What are the common SQL date functions?",
+    "answer": "Common date functions: GETDATE()/NOW() (current datetime), DATEADD (add interval), DATEDIFF (difference between dates), DATEPART/EXTRACT (extract component), YEAR/MONTH/DAY (extract specific parts), CONVERT/FORMAT (format dates).",
+    "syntax": "SELECT GETDATE() as current_date,\n  DATEADD(day, 30, hire_date) as review_date,\n  DATEDIFF(day, hire_date, GETDATE()) as days_employed\nFROM employees;",
+    "difficulty": "beginner",
+    "tags": ["date-functions", "getdate", "datediff"],
+    "category": "sql-functions"
+  },
+  {
+    "id": 20,
+    "question": "What are the different SQL data types?",
+    "answer": "SQL data types: Numeric (INT, BIGINT, DECIMAL, FLOAT), Character (CHAR, VARCHAR, TEXT), Date/Time (DATE, TIME, DATETIME, TIMESTAMP), Binary (BINARY, VARBINARY, BLOB), Boolean (BOOLEAN/BIT), and others like XML, JSON in modern databases.",
+    "syntax": "CREATE TABLE example (\n  id INT PRIMARY KEY,\n  name VARCHAR(100),\n  salary DECIMAL(10,2),\n  hire_date DATE,\n  is_active BOOLEAN\n);",
+    "difficulty": "beginner",
+    "tags": ["data-types", "int", "varchar", "date"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 21,
+    "question": "How do you use the ALTER TABLE command?",
+    "answer": "ALTER TABLE modifies existing table structure. You can ADD columns, DROP columns, MODIFY column data types, ADD/DROP constraints, and RENAME columns or tables. It's a DDL command that changes schema without losing existing data.",
+    "syntax": "ALTER TABLE employees ADD email VARCHAR(100);\nALTER TABLE employees DROP COLUMN phone;\nALTER TABLE employees MODIFY COLUMN salary DECIMAL(12,2);\nALTER TABLE employees RENAME COLUMN fname TO first_name;",
+    "difficulty": "beginner",
+    "tags": ["alter-table", "add", "drop", "modify"],
+    "category": "ddl"
+  },
+  {
+    "id": 22,
+    "question": "What is the difference between CHAR and VARCHAR?",
+    "answer": "CHAR is fixed-length character data type that reserves space for maximum declared length, padding with spaces. VARCHAR is variable-length, using only space needed for actual data. CHAR is faster for fixed-size data, VARCHAR saves storage space.",
+    "syntax": "CREATE TABLE example (\n  code CHAR(5),        -- Always uses 5 bytes\n  description VARCHAR(255) -- Uses actual length + overhead\n);",
+    "difficulty": "beginner",
+    "tags": ["char", "varchar", "data-types"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 23,
+    "question": "What is a composite key?",
+    "answer": "A composite key (compound key) is a primary key composed of two or more columns that together uniquely identify each row. Used when no single column can uniquely identify records. All columns in composite key must be NOT NULL.",
+    "syntax": "CREATE TABLE order_items (\n  order_id INT,\n  product_id INT,\n  quantity INT,\n  PRIMARY KEY (order_id, product_id)\n);",
+    "difficulty": "beginner",
+    "tags": ["composite-key", "primary-key"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 24,
+    "question": "What is the difference between UNIQUE and PRIMARY KEY constraints?",
+    "answer": "Both ensure uniqueness, but PRIMARY KEY cannot be NULL and there's only one per table. UNIQUE can have NULL values (usually one) and there can be multiple UNIQUE constraints per table. PRIMARY KEY automatically creates clustered index.",
+    "syntax": "CREATE TABLE users (\n  id INT PRIMARY KEY,      -- Cannot be NULL, only one\n  email VARCHAR(100) UNIQUE, -- Can be NULL, multiple allowed\n  username VARCHAR(50) UNIQUE\n);",
+    "difficulty": "beginner",
+    "tags": ["unique", "primary-key", "constraints"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 25,
+    "question": "What is a self-join?",
+    "answer": "A self-join is joining a table with itself using table aliases. Commonly used to find relationships within the same table, like employee-manager relationships, or comparing rows within the same table.",
+    "syntax": "SELECT e1.name as employee, e2.name as manager\nFROM employees e1\nJOIN employees e2 ON e1.manager_id = e2.id;",
+    "difficulty": "intermediate",
+    "tags": ["self-join", "aliases"],
+    "category": "sql-advanced"
+  },
+  {
+    "id": 26,
+    "question": "What is the difference between IN and EXISTS?",
+    "answer": "IN checks if a value matches any value in a subquery result set. EXISTS checks if subquery returns any rows. EXISTS is often faster for large datasets and handles NULLs better. EXISTS stops at first match, IN processes entire subquery.",
+    "syntax": "-- Using IN\nSELECT * FROM customers WHERE id IN (SELECT customer_id FROM orders);\n-- Using EXISTS\nSELECT * FROM customers c WHERE EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.id);",
+    "difficulty": "intermediate",
+    "tags": ["in", "exists", "subquery"],
+    "category": "sql-advanced"
+  },
+  {
+    "id": 27,
+    "question": "What is a stored procedure?",
+    "answer": "A stored procedure is a precompiled collection of SQL statements stored in the database. It can accept parameters, contain business logic, improve performance through compilation, provide security, and enable code reuse. Executed using EXEC or CALL.",
+    "syntax": "CREATE PROCEDURE GetEmployeeByDept\n  @DeptID INT\nAS\nBEGIN\n  SELECT * FROM employees WHERE department_id = @DeptID;\nEND;\n\n-- Execute\nEXEC GetEmployeeByDept @DeptID = 10;",
+    "difficulty": "intermediate",
+    "tags": ["stored-procedure", "parameters"],
+    "category": "database-objects"
+  },
+  {
+    "id": 28,
+    "question": "What are triggers in SQL?",
+    "answer": "Triggers are special stored procedures that automatically execute (fire) in response to specific database events like INSERT, UPDATE, DELETE. Types include BEFORE triggers (execute before event) and AFTER triggers (execute after event).",
+    "syntax": "CREATE TRIGGER audit_employee_changes\nAFTER UPDATE ON employees\nFOR EACH ROW\nBEGIN\n  INSERT INTO audit_log (table_name, operation, timestamp)\n  VALUES ('employees', 'UPDATE', NOW());\nEND;",
+    "difficulty": "intermediate",
+    "tags": ["triggers", "before", "after"],
+    "category": "database-objects"
+  },
+  {
+    "id": 29,
+    "question": "What is the CASE statement in SQL?",
+    "answer": "CASE is a conditional expression that allows you to implement if-then-else logic in SQL. It can be used in SELECT, UPDATE, ORDER BY clauses. Has two forms: simple CASE (compares expression) and searched CASE (evaluates conditions).",
+    "syntax": "SELECT name, salary,\n  CASE \n    WHEN salary > 80000 THEN 'High'\n    WHEN salary > 50000 THEN 'Medium'\n    ELSE 'Low'\n  END as salary_grade\nFROM employees;",
+    "difficulty": "beginner",
+    "tags": ["case", "conditional", "if-then-else"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 30,
+    "question": "What is the difference between COUNT(*) and COUNT(column)?",
+    "answer": "COUNT(*) counts all rows including those with NULL values. COUNT(column) counts only non-NULL values in that specific column. COUNT(1) is equivalent to COUNT(*) and counts all rows regardless of NULL values.",
+    "syntax": "SELECT \n  COUNT(*) as total_rows,\n  COUNT(email) as rows_with_email,\n  COUNT(phone) as rows_with_phone\nFROM customers;",
+    "difficulty": "beginner",
+    "tags": ["count", "null", "aggregate"],
+    "category": "sql-functions"
+  },
+  {
+    "id": 31,
+    "question": "What are window functions (analytic functions)?",
+    "answer": "Window functions perform calculations across a set of rows related to the current row without grouping. Include ranking functions (ROW_NUMBER, RANK, DENSE_RANK), aggregate functions (SUM, AVG OVER), and value functions (LAG, LEAD).",
+    "syntax": "SELECT employee_id, salary,\n  ROW_NUMBER() OVER (ORDER BY salary DESC) as rank,\n  AVG(salary) OVER (PARTITION BY department) as dept_avg\nFROM employees;",
+    "difficulty": "advanced",
+    "tags": ["window-functions", "row_number", "partition"],
+    "category": "sql-advanced"
+  },
+  {
+    "id": 32,
+    "question": "What is database denormalization?",
+    "answer": "Denormalization is the process of adding redundancy to a normalized database to improve read performance. It trades storage space and update complexity for faster queries. Common in data warehouses and reporting systems.",
+    "syntax": "-- Instead of joining, store calculated values\nCREATE TABLE orders (\n  id INT,\n  customer_name VARCHAR(100), -- Denormalized from customers table\n  total_amount DECIMAL(10,2)\n);",
+    "difficulty": "intermediate",
+    "tags": ["denormalization", "performance"],
+    "category": "database-design"
+  },
+  {
+    "id": 33,
+    "question": "What is the GROUP BY clause and how does it work?",
+    "answer": "GROUP BY groups rows that have the same values into summary rows. Typically used with aggregate functions to perform calculations for each group. All non-aggregate columns in SELECT must appear in GROUP BY clause.",
+    "syntax": "SELECT department, COUNT(*) as employee_count, AVG(salary) as avg_salary\nFROM employees\nGROUP BY department\nORDER BY employee_count DESC;",
+    "difficulty": "beginner",
+    "tags": ["group-by", "aggregate", "grouping"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 34,
+    "question": "What is the ORDER BY clause?",
+    "answer": "ORDER BY sorts query results by one or more columns in ascending (ASC) or descending (DESC) order. Default is ascending. Can sort by column names, positions, or expressions. NULL values typically appear first or last depending on database.",
+    "syntax": "SELECT name, salary, hire_date\nFROM employees\nORDER BY salary DESC, hire_date ASC;\n\n-- Using column positions\nSELECT name, salary FROM employees ORDER BY 2 DESC;",
+    "difficulty": "beginner",
+    "tags": ["order-by", "sorting", "asc", "desc"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 35,
+    "question": "What is a candidate key?",
+    "answer": "A candidate key is a column or combination of columns that can uniquely identify each row in a table. A table can have multiple candidate keys, but only one is chosen as the primary key. All other candidate keys become unique keys.",
+    "syntax": "-- In this table, both id and email could be candidate keys\nCREATE TABLE users (\n  id INT PRIMARY KEY,     -- Chosen as primary key\n  email VARCHAR(100) UNIQUE, -- Alternate candidate key\n  username VARCHAR(50) UNIQUE -- Another candidate key\n);",
+    "difficulty": "intermediate",
+    "tags": ["candidate-key", "unique-identifier"],
+    "category": "database-design"
+  },
+  {
+    "id": 36,
+    "question": "What is referential integrity?",
+    "answer": "Referential integrity ensures that relationships between tables remain consistent. Foreign key values must either match a primary key value in the referenced table or be NULL. Prevents orphaned records and maintains data consistency.",
+    "syntax": "CREATE TABLE orders (\n  id INT PRIMARY KEY,\n  customer_id INT,\n  FOREIGN KEY (customer_id) REFERENCES customers(id)\n    ON DELETE CASCADE\n    ON UPDATE CASCADE\n);",
+    "difficulty": "intermediate",
+    "tags": ["referential-integrity", "foreign-key"],
+    "category": "database-design"
+  },
+  {
+    "id": 37,
+    "question": "What are the different types of relationships in database?",
+    "answer": "One-to-One (1:1): Each record in table A relates to exactly one record in table B. One-to-Many (1:M): One record in table A relates to multiple records in table B. Many-to-Many (M:M): Multiple records in table A relate to multiple records in table B, implemented using junction table.",
+    "syntax": "-- One-to-Many: One customer, many orders\nCREATE TABLE customers (id INT PRIMARY KEY, name VARCHAR(50));\nCREATE TABLE orders (id INT PRIMARY KEY, customer_id INT REFERENCES customers(id));",
+    "difficulty": "beginner",
+    "tags": ["relationships", "one-to-one", "one-to-many"],
+    "category": "database-design"
+  },
+  {
+    "id": 38,
+    "question": "What is LIMIT/TOP clause?",
+    "answer": "LIMIT (MySQL, PostgreSQL) or TOP (SQL Server) restricts the number of rows returned by a query. Useful for pagination, getting sample data, or finding top N records. Often used with ORDER BY for meaningful results.",
+    "syntax": "-- MySQL/PostgreSQL\nSELECT * FROM employees ORDER BY salary DESC LIMIT 10;\n\n-- SQL Server\nSELECT TOP 10 * FROM employees ORDER BY salary DESC;\n\n-- With OFFSET (pagination)\nSELECT * FROM employees LIMIT 10 OFFSET 20;",
+    "difficulty": "beginner",
+    "tags": ["limit", "top", "pagination"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 39,
+    "question": "What is a cross join?",
+    "answer": "CROSS JOIN returns the Cartesian product of two tables - every row from the first table combined with every row from the second table. If table A has m rows and table B has n rows, result has m×n rows. Rarely used in practice.",
+    "syntax": "SELECT p.name as product, c.name as category\nFROM products p\nCROSS JOIN categories c;\n\n-- Results in all possible product-category combinations",
+    "difficulty": "intermediate",
+    "tags": ["cross-join", "cartesian-product"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 40,
+    "question": "What is the difference between clustered and non-clustered indexes?",
+    "answer": "Clustered index determines the physical storage order of data in the table. Table can have only one clustered index (usually on primary key). Non-clustered index is a separate structure pointing to data rows. Table can have multiple non-clustered indexes.",
+    "syntax": "-- Clustered (usually automatic with PRIMARY KEY)\nCREATE CLUSTERED INDEX idx_id ON employees(id);\n\n-- Non-clustered\nCREATE NONCLUSTERED INDEX idx_name ON employees(last_name);",
+    "difficulty": "intermediate",
+    "tags": ["clustered", "non-clustered", "indexes"],
+    "category": "performance"
+  },
+  {
+    "id": 41,
+    "question": "What is the DISTINCT keyword?",
+    "answer": "DISTINCT removes duplicate rows from query results. It works across all selected columns - rows are considered duplicates only if all selected columns have identical values. Can impact performance on large datasets.",
+    "syntax": "SELECT DISTINCT department FROM employees;\n\n-- Multiple columns\nSELECT DISTINCT department, job_title FROM employees;\n\n-- With aggregate\nSELECT COUNT(DISTINCT department) as unique_departments FROM employees;",
+    "difficulty": "beginner",
+    "tags": ["distinct", "unique", "duplicates"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 42,
+    "question": "What are scalar functions vs aggregate functions?",
+    "answer": "Scalar functions operate on single values and return one value for each input row (e.g., UPPER(), LEN(), GETDATE()). Aggregate functions operate on multiple rows and return single summary value (e.g., SUM(), COUNT(), AVG()).",
+    "syntax": "-- Scalar functions\nSELECT UPPER(name), LEN(name), GETDATE() FROM employees;\n\n-- Aggregate functions\nSELECT COUNT(*), SUM(salary), AVG(salary) FROM employees;",
+    "difficulty": "beginner",
+    "tags": ["scalar", "aggregate", "functions"],
+    "category": "sql-functions"
+  },
+  {
+    "id": 43,
+    "question": "What is a database transaction and transaction control?",
+    "answer": "A transaction is a logical unit of work containing one or more SQL statements. Either all statements succeed (COMMIT) or all fail (ROLLBACK). Transaction control commands: BEGIN/START TRANSACTION, COMMIT, ROLLBACK, SAVEPOINT.",
+    "syntax": "BEGIN TRANSACTION;\nUPDATE accounts SET balance = balance - 100 WHERE id = 1;\nUPDATE accounts SET balance = balance + 100 WHERE id = 2;\nIF @@ERROR = 0\n  COMMIT;\nELSE\n  ROLLBACK;",
+    "difficulty": "beginner",
+    "tags": ["transaction", "commit", "rollback"],
+    "category": "transactions"
+  },
+  {
+    "id": 44,
+    "question": "What is the difference between HAVING and WHERE with GROUP BY?",
+    "answer": "WHERE filters individual rows before grouping. HAVING filters groups after GROUP BY is applied. WHERE cannot use aggregate functions; HAVING can. Use WHERE for row-level filtering, HAVING for group-level filtering.",
+    "syntax": "SELECT department, COUNT(*) as emp_count\nFROM employees\nWHERE salary > 50000    -- Filter individuals before grouping\nGROUP BY department\nHAVING COUNT(*) > 5;    -- Filter groups after aggregation",
+    "difficulty": "intermediate",
+    "tags": ["having", "where", "group-by"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 45,
+    "question": "What is SQL injection and how to prevent it?",
+    "answer": "SQL injection is a security vulnerability where malicious SQL code is inserted into application queries. Prevention methods: use parameterized queries/prepared statements, input validation, stored procedures, and least privilege principle.",
+    "syntax": "-- Vulnerable code\nquery = \"SELECT * FROM users WHERE id = \" + userInput;\n\n-- Safe parameterized query\nPREPARE stmt FROM 'SELECT * FROM users WHERE id = ?';\nEXECUTE stmt USING @user_id;",
+    "difficulty": "intermediate",
+    "tags": ["sql-injection", "security", "parameters"],
+    "category": "security"
+  },
+  {
+    "id": 46,
+    "question": "What are the different isolation levels in database transactions?",
+    "answer": "READ UNCOMMITTED (allows dirty reads), READ COMMITTED (prevents dirty reads), REPEATABLE READ (prevents dirty and non-repeatable reads), SERIALIZABLE (prevents all phenomena, highest isolation). Higher isolation reduces concurrency but increases data consistency.",
+    "syntax": "SET TRANSACTION ISOLATION LEVEL READ COMMITTED;\nBEGIN TRANSACTION;\nSELECT * FROM accounts WHERE id = 1;\nCOMMIT;",
+    "difficulty": "advanced",
+    "tags": ["isolation-levels", "concurrency"],
+    "category": "transactions"
+  },
+  {
+    "id": 47,
+    "question": "What is the difference between INNER JOIN and WHERE clause joins?",
+    "answer": "Both can join tables, but INNER JOIN is explicit and clearer in intent. WHERE clause joins (implicit joins) mix join conditions with filter conditions, making queries harder to read and maintain. INNER JOIN is the modern standard.",
+    "syntax": "-- INNER JOIN (preferred)\nSELECT e.name, d.department_name\nFROM employees e INNER JOIN departments d ON e.dept_id = d.id;\n\n-- WHERE clause join (older style)\nSELECT e.name, d.department_name\nFROM employees e, departments d\nWHERE e.dept_id = d.id;",
+    "difficulty": "intermediate",
+    "tags": ["inner-join", "where-join"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 48,
+    "question": "What is AUTO_INCREMENT/IDENTITY in SQL?",
+    "answer": "AUTO_INCREMENT (MySQL) or IDENTITY (SQL Server) automatically generates unique numeric values for new rows. Commonly used for primary keys. Values increment by specified amount (usually 1) and cannot be duplicated.",
+    "syntax": "-- MySQL\nCREATE TABLE employees (\n  id INT AUTO_INCREMENT PRIMARY KEY,\n  name VARCHAR(50)\n);\n\n-- SQL Server\nCREATE TABLE employees (\n  id INT IDENTITY(1,1) PRIMARY KEY,\n  name VARCHAR(50)\n);",
+    "difficulty": "beginner",
+    "tags": ["auto-increment", "identity", "primary-key"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 49,
+    "question": "What are the different ways to copy data from one table to another?",
+    "answer": "INSERT INTO SELECT (copy data to existing table), SELECT INTO (create new table with data), CREATE TABLE AS SELECT (PostgreSQL/Oracle), or using export/import utilities for large datasets.",
+    "syntax": "-- Copy to existing table\nINSERT INTO employees_backup SELECT * FROM employees;\n\n-- Create new table with data (SQL Server)\nSELECT * INTO employees_backup FROM employees;\n\n-- Create table as select (PostgreSQL)\nCREATE TABLE employees_backup AS SELECT * FROM employees;",
+    "difficulty": "intermediate",
+    "tags": ["insert-select", "select-into", "copy-data"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 50,
+    "question": "What is the difference between RANK() and DENSE_RANK()?",
+    "answer": "Both assign ranking values, but handle ties differently. RANK() leaves gaps after ties (1,2,2,4). DENSE_RANK() doesn't leave gaps (1,2,2,3). ROW_NUMBER() assigns unique values even for ties (1,2,3,4).",
+    "syntax": "SELECT name, salary,\n  RANK() OVER (ORDER BY salary DESC) as rank_gap,\n  DENSE_RANK() OVER (ORDER BY salary DESC) as dense_rank,\n  ROW_NUMBER() OVER (ORDER BY salary DESC) as row_num\nFROM employees;",
+    "difficulty": "intermediate",
+    "tags": ["rank", "dense_rank", "window-functions"],
+    "category": "sql-advanced"
+  },
+  {
+    "id": 51,
+    "question": "How do you find duplicate records in a table?",
+    "answer": "Use GROUP BY with HAVING COUNT(*) > 1 to find duplicates. Can use window functions like ROW_NUMBER() to identify and potentially remove duplicates. Important for data cleaning and quality assurance.",
+    "syntax": "-- Find duplicates\nSELECT email, COUNT(*) as duplicate_count\nFROM users\nGROUP BY email\nHAVING COUNT(*) > 1;\n\n-- Find duplicate rows with ROW_NUMBER\nSELECT * FROM (\n  SELECT *, ROW_NUMBER() OVER (PARTITION BY email ORDER BY id) as rn\n  FROM users\n) WHERE rn > 1;",
+    "difficulty": "intermediate",
+    "tags": ["duplicates", "group-by", "having"],
+    "category": "data-quality"
+  },
+  {
+    "id": 52,
+    "question": "What is the MERGE statement?",
+    "answer": "MERGE (SQL Server, Oracle) performs INSERT, UPDATE, or DELETE operations in a single statement based on matching conditions. Also called UPSERT (UPDATE or INSERT). Useful for synchronizing data between tables.",
+    "syntax": "MERGE target_table AS target\nUSING source_table AS source ON target.id = source.id\nWHEN MATCHED THEN UPDATE SET target.name = source.name\nWHEN NOT MATCHED THEN INSERT (id, name) VALUES (source.id, source.name);",
+    "difficulty": "advanced",
+    "tags": ["merge", "upsert", "synchronization"],
+    "category": "sql-advanced"
+  },
+  {
+    "id": 53,
+    "question": "What are common SQL performance optimization techniques?",
+    "answer": "Use appropriate indexes, avoid SELECT *, use WHERE clauses to filter early, optimize JOIN conditions, use EXISTS instead of IN for subqueries, avoid functions in WHERE clauses, use LIMIT for large result sets, analyze query execution plans.",
+    "syntax": "-- Good practices\nSELECT id, name FROM employees WHERE department_id = 10 LIMIT 100;\nCREATE INDEX idx_dept ON employees(department_id);\n\n-- Avoid\nSELECT * FROM employees WHERE UPPER(name) = 'JOHN';",
+    "difficulty": "advanced",
+    "tags": ["performance", "optimization", "indexes"],
+    "category": "performance"
+  },
+  {
+    "id": 54,
+    "question": "What is the difference between DELETE and TRUNCATE?",
+    "answer": "DELETE is DML, removes rows based on conditions, can be rolled back, fires triggers, slower for large datasets, logs each deleted row. TRUNCATE is DDL, removes all rows, cannot be rolled back easily, doesn't fire triggers, faster, minimal logging.",
+    "syntax": "-- DELETE (conditional, can rollback)\nDELETE FROM employees WHERE department_id = 10;\n\n-- TRUNCATE (all rows, faster)\nTRUNCATE TABLE temp_employees;",
+    "difficulty": "beginner",
+    "tags": ["delete", "truncate", "dml", "ddl"],
+    "category": "sql-fundamentals"
+  },
+  {
+    "id": 55,
+    "question": "What are common aggregate functions and their usage?",
+    "answer": "COUNT (count rows), SUM (total values), AVG (average), MIN/MAX (extreme values), STRING_AGG/GROUP_CONCAT (concatenate strings). All ignore NULL values except COUNT(*). Used with GROUP BY for grouped aggregations.",
+    "syntax": "SELECT department,\n  COUNT(*) as total_employees,\n  AVG(salary) as avg_salary,\n  MIN(hire_date) as earliest_hire,\n  STRING_AGG(name, ', ') as employee_names\nFROM employees\nGROUP BY department;",
+    "difficulty": "beginner",
+    "tags": ["aggregate", "count", "sum", "avg"],
+    "category": "sql-functions"
+  },
+  {
+    "id": 56,
+    "question": "How do you handle NULL values in different scenarios?",
+    "answer": "Use IS NULL/IS NOT NULL for checking, COALESCE for default values, NULLIF to convert values to NULL, CASE statements for complex logic. Different aggregate functions handle NULLs differently - most ignore them, COUNT(*) includes them.",
+    "syntax": "-- Handling NULLs\nSELECT \n  COALESCE(phone, 'No phone') as contact,\n  NULLIF(salary, 0) as valid_salary,\n  CASE WHEN email IS NULL THEN 'No email' ELSE email END as email_status\nFROM employees;",
+    "difficulty": "intermediate",
+    "tags": ["null", "coalesce", "nullif"],
+    "category": "null-handling"
+  },
+  {
+    "id": 57,
+    "question": "What is the difference between UNION, INTERSECT, and EXCEPT?",
+    "answer": "UNION combines rows from multiple queries (UNION removes duplicates, UNION ALL keeps them). INTERSECT returns common rows between queries. EXCEPT (or MINUS) returns rows from first query that don't exist in second query.",
+    "syntax": "-- UNION (combine results)\nSELECT name FROM employees UNION SELECT name FROM contractors;\n\n-- INTERSECT (common rows)\nSELECT name FROM employees INTERSECT SELECT name FROM managers;\n\n-- EXCEPT (difference)\nSELECT name FROM employees EXCEPT SELECT name FROM terminated;",
+    "difficulty": "intermediate",
+    "tags": ["union", "intersect", "except"],
+    "category": "set-operations"
+  },
+  {
+    "id": 58,
+    "question": "How do you write a query to find the second highest salary?",
+    "answer": "Multiple approaches: using subquery with MAX and NOT IN, using LIMIT/TOP with ORDER BY and OFFSET, using window functions like ROW_NUMBER() or DENSE_RANK(). Each has different performance characteristics.",
+    "syntax": "-- Using subquery\nSELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);\n\n-- Using LIMIT (MySQL)\nSELECT salary FROM employees ORDER BY salary DESC LIMIT 1 OFFSET 1;\n\n-- Using window function\nSELECT salary FROM (SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) as rk FROM employees) WHERE rk = 2;",
+    "difficulty": "intermediate",
+    "tags": ["second-highest", "subquery", "window-functions"],
+    "category": "interview-classics"
+  },
+  {
+    "id": 59,
+    "question": "What is a database schema?",
+    "answer": "A database schema is the logical structure that defines how data is organized, including tables, columns, data types, relationships, constraints, and indexes. It serves as a blueprint for the database and ensures data integrity and organization.",
+    "syntax": "-- Schema definition example\nCREATE SCHEMA company_hr;\nCREATE TABLE company_hr.employees (\n  id INT PRIMARY KEY,\n  name VARCHAR(100) NOT NULL,\n  department_id INT REFERENCES departments(id)\n);",
+    "difficulty": "beginner",
+    "tags": ["schema", "database-design"],
+    "category": "database-fundamentals"
+  },
+  {
+    "id": 60,
+    "question": "What are the key differences between SQL and NoSQL databases?",
+    "answer": "SQL databases are relational, use structured schema, support ACID properties, use SQL language, good for complex queries and transactions. NoSQL databases are non-relational, schema-flexible, eventual consistency, various query languages, good for big data and scalability.",
+    "syntax": "-- SQL (structured)\nSELECT u.name, o.total FROM users u JOIN orders o ON u.id = o.user_id;\n\n-- NoSQL concept (document-based)\n// { user: 'John', orders: [{ total: 100 }, { total: 200 }] }",
+    "difficulty": "beginner",
+    "tags": ["sql", "nosql", "comparison"],
+    "category": "database-fundamentals"
+  },
+   {
+    "id": 61,
+    "question": "Write a query to find employees who earn more than their manager.",
+    "answer": "This requires a self-join to compare employee salary with their manager's salary.",
+    "syntax": "SELECT e1.name as employee, e1.salary as emp_salary, e2.name as manager, e2.salary as mgr_salary\nFROM employees e1\nJOIN employees e2 ON e1.manager_id = e2.id\nWHERE e1.salary > e2.salary;",
+    "difficulty": "intermediate",
+    "tags": ["self-join", "comparison"],
+    "category": "interview-classics"
+  },
+  {
+    "id": 62,
+    "question": "How do you find the Nth highest salary without using window functions?",
+    "answer": "Use subqueries with DISTINCT and comparison operators, or use LIMIT with OFFSET.",
+    "syntax": "-- 3rd highest salary\nSELECT DISTINCT salary FROM employees e1\nWHERE 2 = (SELECT COUNT(DISTINCT salary) FROM employees e2 WHERE e2.salary > e1.salary);\n\n-- Using LIMIT\nSELECT DISTINCT salary FROM employees ORDER BY salary DESC LIMIT 1 OFFSET 2;",
+    "difficulty": "intermediate",
+    "tags": ["nth-highest", "subquery"],
+    "category": "interview-classics"
+  },
+  {
+    "id": 63,
+    "question": "Write a query to find departments with no employees.",
+    "answer": "Use LEFT JOIN with NULL check or NOT EXISTS subquery.",
+    "syntax": "-- Using LEFT JOIN\nSELECT d.department_name\nFROM departments d\nLEFT JOIN employees e ON d.id = e.department_id\nWHERE e.department_id IS NULL;\n\n-- Using NOT EXISTS\nSELECT department_name FROM departments d\nWHERE NOT EXISTS (SELECT 1 FROM employees e WHERE e.department_id = d.id);",
+    "difficulty": "intermediate",
+    "tags": ["left-join", "not-exists"],
+    "category": "interview-classics"
+  },
+  {
+    "id": 64,
+    "question": "How do you find records that exist in one table but not in another?",
+    "answer": "Use LEFT JOIN with NULL check, NOT EXISTS, or NOT IN (be careful with NULLs).",
+    "syntax": "-- Find customers with no orders\nSELECT c.name FROM customers c\nLEFT JOIN orders o ON c.id = o.customer_id\nWHERE o.customer_id IS NULL;\n\n-- Using NOT EXISTS\nSELECT name FROM customers c\nWHERE NOT EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.id);",
+    "difficulty": "intermediate",
+    "tags": ["left-join", "not-exists"],
+    "category": "interview-classics"
+  },
+  {
+    "id": 65,
+    "question": "Write a query to calculate running totals.",
+    "answer": "Use window functions with OVER clause and frame specification.",
+    "syntax": "SELECT order_date, amount,\n  SUM(amount) OVER (ORDER BY order_date ROWS UNBOUNDED PRECEDING) as running_total\nFROM orders\nORDER BY order_date;",
+    "difficulty": "advanced",
+    "tags": ["window-functions", "running-total"],
+    "category": "interview-classics"
+  },
+  {
+    "id": 66,
+    "question": "How do you pivot data from rows to columns?",
+    "answer": "Use CASE statements with aggregate functions or PIVOT operator (SQL Server).",
+    "syntax": "-- Using CASE\nSELECT \n  SUM(CASE WHEN department = 'IT' THEN salary END) as IT_total,\n  SUM(CASE WHEN department = 'HR' THEN salary END) as HR_total\nFROM employees;\n\n-- Using PIVOT (SQL Server)\nSELECT IT, HR FROM (\n  SELECT department, salary FROM employees\n) AS source PIVOT (\n  SUM(salary) FOR department IN ([IT], [HR])\n) AS pivot_table;",
+    "difficulty": "advanced",
+    "tags": ["pivot", "case", "aggregation"],
+    "category": "interview-classics"
+  },
+  {
+    "id": 67,
+    "question": "Write a query to find consecutive dates or numbers.",
+    "answer": "Use window functions with LAG/LEAD or row numbering techniques.",
+    "syntax": "-- Find consecutive login dates\nSELECT user_id, login_date FROM (\n  SELECT user_id, login_date,\n    LAG(login_date) OVER (PARTITION BY user_id ORDER BY login_date) as prev_date\n  FROM user_logins\n) WHERE DATEDIFF(day, prev_date, login_date) = 1;",
+    "difficulty": "advanced",
+    "tags": ["consecutive", "lag", "window-functions"],
+    "category": "interview-classics"
+  },
+  {
+    "id": 68,
+    "question": "How do you remove duplicate records from a table?",
+    "answer": "Use CTE with ROW_NUMBER() or CREATE new table with DISTINCT records.",
+    "syntax": "-- Using CTE and ROW_NUMBER\nWITH cte AS (\n  SELECT *, ROW_NUMBER() OVER (PARTITION BY email ORDER BY id) as rn\n  FROM users\n)\nDELETE FROM cte WHERE rn > 1;\n\n-- Create new table\nCREATE TABLE users_clean AS SELECT DISTINCT * FROM users;",
+    "difficulty": "intermediate",
+    "tags": ["duplicates", "cte", "row_number"],
+    "category": "data-cleaning"
+  },
+  {
+    "id": 69,
+    "question": "Write a query to find the difference between current and previous row values.",
+    "answer": "Use LAG() window function to access previous row values.",
+    "syntax": "SELECT date, sales,\n  sales - LAG(sales) OVER (ORDER BY date) as sales_difference,\n  (sales - LAG(sales) OVER (ORDER BY date)) * 100.0 / LAG(sales) OVER (ORDER BY date) as percent_change\nFROM monthly_sales\nORDER BY date;",
+    "difficulty": "intermediate",
+    "tags": ["lag", "difference", "window-functions"],
+    "category": "analytics"
+  },
+  {
+    "id": 70,
+    "question": "How do you find the most recent record for each group?",
+    "answer": "Use window functions with ROW_NUMBER() or correlated subquery with MAX date.",
+    "syntax": "-- Using ROW_NUMBER\nSELECT * FROM (\n  SELECT *, ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date DESC) as rn\n  FROM orders\n) WHERE rn = 1;\n\n-- Using correlated subquery\nSELECT * FROM orders o1\nWHERE o1.order_date = (SELECT MAX(o2.order_date) FROM orders o2 WHERE o2.customer_id = o1.customer_id);",
+    "difficulty": "intermediate",
+    "tags": ["most-recent", "row_number", "partition"],
+    "category": "interview-classics"
+  },
+  {
+    "id": 71,
+    "question": "Write a query to calculate percentage of total.",
+    "answer": "Use SUM() window function to calculate total, then divide individual values.",
+    "syntax": "SELECT department, salary,\n  salary * 100.0 / SUM(salary) OVER () as percentage_of_total,\n  salary * 100.0 / SUM(salary) OVER (PARTITION BY department) as percentage_within_dept\nFROM employees;",
+    "difficulty": "intermediate",
+    "tags": ["percentage", "window-functions"],
+    "category": "analytics"
+  },
+  {
+    "id": 72,
+    "question": "How do you find gaps in sequential data?",
+    "answer": "Use LEAD() function or self-join to identify missing sequences.",
+    "syntax": "-- Find missing IDs in sequence\nSELECT id + 1 as missing_start,\n  LEAD(id) OVER (ORDER BY id) - 1 as missing_end\nFROM table_with_ids\nWHERE LEAD(id) OVER (ORDER BY id) - id > 1;",
+    "difficulty": "advanced",
+    "tags": ["gaps", "sequential", "lead"],
+    "category": "data-analysis"
+  },
+  {
+    "id": 73,
+    "question": "Write a query to transpose rows to columns without PIVOT.",
+    "answer": "Use conditional aggregation with CASE statements.",
+    "syntax": "SELECT \n  MAX(CASE WHEN month = 'Jan' THEN sales END) as Jan_sales,\n  MAX(CASE WHEN month = 'Feb' THEN sales END) as Feb_sales,\n  MAX(CASE WHEN month = 'Mar' THEN sales END) as Mar_sales\nFROM monthly_sales\nGROUP BY year;",
+    "difficulty": "intermediate",
+    "tags": ["transpose", "conditional-aggregation"],
+    "category": "data-transformation"
+  },
+  {
+    "id": 74,
+    "question": "How do you find records with maximum value in each group?",
+    "answer": "Use window functions or correlated subquery to find maximum within each group.",
+    "syntax": "-- Find highest paid employee in each department\nSELECT * FROM (\n  SELECT *, RANK() OVER (PARTITION BY department ORDER BY salary DESC) as rank\n  FROM employees\n) WHERE rank = 1;\n\n-- Using correlated subquery\nSELECT * FROM employees e1\nWHERE salary = (SELECT MAX(salary) FROM employees e2 WHERE e2.department = e1.department);",
+    "difficulty": "intermediate",
+    "tags": ["maximum", "group", "rank"],
+    "category": "interview-classics"
+  },
+  {
+    "id": 75,
+    "question": "Write a query to calculate cumulative sum with reset.",
+    "answer": "Use window functions with partitioning to reset cumulative calculations.",
+    "syntax": "-- Cumulative sales that resets each year\nSELECT year, month, sales,\n  SUM(sales) OVER (PARTITION BY year ORDER BY month ROWS UNBOUNDED PRECEDING) as cumulative_sales\nFROM monthly_sales\nORDER BY year, month;",
+    "difficulty": "advanced",
+    "tags": ["cumulative", "reset", "partition"],
+    "category": "analytics"
+  },
+  {
+    "id": 76,
+    "question": "How do you find overlapping date ranges?",
+    "answer": "Use self-join or window functions to identify overlapping periods.",
+    "syntax": "-- Find overlapping bookings\nSELECT b1.booking_id, b1.start_date, b1.end_date,\n       b2.booking_id, b2.start_date, b2.end_date\nFROM bookings b1\nJOIN bookings b2 ON b1.room_id = b2.room_id AND b1.booking_id < b2.booking_id\nWHERE b1.start_date <= b2.end_date AND b2.start_date <= b1.end_date;",
+    "difficulty": "advanced",
+    "tags": ["overlapping", "date-ranges"],
+    "category": "date-analysis"
+  },
+  {
+    "id": 77,
+    "question": "Write a query to find the median value.",
+    "answer": "Use window functions with PERCENTILE_CONT or ROW_NUMBER approach.",
+    "syntax": "-- Using PERCENTILE_CONT (SQL Server, PostgreSQL)\nSELECT PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY salary) as median_salary\nFROM employees;\n\n-- Using ROW_NUMBER approach\nSELECT AVG(salary) as median FROM (\n  SELECT salary, ROW_NUMBER() OVER (ORDER BY salary) as rn,\n    COUNT(*) OVER () as total\n  FROM employees\n) WHERE rn BETWEEN total/2.0 AND total/2.0 + 1;",
+    "difficulty": "advanced",
+    "tags": ["median", "percentile", "statistics"],
+    "category": "analytics"
+  },
+  {
+    "id": 78,
+    "question": "How do you handle hierarchical data queries?",
+    "answer": "Use recursive CTEs for tree structures or self-joins for simple hierarchies.",
+    "syntax": "-- Recursive CTE for organization hierarchy\nWITH hierarchy AS (\n  SELECT id, name, manager_id, 0 as level\n  FROM employees WHERE manager_id IS NULL\n  UNION ALL\n  SELECT e.id, e.name, e.manager_id, h.level + 1\n  FROM employees e\n  JOIN hierarchy h ON e.manager_id = h.id\n)\nSELECT * FROM hierarchy ORDER BY level, name;",
+    "difficulty": "advanced",
+    "tags": ["hierarchical", "recursive", "cte"],
+    "category": "advanced-queries"
+  },
+  {
+    "id": 79,
+    "question": "Write a query to find customers who made purchases in consecutive months.",
+    "answer": "Use window functions to identify consecutive periods of activity.",
+    "syntax": "WITH monthly_purchases AS (\n  SELECT customer_id, \n    DATE_TRUNC('month', purchase_date) as month,\n    LAG(DATE_TRUNC('month', purchase_date)) OVER (PARTITION BY customer_id ORDER BY DATE_TRUNC('month', purchase_date)) as prev_month\n  FROM purchases\n  GROUP BY customer_id, DATE_TRUNC('month', purchase_date)\n)\nSELECT DISTINCT customer_id\nFROM monthly_purchases\nWHERE month = prev_month + INTERVAL '1 month';",
+    "difficulty": "advanced",
+    "tags": ["consecutive", "monthly", "customers"],
+    "category": "business-analysis"
+  },
+  {
+    "id": 80,
+    "question": "How do you calculate retention rate using SQL?",
+    "answer": "Compare users who performed action in consecutive periods.",
+    "syntax": "WITH first_time_users AS (\n  SELECT user_id, MIN(DATE_TRUNC('month', login_date)) as first_month\n  FROM user_logins GROUP BY user_id\n),\nretention AS (\n  SELECT f.first_month,\n    COUNT(DISTINCT f.user_id) as new_users,\n    COUNT(DISTINCT l.user_id) as retained_users\n  FROM first_time_users f\n  LEFT JOIN user_logins l ON f.user_id = l.user_id \n    AND DATE_TRUNC('month', l.login_date) = f.first_month + INTERVAL '1 month'\n  GROUP BY f.first_month\n)\nSELECT first_month, \n  retained_users * 100.0 / new_users as retention_rate\nFROM retention;",
+    "difficulty": "advanced",
+    "tags": ["retention", "analytics", "cohort"],
+    "category": "business-analytics"
+  },
+  {
+    "id": 81,
+    "question": "Write a query to find the top N records per group efficiently.",
+    "answer": "Use DENSE_RANK() or ROW_NUMBER() with partitioning for optimal performance.",
+    "syntax": "-- Top 3 highest paid employees per department\nSELECT department, name, salary FROM (\n  SELECT department, name, salary,\n    DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) as rank\n  FROM employees\n) WHERE rank <= 3\nORDER BY department, rank;",
+    "difficulty": "intermediate",
+    "tags": ["top-n", "per-group", "dense_rank"],
+    "category": "interview-classics"
+  },
+  {
+    "id": 82,
+    "question": "How do you optimize a query that's running slowly?",
+    "answer": "Analyze execution plan, add appropriate indexes, rewrite subqueries as joins, use LIMIT, avoid SELECT *, optimize WHERE conditions, consider partitioning for large tables.",
+    "syntax": "-- Before optimization\nSELECT * FROM orders WHERE YEAR(order_date) = 2023;\n\n-- After optimization\nSELECT order_id, customer_id, total \nFROM orders \nWHERE order_date >= '2023-01-01' AND order_date < '2024-01-01'\nLIMIT 1000;\n\n-- Add index\nCREATE INDEX idx_order_date ON orders(order_date);",
+    "difficulty": "advanced",
+    "tags": ["optimization", "performance", "indexing"],
+    "category": "performance"
+  },
+  {
+    "id": 83,
+    "question": "Write a query to calculate moving averages.",
+    "answer": "Use window functions with frame specification to calculate moving averages over specified periods.",
+    "syntax": "SELECT date, sales,\n  AVG(sales) OVER (ORDER BY date ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) as moving_avg_3day,\n  AVG(sales) OVER (ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) as moving_avg_7day\nFROM daily_sales\nORDER BY date;",
+    "difficulty": "advanced",
+    "tags": ["moving-average", "window-functions", "analytics"],
+    "category": "time-series"
+  },
+  {
+    "id": 84,
+    "question": "How do you find the first and last occurrence of each value?",
+    "answer": "Use window functions FIRST_VALUE() and LAST_VALUE() or MIN/MAX with dates.",
+    "syntax": "SELECT customer_id,\n  FIRST_VALUE(order_date) OVER (PARTITION BY customer_id ORDER BY order_date) as first_order,\n  LAST_VALUE(order_date) OVER (PARTITION BY customer_id ORDER BY order_date ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) as last_order\nFROM orders;",
+    "difficulty": "intermediate",
+    "tags": ["first-value", "last-value", "window-functions"],
+    "category": "analytics"
+  },
+  {
+    "id": 85,
+    "question": "Write a query to identify and handle outliers in data.",
+    "answer": "Use statistical functions to calculate quartiles and identify outliers beyond 1.5 * IQR.",
+    "syntax": "WITH quartiles AS (\n  SELECT \n    PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY salary) as Q1,\n    PERCENTILE_CONT(0.75) WITHIN GROUP (ORDER BY salary) as Q3\n  FROM employees\n),\noutlier_bounds AS (\n  SELECT Q1, Q3, Q3 - Q1 as IQR,\n    Q1 - 1.5 * (Q3 - Q1) as lower_bound,\n    Q3 + 1.5 * (Q3 - Q1) as upper_bound\n  FROM quartiles\n)\nSELECT e.*, \n  CASE WHEN salary < lower_bound OR salary > upper_bound THEN 'Outlier' ELSE 'Normal' END as status\nFROM employees e CROSS JOIN outlier_bounds;",
+    "difficulty": "advanced",
+    "tags": ["outliers", "statistics", "quartiles"],
+    "category": "data-analysis"
+  }
+]

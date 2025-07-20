@@ -1,0 +1,452 @@
+[
+  {
+    "id": 1,
+    "question": "What is a Data Structure?",
+    "answer": "A data structure is a way of organizing, storing, and managing data in memory so operations can be performed efficiently. It helps in structuring data for optimal access and modification.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["data-structure"],
+    "category": "fundamentals"
+  },
+  {
+    "id": 2,
+    "question": "Explain the differences between an array and a linked list.",
+    "answer": "Arrays allow random access, have a fixed size, and elements are stored contiguously in memory. Linked lists allow dynamic sizing and efficient insertion/deletion but only support sequential access.",
+    "syntax": "class Node {\n  constructor(data) {\n    this.data = data;\n    this.next = null;\n  }\n}\n// Array: let arr = [1,2,3];\n// Linked List Example:\nlet head = new Node(1);\nhead.next = new Node(2);\nhead.next.next = new Node(3);",
+    "difficulty": "beginner",
+    "tags": ["array", "linked-list"],
+    "category": "arrays-vs-lists"
+  },
+  {
+    "id": 3,
+    "question": "How does a stack differ from a queue?",
+    "answer": "A stack uses Last-In-First-Out (LIFO), so the last inserted item is removed first. A queue uses First-In-First-Out (FIFO), so the first inserted is removed first.",
+    "syntax": "// Stack (push & pop)\nlet stack = [];\nstack.push(1);\nlet x = stack.pop();\n\n// Queue (enqueue & dequeue)\nlet queue = [];\nqueue.push(1);\nlet y = queue.shift();",
+    "difficulty": "beginner",
+    "tags": ["stack", "queue", "LIFO", "FIFO"],
+    "category": "linear-structures"
+  },
+  {
+    "id": 4,
+    "question": "What is a binary search tree (BST)?",
+    "answer": "A BST is a binary tree where for every node, the value of all nodes in its left subtree is less and all in its right is greater. It allows efficient searching, insertion, and deletion.",
+    "syntax": "class Node {\n  constructor(data) {\n    this.data = data;\n    this.left = null;\n    this.right = null;\n  }\n}",
+    "difficulty": "intermediate",
+    "tags": ["binary-tree", "BST", "search"],
+    "category": "trees"
+  },
+  {
+    "id": 5,
+    "question": "Explain hash collisions and how to handle them.",
+    "answer": "A hash collision occurs when two keys hash to the same value. Collision resolution methods include chaining (linking colliding items in a list) and open addressing (finding another open slot).",
+    "syntax": "// Chaining in JavaScript using Map\nlet hashTable = {};\nfunction insert(key, value) {\n  const hash = key % 10;\n  if (!hashTable[hash]) hashTable[hash] = [];\n  hashTable[hash].push([key, value]);\n}",
+    "difficulty": "intermediate",
+    "tags": ["hash-table", "collision"],
+    "category": "hashing"
+  },
+  {
+    "id": 6,
+    "question": "Describe the difference between linear and binary search.",
+    "answer": "Linear search checks each element in a list one-by-one, with \\(O(n)\\) complexity. Binary search requires a sorted array and checks the middle, halving the search space each time, with \\(O(\\log n)\\) complexity.",
+    "syntax": "// Binary Search:\nfunction binarySearch(arr, target) {\n  let left = 0, right = arr.length - 1;\n  while (left <= right) {\n    let mid = Math.floor((left + right)/2);\n    if (arr[mid] === target) return mid;\n    if (arr[mid] < target) left = mid + 1;\n    else right = mid - 1;\n  }\n  return -1;\n}",
+    "difficulty": "beginner",
+    "tags": ["search", "binary-search", "linear-search"],
+    "category": "searching"
+  },
+  {
+    "id": 7,
+    "question": "What is a heap and where is it used?",
+    "answer": "A heap is a complete binary tree satisfying the heap property: in a max-heap, each parent is greater than its children; in a min-heap, smaller. It's used for priority queues, heap sort, and scheduling.",
+    "syntax": "// Min Heap insertion (conceptual)\nfunction insert(heap, value) {\n  heap.push(value);\n  let idx = heap.length - 1;\n  while (idx > 0) {\n    let parent = Math.floor((idx - 1) / 2);\n    if (heap[parent] <= heap[idx]) break;\n    [heap[parent], heap[idx]] = [heap[idx], heap[parent]];\n    idx = parent;\n  }\n}",
+    "difficulty": "intermediate",
+    "tags": ["heap", "priority-queue"],
+    "category": "advanced-trees"
+  },
+  {
+    "id": 8,
+    "question": "Explain dynamic programming with an example.",
+    "answer": "Dynamic programming solves complex problems by breaking them into simpler subproblems and storing results to avoid redundant computation. For example, computing Fibonacci numbers using memoization.",
+    "syntax": "function fib(n, memo = {}) {\n  if (n <= 1) return n;\n  if (memo[n]) return memo[n];\n  return memo[n] = fib(n-1, memo) + fib(n-2, memo);\n}",
+    "difficulty": "advanced",
+    "tags": ["dynamic-programming", "recursion", "memoization"],
+    "category": "algorithms"
+  },
+  {
+    "id": 9,
+    "question": "What is a graph and how can you detect a cycle in it?",
+    "answer": "A graph is a set of nodes (vertices) connected by edges. For cycle detection, use DFS and mark nodes visited. If you revisit a node already on the current DFS path, a cycle exists.",
+    "syntax": "// Cycle detection in undirected graph\nfunction hasCycle(graph, node, visited, parent) {\n  visited[node] = true;\n  for (let adj of graph[node]) {\n    if (!visited[adj]) {\n      if (hasCycle(graph, adj, visited, node)) return true;\n    } else if (adj !== parent) return true;\n  }\n  return false;\n}",
+    "difficulty": "advanced",
+    "tags": ["graph", "cycle-detection", "DFS"],
+    "category": "graphs"
+  },
+  {
+    "id": 10,
+    "question": "How does a Trie differ from a Hash Table?",
+    "answer": "A Trie is a tree used for storing strings to enable fast prefix lookup. Each node represents a character, storing common prefixes. Hash tables provide fast average-time lookups for unique entries but do not support efficient prefix search.",
+    "syntax": "class TrieNode {\n  constructor() {\n    this.children = {};\n    this.isEndOfWord = false;\n  }\n}\nclass Trie {\n  constructor() { this.root = new TrieNode(); }\n  insert(word) { let node = this.root;\n    for (const c of word) {\n      if (!node.children[c]) node.children[c] = new TrieNode();\n      node = node.children[c];\n    }\n    node.isEndOfWord = true;\n  }\n}",
+    "difficulty": "advanced",
+    "tags": ["trie", "hash-table", "prefix-search"],
+    "category": "advanced-trees"
+  },
+  {
+    "id": 11,
+    "question": "What is the significance of Big O notation?",
+    "answer": "Big O notation describes the worst-case growth rate of an algorithm's time or space requirements relative to input size, helping in evaluating efficiency and scalability of algorithms.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["big-o", "complexity", "analysis"],
+    "category": "analysis"
+  },
+  {
+    "id": 12,
+    "question": "What is backtracking? Give a use case.",
+    "answer": "Backtracking is an algorithmic method for finding solutions by exploring all possible options, reverting (“backtracking”) when a path fails. It's used in the N-Queens problem, Sudoku, and permutation generation.",
+    "syntax": "// N-Queens placing example\nfunction solveNQueens(n) {\n  let res = [];\n  function backtrack(row, cols, diag1, diag2, board) {\n    if (row === n) { res.push([...board]); return; }\n    for (let col = 0; col < n; col++) {\n      if (cols.has(col) || diag1.has(row - col) || diag2.has(row + col)) continue;\n      board.push(col); cols.add(col); diag1.add(row - col); diag2.add(row + col);\n      backtrack(row + 1, cols, diag1, diag2, board); board.pop();\n      cols.delete(col); diag1.delete(row - col); diag2.delete(row + col);\n    }\n  }\n  backtrack(0, new Set(), new Set(), new Set(), []);\n  return res;\n}",
+    "difficulty": "advanced",
+    "tags": ["backtracking", "recursion", "n-queens"],
+    "category": "algorithms"
+  },
+  {
+    "id": 13,
+    "question": "What is a segment tree and its application?",
+    "answer": "A segment tree is a binary tree used for storing intervals or segments. It enables efficient range queries and updates, such as sum or minimum in a subarray, in logarithmic time.",
+    "syntax": "// Segment Tree construction outline\nfunction buildSegmentTree(arr, tree, start, end, node) {\n  if (start === end) { tree[node] = arr[start]; return; }\n  let mid = Math.floor((start + end) / 2);\n  buildSegmentTree(arr, tree, start, mid, 2*node+1);\n  buildSegmentTree(arr, tree, mid+1, end, 2*node+2);\n  tree[node] = tree[2*node+1] + tree[2*node+2];\n}",
+    "difficulty": "expert",
+    "tags": ["segment-tree", "range-query"],
+    "category": "advanced-trees"
+  },
+  {
+    "id": 14,
+    "question": "What is memoization?",
+    "answer": "Memoization is an optimization that stores the results of expensive function calls and returns the cached result when the same inputs occur again. It's commonly used in recursive algorithms like Fibonacci calculation.",
+    "syntax": "function fib(n, memo = {}) {\n  if (n < 2) return n;\n  if (memo[n]) return memo[n];\n  return memo[n] = fib(n-1, memo) + fib(n-2, memo);\n}",
+    "difficulty": "intermediate",
+    "tags": ["memoization", "dynamic-programming"],
+    "category": "algorithms"
+  },
+  {
+    "id": 15,
+    "question": "Describe Dijkstra's shortest path algorithm.",
+    "answer": "Dijkstra’s algorithm finds the shortest path from a source to all nodes in a weighted graph with non-negative edges. It uses a priority queue to greedily select the next closest vertex.",
+    "syntax": "// Dijkstra's algorithm outline\nfunction dijkstra(graph, source) {\n  let dist = Array(graph.length).fill(Infinity);\n  dist[source] = 0;\n  let visited = new Set();\n  while (visited.size < graph.length) {\n    let u = -1;\n    for (let i = 0; i < dist.length; i++) if (!visited.has(i) && (u === -1 || dist[i] < dist[u])) u = i;\n    visited.add(u);\n    for (const [v, weight] of graph[u]) {\n      if (!visited.has(v) && dist[u] + weight < dist[v]) dist[v] = dist[u] + weight;\n    }\n  }\n  return dist;\n}",
+    "difficulty": "advanced",
+    "tags": ["dijkstra", "shortest-path", "graph"],
+    "category": "graphs"
+  },
+  {
+    "id": 16,
+    "question": "What is an AVL tree and how does it maintain balance?",
+    "answer": "An AVL tree is a self-balancing binary search tree. The difference in heights between left and right subtrees (the balance factor) for every node is at most 1. If an insertion or deletion causes this balance factor to exceed 1, rotations (single or double) are performed to restore balance.",
+    "syntax": "// AVL Tree node and right rotation example\nclass AVLNode {\n  constructor(data) {\n    this.data = data;\n    this.left = null;\n    this.right = null;\n    this.height = 1;\n  }\n}\nfunction rightRotate(y) {\n  let x = y.left;\n  let T2 = x.right;\n  x.right = y;\n  y.left = T2;\n  y.height = 1 + Math.max(height(y.left), height(y.right));\n  x.height = 1 + Math.max(height(x.left), height(x.right));\n  return x;\n}",
+    "difficulty": "expert",
+    "tags": ["AVL", "self-balancing", "rotation"],
+    "category": "advanced-trees"
+  },
+  {
+    "id": 17,
+    "question": "Describe a red-black tree and its properties.",
+    "answer": "A red-black tree is a balanced binary search tree with extra color property for each node (red or black). It ensures no two reds in a row, every path from root to empty node has same number of blacks, and the root is always black. These rules guarantee logarithmic depth.",
+    "syntax": "// Red-black node skeleton\nclass RBNode {\n  constructor(data, color) {\n    this.data = data;\n    this.color = color; // 'red' or 'black'\n    this.left = null;\n    this.right = null;\n    this.parent = null;\n  }\n}",
+    "difficulty": "expert",
+    "tags": ["red-black", "self-balancing", "BST"],
+    "category": "advanced-trees"
+  },
+  {
+    "id": 18,
+    "question": "Explain the two-pointer technique and provide an example use case.",
+    "answer": "The two-pointer technique uses two pointers (indices) that scan through a data structure at different speeds or from different ends. It's useful for problems involving pairs in sorted arrays, such as finding two numbers that sum up to a target.",
+    "syntax": "// Find two numbers that sum to target\nfunction twoSumSorted(arr, target) {\n  let left = 0, right = arr.length - 1;\n  while (left < right) {\n    let sum = arr[left] + arr[right];\n    if (sum === target) return [left, right];\n    if (sum < target) left++;\n    else right--;\n  }\n  return [];\n}",
+    "difficulty": "intermediate",
+    "tags": ["two-pointer", "array", "technique"],
+    "category": "techniques"
+  },
+  {
+    "id": 19,
+    "question": "What is a sliding window algorithm? When is it used?",
+    "answer": "A sliding window algorithm tracks a subset of items over a range (window) within a list/array and moves this window across as necessary. It helps in solving problems like finding the longest substring without repeating characters, or maximum sum subarray of size K.",
+    "syntax": "// Max sum subarray of size k\nfunction maxSumSubarray(arr, k) {\n  let max = 0, sum = 0;\n  for (let i = 0; i < arr.length; i++) {\n    sum += arr[i];\n    if (i >= k - 1) {\n      max = Math.max(max, sum);\n      sum -= arr[i - k + 1];\n    }\n  }\n  return max;\n}",
+    "difficulty": "intermediate",
+    "tags": ["sliding-window", "array", "technique"],
+    "category": "techniques"
+  },
+  {
+    "id": 20,
+    "question": "Explain the Union-Find (Disjoint Set Union) data structure.",
+    "answer": "Union-Find, also known as Disjoint Set Union (DSU), efficiently solves the problem of finding whether elements are in the same component or not. It supports union and find operations using parent pointers and uses path compression and union by rank for efficiency.",
+    "syntax": "// Simple DSU with path compression\nclass DSU {\n  constructor(size) {\n    this.parent = Array.from({length: size}, (_, i) => i);\n  }\n  find(x) {\n    if (this.parent[x] !== x) this.parent[x] = this.find(this.parent[x]);\n    return this.parent[x];\n  }\n  union(x, y) {\n    let px = this.find(x), py = this.find(y);\n    if (px !== py) this.parent[px] = py;\n  }\n}",
+    "difficulty": "advanced",
+    "tags": ["union-find", "disjoint-set", "dsu"],
+    "category": "advanced-structures"
+  },
+  {
+    "id": 21,
+    "question": "What is a LRU cache? How is it implemented?",
+    "answer": "An LRU (Least Recently Used) cache is a caching strategy that removes the least recently accessed item when capacity is reached. It's typically implemented using a hash map for constant time lookup and a doubly linked list to track order of usage.",
+    "syntax": "// LRU Cache class outline\nclass LRUCache {\n  constructor(capacity) {\n    this.capacity = capacity;\n    this.cache = new Map();\n  }\n  get(key) {\n    if (!this.cache.has(key)) return -1;\n    let val = this.cache.get(key);\n    this.cache.delete(key);\n    this.cache.set(key, val);\n    return val;\n  }\n  put(key, value) {\n    if (this.cache.has(key)) this.cache.delete(key);\n    else if (this.cache.size === this.capacity) this.cache.delete(this.cache.keys().next().value);\n    this.cache.set(key, value);\n  }\n}",
+    "difficulty": "advanced",
+    "tags": ["lru", "cache", "hashmap", "doubly-linked-list"],
+    "category": "system-design"
+  },
+  {
+    "id": 22,
+    "question": "Describe the KMP algorithm for pattern searching.",
+    "answer": "The KMP (Knuth-Morris-Pratt) algorithm searches for patterns in text in linear time. It preprocesses the pattern to build a longest prefix-suffix (LPS) array, enabling the search to skip unnecessary comparisons after a mismatch.",
+    "syntax": "// KMP prefix computation\nfunction computeLPS(pattern) {\n  let lps = Array(pattern.length).fill(0);\n  let len = 0, i = 1;\n  while (i < pattern.length) {\n    if (pattern[i] === pattern[len]) lps[i++] = ++len;\n    else if (len) len = lps[len-1];\n    else lps[i++] = 0;\n  }\n  return lps;\n}",
+    "difficulty": "advanced",
+    "tags": ["KMP", "string-matching", "pattern-search"],
+    "category": "strings"
+  },
+  {
+    "id": 23,
+    "question": "What is the difference between BFS and DFS in graphs?",
+    "answer": "BFS (Breadth-First Search) explores neighbors level by level using a queue. It's used in shortest path problems for unweighted graphs. DFS (Depth-First Search) explores along a branch as deep as possible before backtracking, typically implemented with recursion or a stack.",
+    "syntax": "// BFS\nfunction bfs(graph, start) {\n  let queue = [start], visited = new Set([start]);\n  while (queue.length) {\n    let node = queue.shift();\n    for (let neighbor of graph[node]) {\n      if (!visited.has(neighbor)) {\n        queue.push(neighbor);\n        visited.add(neighbor);\n      }\n    }\n  }\n}\n// DFS\nfunction dfs(graph, node, visited=new Set()) {\n  visited.add(node);\n  for (let neighbor of graph[node]) if (!visited.has(neighbor)) dfs(graph, neighbor, visited);\n}",
+    "difficulty": "intermediate",
+    "tags": ["BFS", "DFS", "graph"],
+    "category": "graphs"
+  },
+  {
+    "id": 24,
+    "question": "What is topological sorting and where is it applied?",
+    "answer": "Topological sort orders the nodes of a Directed Acyclic Graph (DAG) linearly such that for every edge u→v, u comes before v. It's used in task scheduling, dependency resolution, and compilation order.",
+    "syntax": "// Topological Sort using DFS\nfunction topoSort(graph) {\n  let visited = new Set(), stack = [];\n  function dfs(node) {\n    visited.add(node);\n    for (let neighbor of graph[node]) if (!visited.has(neighbor)) dfs(neighbor);\n    stack.push(node);\n  }\n  for (let node in graph) if (!visited.has(node)) dfs(node);\n  return stack.reverse();\n}",
+    "difficulty": "advanced",
+    "tags": ["topological-sort", "DAG", "graph"],
+    "category": "graphs"
+  },
+  {
+    "id": 25,
+    "question": "Explain the difference between a shallow copy and a deep copy.",
+    "answer": "A shallow copy duplicates top-level objects, so nested objects are shared. A deep copy duplicates everything recursively, so mutations in the copy don’t affect the original.",
+    "syntax": "// Shallow copy\nlet arr = [{a:1}];\nlet shallow = arr.slice();\n// Deep copy\nlet deep = JSON.parse(JSON.stringify(arr));",
+    "difficulty": "beginner",
+    "tags": ["copy", "shallow", "deep"],
+    "category": "fundamentals"
+  },
+  {
+    "id": 26,
+    "question": "What is a Fenwick Tree (Binary Indexed Tree) and its use?",
+    "answer": "A Fenwick Tree or BIT is a data structure for efficiently computing prefix sums and updates in logarithmic time. It's useful in frequency calculation, inversion count, and cumulative frequency tables.",
+    "syntax": "// Fenwick Tree (Binary Indexed Tree) update\nclass BIT {\n  constructor(n) { this.tree = Array(n+1).fill(0); }\n  update(i, delta) {\n    while (i < this.tree.length) {\n      this.tree[i] += delta;\n      i += i & -i;\n    }\n  }\n  query(i) {\n    let sum = 0;\n    while (i > 0) {\n      sum += this.tree[i];\n      i -= i & -i;\n    }\n    return sum;\n  }\n}",
+    "difficulty": "expert",
+    "tags": ["fenwick", "bit", "prefix-sum"],
+    "category": "advanced-trees"
+  },
+  {
+    "id": 27,
+    "question": "Explain time complexity vs. space complexity.",
+    "answer": "Time complexity describes the computational time an algorithm takes in relation to input size; space complexity refers to the amount of memory used. Both are crucial to assess algorithm efficiency.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["analysis", "time-complexity", "space-complexity"],
+    "category": "analysis"
+  },
+  {
+    "id": 28,
+    "question": "What is a bloom filter?",
+    "answer": "A bloom filter is a probabilistic data structure that tests whether an element is a member of a set. It can yield false positives but not false negatives. It's space-efficient and supports fast membership queries using multiple hash functions.",
+    "syntax": "// Bloom filter insert (conceptual)\nclass BloomFilter {\n  constructor(size, hashFunctions) {\n    this.bits = Array(size).fill(0);\n    this.hashFunctions = hashFunctions;\n  }\n  insert(item) {\n    for (let hash of this.hashFunctions) this.bits[hash(item) % this.bits.length] = 1;\n  }\n  contains(item) {\n    return this.hashFunctions.every(hash => this.bits[hash(item) % this.bits.length]);\n  }\n}",
+    "difficulty": "expert",
+    "tags": ["bloom-filter", "probabilistic", "hashing"],
+    "category": "advanced-structures"
+  },
+  {
+    "id": 29,
+    "question": "Describe the Rabin-Karp algorithm for string matching.",
+    "answer": "The Rabin-Karp algorithm uses hashing to search for pattern matches within a text. It computes the hash of the pattern and sliding window substrings, comparing only when hashes match, optimizing many searches in large texts.",
+    "syntax": "// Rabin-Karp hash (conceptual)\nfunction rabinKarp(text, pattern) {\n  const n = text.length, m = pattern.length;\n  let patternHash = hash(pattern), textHash = hash(text.slice(0, m));\n  for (let i = 0; i <= n - m; i++) {\n    if (patternHash === textHash && text.slice(i, i+m) === pattern) return i;\n    if (i < n - m) textHash = hash(text.slice(i+1, i+m+1));\n  }\n  return -1;\n}",
+    "difficulty": "advanced",
+    "tags": ["rabin-karp", "string", "hashing"],
+    "category": "strings"
+  },
+  {
+    "id": 30,
+    "question": "What are the advantages and disadvantages of recursion?",
+    "answer": "Recursion simplifies code and is powerful for divide-and-conquer problems. However, it can lead to stack overflow for deep or infinite recursion and may have higher overhead than iteration due to function calls.",
+    "syntax": "// Factorial using recursion\nfunction fact(n) {\n  if (n == 0) return 1;\n  return n * fact(n-1);\n}",
+    "difficulty": "beginner",
+    "tags": ["recursion", "iteration"],
+    "category": "algorithms"
+  },
+  {
+    "id": 31,
+    "question": "What is a suffix tree and what are its applications?",
+    "answer": "A suffix tree is a compressed trie containing all the suffixes of a text. It enables fast pattern matching, finding repeated substrings, longest common substring, and other complex string queries in linear time relative to the text length.",
+    "syntax": "// Suffix trees are complex; here's a simple conceptual node\nclass SuffixTreeNode {\n  constructor() {\n    this.children = {};\n    this.indexes = [];\n  }\n}\n// Applications include DNA sequence analysis, plagiarism detection, etc.",
+    "difficulty": "expert",
+    "tags": ["suffix-tree", "strings", "pattern-matching"],
+    "category": "advanced-trees"
+  },
+  {
+    "id": 32,
+    "question": "Explain the difference between a min-heap and a max-heap.",
+    "answer": "In a min-heap, every parent node has a value less than or equal to its children, which ensures the smallest element is always at the root. In a max-heap, the parent node is greater than or equal to its children, making the root the largest element. Both support efficient retrieval and deletion of the minimum or maximum element, respectively.",
+    "syntax": "// Min-heap property: parent <= children\n// Max-heap property: parent >= children\n// Heapify (min-heap example)\nfunction heapify(arr, n, i) {\n  let smallest = i;\n  let l = 2*i + 1;\n  let r = 2*i + 2;\n  if (l < n && arr[l] < arr[smallest]) smallest = l;\n  if (r < n && arr[r] < arr[smallest]) smallest = r;\n  if (smallest !== i) {\n    [arr[i], arr[smallest]] = [arr[smallest], arr[i]];\n    heapify(arr, n, smallest);\n  }\n}",
+    "difficulty": "intermediate",
+    "tags": ["heap", "priority-queue", "min-heap", "max-heap"],
+    "category": "advanced-trees"
+  },
+  {
+    "id": 33,
+    "question": "What is an interval tree and where would you use it?",
+    "answer": "An interval tree is a data structure that holds intervals and supports efficient searching for all intervals overlapping with any given interval or point. It's used in computational geometry, scheduling, and database systems for range queries.",
+    "syntax": "// Interval tree query example (conceptual)\nclass IntervalNode {\n  constructor(interval, max) {\n    this.interval = interval;\n    this.max = max;\n    this.left = null;\n    this.right = null;\n  }\n}\n// Can be queried for overlapping intervals efficiently.",
+    "difficulty": "expert",
+    "tags": ["interval-tree", "range-query", "geometry"],
+    "category": "advanced-trees"
+  },
+  {
+    "id": 34,
+    "question": "How do you detect a cycle in a directed graph?",
+    "answer": "To detect a cycle in a directed graph, perform depth-first search (DFS) while keeping track of the recursion stack. If you revisit a node currently on the stack, a cycle is detected. Alternative methods include Kahn’s Algorithm for topological sorting.",
+    "syntax": "// DFS cycle detection in a directed graph\nfunction hasCycleDirected(graph) {\n  let visited = new Set(), recStack = new Set();\n  function dfs(node) {\n    if (recStack.has(node)) return true;\n    if (visited.has(node)) return false;\n    visited.add(node); recStack.add(node);\n    for (let neighbor of graph[node]) {\n      if (dfs(neighbor)) return true;\n    }\n    recStack.delete(node);\n    return false;\n  }\n  for (let node in graph) {\n    if (dfs(node)) return true;\n  }\n  return false;\n}",
+    "difficulty": "advanced",
+    "tags": ["cycle-detection", "directed-graph", "DFS"],
+    "category": "graphs"
+  },
+  {
+    "id": 35,
+    "question": "What is the Longest Increasing Subsequence (LIS) problem?",
+    "answer": "The LIS problem finds the longest subsequence of a sequence in which all elements are sorted in increasing order, not necessarily contiguous. Solutions include dynamic programming \\(O(n^2)\\) or patience sorting/binary search \\(O(n \\log n)\\).",
+    "syntax": "// LIS dynamic programming approach\nfunction lengthOfLIS(nums) {\n  let dp = Array(nums.length).fill(1);\n  for (let i = 1; i < nums.length; i++) {\n    for (let j = 0; j < i; j++) {\n      if (nums[i] > nums[j]) dp[i] = Math.max(dp[i], dp[j]+1);\n    }\n  }\n  return Math.max(...dp);\n}",
+    "difficulty": "advanced",
+    "tags": ["LIS", "dynamic-programming", "subsequence"],
+    "category": "algorithms"
+  },
+  {
+    "id": 36,
+    "question": "Explain skip lists and their advantages.",
+    "answer": "A skip list is a layered, probabilistic data structure that allows fast search, insertion, and deletion, similar to balanced trees. It uses multiple layers of linked lists for exponential speed-up on operations, commonly found in in-memory databases and caches.",
+    "syntax": "// Skip list node conceptual\nclass SkipListNode {\n  constructor(value, level) {\n    this.value = value;\n    this.forward = Array(level).fill(null);\n  }\n}",
+    "difficulty": "expert",
+    "tags": ["skip-list", "linked-list", "probabilistic"],
+    "category": "advanced-structures"
+  },
+  {
+    "id": 37,
+    "question": "What is memoization and how does it differ from tabulation?",
+    "answer": "Memoization is a top-down technique where you store results of expensive recursive calls. Tabulation is a bottom-up approach, building up solutions iteratively. Both optimize dynamic programming, but memoization uses recursion and tabulation uses iteration.",
+    "syntax": "// Fibonacci using tabulation\nfunction fibTab(n) {\n  let dp = [0, 1];\n  for (let i = 2; i <= n; i++) {\n    dp[i] = dp[i-1] + dp[i-2];\n  }\n  return dp[n];\n}",
+    "difficulty": "intermediate",
+    "tags": ["memoization", "tabulation", "dynamic-programming"],
+    "category": "algorithms"
+  },
+  {
+    "id": 38,
+    "question": "Describe how a Trie can be used for autocomplete.",
+    "answer": "A Trie supports fast retrieval of words by prefix, making it ideal for autocomplete. Insert each word, then given a prefix, traverse the Trie and collect all words below the prefix node.",
+    "syntax": "// Autocomplete using Trie\nfunction autocomplete(trie, prefix) {\n  let node = trie.root;\n  for (let c of prefix) {\n    if (!node.children[c]) return [];\n    node = node.children[c];\n  }\n  let results = [];\n  function dfs(n, pre) {\n    if (n.isEndOfWord) results.push(pre);\n    for (let ch in n.children) dfs(n.children[ch], pre+ch);\n  }\n  dfs(node, prefix);\n  return results;\n}",
+    "difficulty": "advanced",
+    "tags": ["trie", "autocomplete", "prefix-search"],
+    "category": "strings"
+  },
+  {
+    "id": 39,
+    "question": "What are the key operations of a priority queue and how is it implemented?",
+    "answer": "A priority queue is an abstract data structure where each element has a priority. The element with the highest priority is served before others. Typically implemented with a heap, it supports insert, peek, and extract operations in logarithmic time.",
+    "syntax": "// Priority Queue using a heap (insert & extractMin)\nclass PriorityQueue {\n  constructor() { this.heap = []; }\n  insert(val) { /* Heap insert logic */ }\n  extractMin() { /* Heap extractMin logic */ }\n  peek() { return this.heap[0]; }\n}",
+    "difficulty": "intermediate",
+    "tags": ["priority-queue", "heap"],
+    "category": "advanced-trees"
+  },
+  {
+    "id": 40,
+    "question": "How do you find the median of two sorted arrays?",
+    "answer": "To find the median of two sorted arrays in logarithmic time, use a binary search partitioning method. By properly partitioning both arrays, you can determine the correct median without merging the arrays, achieving O(log min(m, n)) complexity.",
+    "syntax": "// Outline approach - code for logic only\nfunction findMedianSortedArrays(nums1, nums2) {\n  // Binary search partition both arrays for median\n  // Code omitted for brevity as this is a complex routine\n  return median;\n}",
+    "difficulty": "expert",
+    "tags": ["median", "binary-search", "array"],
+    "category": "algorithms"
+  },
+  {
+    "id": 41,
+    "question": "What is a treap and why is it useful?",
+    "answer": "A treap is a randomized balanced binary search tree that maintains both the binary search tree (BST) property and the heap property based on randomly assigned priorities. This ensures logarithmic time complexity for common BST operations, but with randomized balancing rather than strict rules, simplifying implementation and reducing the chance of worst-case degenerate trees.",
+    "syntax": "// Treap node example\nclass TreapNode {\n  constructor(key, priority) {\n    this.key = key;\n    this.priority = priority;\n    this.left = null;\n    this.right = null;\n  }\n}\n// Insert and rotate functions are used during insertion/deletion.",
+    "difficulty": "expert",
+    "tags": ["treap", "randomized", "BST", "heap"],
+    "category": "advanced-trees"
+  },
+  {
+    "id": 42,
+    "question": "Explain merge intervals and its importance.",
+    "answer": "Merging intervals is a common algorithm problem where, given a set of intervals, overlapping intervals are combined into a single interval. It's important in calendar applications, memory allocation, and computational geometry. The process involves sorting intervals by start, then iteratively combining or appending based on overlap.",
+    "syntax": "// Merge Intervals example\nfunction mergeIntervals(intervals) {\n  intervals.sort((a, b) => a[0] - b[0]);\n  let merged = [];\n  for (let interval of intervals) {\n    if (!merged.length || merged[merged.length-1][1] < interval[0]) {\n      merged.push(interval);\n    } else {\n      merged[merged.length-1][1] = Math.max(merged[merged.length-1][1], interval[1]);\n    }\n  }\n  return merged;\n}",
+    "difficulty": "intermediate",
+    "tags": ["intervals", "merge", "scheduling"],
+    "category": "algorithms"
+  },
+  {
+    "id": 43,
+    "question": "What is a Disjoint Set Union (DSU) with union by rank and why is it efficient?",
+    "answer": "Union by rank is an optimization in DSU where the tree with lower height (rank) is attached under the higher one during union, reducing tree depth. When combined with path compression, this allows near-constant time complexity for find and union operations, enabling efficient solutions to network connectivity and clustering problems.",
+    "syntax": "// DSU with union by rank\nclass DSU {\n  constructor(size) {\n    this.parent = [...Array(size).keys()];\n    this.rank = Array(size).fill(0);\n  }\n  find(x) {\n    if (this.parent[x] !== x) this.parent[x] = this.find(this.parent[x]);\n    return this.parent[x];\n  }\n  union(x, y) {\n    let xr = this.find(x), yr = this.find(y);\n    if (xr === yr) return;\n    if (this.rank[xr] < this.rank[yr]) this.parent[xr] = yr;\n    else if (this.rank[xr] > this.rank[yr]) this.parent[yr] = xr;\n    else { this.parent[yr] = xr; this.rank[xr]++; }\n  }\n}",
+    "difficulty": "advanced",
+    "tags": ["DSU", "union-by-rank", "path-compression"],
+    "category": "advanced-structures"
+  },
+  {
+    "id": 44,
+    "question": "Describe the implementation and use case of an LRU (Least Recently Used) cache using a doubly linked list and a hashmap.",
+    "answer": "An efficient LRU cache is implemented using a doubly linked list to keep track of access order (most recent at the front) and a hashmap for constant time access. On access or update, the node is moved to the front; if the cache exceeds capacity, the least recently used (the tail) is evicted. This pattern is commonly used in system caching and browser history management.",
+    "syntax": "// LRU Cache skeleton\nclass LRUCache {\n  constructor(capacity) {\n    this.capacity = capacity;\n    this.map = new Map(); // key: node\n    this.head = this.tail = null; // DLL nodes\n  }\n  // Operations move accessed node to head; removal from tail on overflow.\n}",
+    "difficulty": "advanced",
+    "tags": ["LRU", "cache", "linked-list", "hashmap"],
+    "category": "system-design"
+  },
+  {
+    "id": 45,
+    "question": "What is the Kth largest element problem and how do you solve it efficiently?",
+    "answer": "The Kth largest element problem asks for the Kth largest value in an unsorted array. Efficient solutions include using a min-heap of size K (O(n log K)), or the Quickselect algorithm (average O(n)), which is a variation of Quicksort’s partition logic.",
+    "syntax": "// Kth largest with quickselect outline\nfunction quickSelect(arr, k) {\n  // Partition-based logic (complex for brevity)\n  return value;\n}\n// In practice, can use built-in heap/priority queue for smaller datasets.",
+    "difficulty": "intermediate",
+    "tags": ["Kth-largest", "heap", "partition", "quickselect"],
+    "category": "algorithms"
+  },
+  {
+    "id": 46,
+    "question": "How would you rotate an NxN matrix by 90 degrees in place?",
+    "answer": "Rotating an NxN matrix by 90 degrees clockwise in place involves moving the elements layer by layer and rotating four rectangles at a time, using element swaps and no extra memory.",
+    "syntax": "// Rotate matrix 90 degrees in place\nfunction rotate(matrix) {\n  let n = matrix.length;\n  for (let layer = 0; layer < n / 2; ++layer) {\n    let first = layer, last = n - 1 - layer;\n    for (let i = first; i < last; ++i) {\n      let offset = i - first;\n      let top = matrix[first][i];\n      matrix[first][i] = matrix[last - offset][first];\n      matrix[last - offset][first] = matrix[last][last - offset];\n      matrix[last][last - offset] = matrix[i][last];\n      matrix[i][last] = top;\n    }\n  }\n}",
+    "difficulty": "intermediate",
+    "tags": ["matrix", "rotation", "array-manipulation"],
+    "category": "algorithms"
+  },
+  {
+    "id": 47,
+    "question": "How do you clone (deep copy) an undirected graph?",
+    "answer": "To deep copy an undirected graph, use BFS or DFS while maintaining a hashtable mapping original nodes to copies. This ensures each node is only created once and cycles or duplicate references are handled correctly.",
+    "syntax": "// Clone graph using BFS\nfunction cloneGraph(node) {\n  if (!node) return null;\n  let map = new Map();\n  let queue = [node];\n  map.set(node, new Node(node.val));\n  while (queue.length) {\n    let curr = queue.shift();\n    for (let neighbor of curr.neighbors) {\n      if (!map.has(neighbor)) {\n        map.set(neighbor, new Node(neighbor.val));\n        queue.push(neighbor);\n      }\n      map.get(curr).neighbors.push(map.get(neighbor));\n    }\n  }\n  return map.get(node);\n}",
+    "difficulty": "advanced",
+    "tags": ["graph", "clone", "BFS", "DFS"],
+    "category": "graphs"
+  },
+  {
+    "id": 48,
+    "question": "Describe counting sort and its complexity.",
+    "answer": "Counting sort is a linear time sorting algorithm suited to data with a small range of discrete values. It counts occurrences of each distinct value, determines position, and reorders input. It is stable but not comparison-based, with time/space complexity O(n + k), where k is the range of input.",
+    "syntax": "// Counting sort example\nfunction countingSort(arr, k) {\n  let count = Array(k + 1).fill(0);\n  for (let num of arr) count[num]++;\n  let idx = 0;\n  for (let i = 0; i <= k; i++) {\n    while (count[i]--) arr[idx++] = i;\n  }\n  return arr;\n}",
+    "difficulty": "intermediate",
+    "tags": ["sorting", "counting-sort", "algorithm"],
+    "category": "algorithms"
+  },
+  {
+    "id": 49,
+    "question": "What is a segment tree with lazy propagation and why is it needed?",
+    "answer": "A segment tree with lazy propagation is used for range query and range update operations. Lazy propagation defers updates to child nodes until needed, improving efficiency when a range update covers multiple segments. It is critical for problems requiring frequent range updates and queries.",
+    "syntax": "// Segment tree with lazy propagation (conceptual)\nclass SegmentTree {\n  constructor(n) {\n    this.tree = Array(4*n).fill(0);\n    this.lazy = Array(4*n).fill(0);\n  }\n  // Update/query methods use lazy array to defer propagation.\n}",
+    "difficulty": "expert",
+    "tags": ["segment-tree", "lazy-propagation", "range-query"],
+    "category": "advanced-trees"
+  },
+  {
+    "id": 50,
+    "question": "What is an augmented tree and give an example use case.",
+    "answer": "An augmented tree is a binary search tree enhanced with extra information at each node, such as subtree size, sum, or min/max. This allows efficient complex queries, such as order statistics (kth smallest/largest), interval overlap counting, and range sum.",
+    "syntax": "// BST with subtree size\nclass AugTreeNode {\n  constructor(val) {\n    this.val = val;\n    this.size = 1;\n    this.left = this.right = null;\n  }\n}",
+    "difficulty": "expert",
+    "tags": ["augmented-tree", "BST", "order-statistics"],
+    "category": "advanced-trees"
+  }
+  ]

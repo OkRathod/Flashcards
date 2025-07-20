@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard Study App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .subject-selection {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .dropdown-container {
+            position: relative;
+            display: inline-block;
+            margin: 20px 0;
+        }
+
+        .subject-dropdown {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 15px 50px 15px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            cursor: pointer;
+            appearance: none;
+            min-width: 250px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .subject-dropdown:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .dropdown-arrow {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #667eea;
+            font-size: 18px;
+        }
+
+        .start-button {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+            margin: 20px 10px;
+            min-width: 120px;
+        }
+
+        .start-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .start-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            color: white;
+            font-size: 16px;
+            margin: 20px 0;
+        }
+
+        .flashcard-container {
+            display: none;
+        }
+
+        .subject-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .subject-title {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .subject-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
+
+        .card-info {
+            text-align: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .flashcard {
+            perspective: 1000px;
+            margin: 0 auto 30px;
+            width: 100%;
+            height: 350px;
+            cursor: pointer;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flashcard.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            height: auto;
+        }
+
+        .card-content {
+            font-size: 22px;
+            font-weight: 600;
+            color: #333;
+            line-height: 1.5;
+            text-align: center;
+            word-wrap: break-word;
+            margin: 50px;
+        }
+
+        .card-syntax {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            color: #666;
+            white-space: pre-wrap;
+            border-left: 4px solid #667eea;
+        }
+
+        .card-label {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .card-metadata {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            right: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .difficulty-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .difficulty-beginner {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty-intermediate {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .difficulty-advanced {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .tag-item {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            min-width: 100px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            color: white;
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #a8edea, #fed6e3);
+            color: #333;
+            box-shadow: 0 6px 20px rgba(168, 237, 234, 0.3);
+        }
+
+        .btn-warning {
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            color: #333;
+            box-shadow: 0 6px 20px rgba(255, 154, 158, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            color: white;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .instructions {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 20px 0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .error-message {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            color: #ff6b6b;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .flashcard {
+                height: 280px;
+            }
+            
+            .card-content {
+                font-size: 18px;
+            }
+            
+            .card-syntax {
+                font-size: 14px;
+                margin-top: 15px;
+                padding: 12px;
+            }
+            
+            .controls {
+                gap: 10px;
+            }
+            
+            .btn {
+                padding: 10px 16px;
+                font-size: 12px;
+                min-width: 80px;
+            }
+            
+            .subject-dropdown {
+                min-width: 200px;
+                padding: 12px 40px 12px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="subject-selection" id="subjectSelection">
+            <h1 style="color: white; margin-bottom: 20px; text-align: center; font-size: 2.5em; font-weight: 300;">📚 Flashcard Study App</h1>
+            
+            <div class="dropdown-container">
+                <select id="subjectDropdown" class="subject-dropdown">
+                    <option value="">Select a Subject</option>
+                    <!-- Add your subjects here -->
+                    <option value="oracle">Oracle SQL</option>
+                    <option value="os">Operating Systems</option>
+                    <option value="cn">Computer Networks</option>
+                    <option value="sysd">System Design</option>
+                    <option value="dsa">Data Structures and Algorithms</option>
+                </select>
+                <div class="dropdown-arrow">▼</div>
+            </div>
+            
+            <div>
+                <button class="start-button" id="startBtn" onclick="loadSubject()" disabled>🚀 Start Learning</button>
+                <!-- <button class="start-button" onclick="showRandomMode()" style="background: linear-gradient(45deg, #a8edea, #fed6e3); color: #333;">🎲 Random Mode</button> -->
+            </div>
+            
+            <div class="loading" id="loadingMessage" style="display: none;">Loading flashcards...</div>
+            <div class="error-message" id="errorMessage" style="display: none;"></div>
+            
+            <div class="instructions">
+                <p><strong>Features:</strong> Navigate with arrow keys, flip with space/enter, track your progress</p>
+                <!-- <p><strong>Random Mode:</strong> Mix cards from multiple subjects for varied practice</p> -->
+            </div>
+        </div>
+
+        <div class="flashcard-container" id="flashcardContainer">
+            <div class="subject-header">
+                <div class="subject-title" id="subjectTitle">Subject Name</div>
+                <div class="subject-subtitle" id="subjectSubtitle">Interactive Learning Session</div>
+            </div>
+
+            <div class="card-info">
+                <span id="currentCard">1</span> / <span id="totalCards">0</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <div class="flashcard" id="flashcard">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="card-label">Question</div>
+                        <div class="category-badge" id="categoryBadge" style="display: none;"></div>
+                        <div class="card-content" id="questionText">Click to start</div>
+                        <div class="card-metadata">
+                            <div class="difficulty-badge" id="difficultyBadge" style="display: none;"></div>
+                            <div class="tags-container" id="tagsContainer"></div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-label">Answer</div>
+                        <div class="category-badge" id="categoryBadgeBack" style="display: none;"></div>
+                        <div class="card-content" id="answerText">Answer will appear here</div>
+                        <div class="card-syntax" id="syntaxText" style="display: none;"></div>
+                        <div class="card-metadata">
+                            <div class="difficulty-badge" id="difficultyBadgeBack" style="display: none;"></div>
+                            <div class="tags-container" id="tagsContainerBack"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-secondary" id="prevBtn" onclick="previousCard()">⬅ Previous</button>
+                <button class="btn btn-primary" id="flipBtn" onclick="flipCard()">🔄 Flip Card</button>
+                <button class="btn btn-secondary" id="nextBtn" onclick="nextCard()">Next ➡</button>
+            </div>
+
+            <div class="controls">
+                <button class="btn btn-primary" onclick="shuffleCards()">🔀 Shuffle</button>
+                <button class="btn btn-secondary" onclick="resetProgress()">🔄 Reset</button>
+                <button class="btn btn-warning" onclick="goBackToSelection()">📚 Change Subject</button>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-value" id="viewedCount">0</span>
+                    <span class="stat-label">Viewed</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="remainingCount">0</span>
+                    <span class="stat-label">Remaining</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="accuracyRate">0%</span>
+                    <span class="stat-label">Progress</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let flashcards = [];
+        let currentIndex = 0;
+        let isFlipped = false;
+        let viewedCards = new Set();
+        let currentSubject = '';
+
+        // Enable/disable start button based on selection
+        document.getElementById('subjectDropdown').addEventListener('change', function() {
+            const startBtn = document.getElementById('startBtn');
+            startBtn.disabled = this.value === '';
+        });
+
+        // JSON file paths - UPDATE THESE PATHS TO MATCH YOUR BACKEND STRUCTURE
+        const subjectPaths = {
+            'oracle': '/data/flashcards/oracle.json',
+            'os': '/data/flashcards/os.json',
+            'cn': '/data/flashcards/cn.json',
+            'sysd': '/data/flashcards/sysd.json',
+            'dsa': '/data/flashcards/dsa.json'
+        };
+
+        async function loadSubject() {
+            const selectedSubject = document.getElementById('subjectDropdown').value;
+            if (!selectedSubject) return;
+
+            currentSubject = selectedSubject;
+            const loadingMsg = document.getElementById('loadingMessage');
+            const errorMsg = document.getElementById('errorMessage');
+            
+            loadingMsg.style.display = 'block';
+            errorMsg.style.display = 'none';
+
+            try {
+                // Fetch JSON file from backend
+                const response = await fetch(subjectPaths[selectedSubject]);
+                
+                if (!response.ok) {
+                    throw new Error(`Failed to load ${selectedSubject} flashcards`);
+                }
+                
+                const data = await response.json();
+                loadFlashcards(data, selectedSubject);
+                
+            } catch (error) {
+                console.error('Error loading flashcards:', error);
+                errorMsg.textContent = `Error loading ${selectedSubject} flashcards. Please try again.`;
+                errorMsg.style.display = 'block';
+                
+                // For demo purposes, load sample data
+                loadSampleData(selectedSubject);
+            } finally {
+                loadingMsg.style.display = 'none';
+            }
+        }
+
+        // Sample data for demonstration (remove when backend is ready)
+        function loadSampleData(subject) {
+            const sampleData = [
+                {
+                    id: 1,
+                    question: "What is a closure?",
+                    answer: "A function that has access to outer scope variables even after the outer function has returned",
+                    syntax: "function outer() {\n  let x = 1;\n  return function() { \n    return x; \n  };\n}",
+                    difficulty: "intermediate",
+                    tags: ["functions", "scope", "closures"],
+                    category: "advanced-concepts"
+                },
+                {
+                    id: 2, 
+                    question: "What is event bubbling?",
+                    answer: "The process where events propagate from the target element up through its parent elements",
+                    syntax: "element.addEventListener('click', handler, false); // bubbling\nelement.addEventListener('click', handler, true); // capturing",
+                    difficulty: "intermediate",
+                    tags: ["dom", "events", "propagation"],
+                    category: "dom-manipulation"
+                },
+                {
+                    id: 3,
+                    question: "What is the difference between let and var?",
+                    answer: "let has block scope and temporal dead zone, var has function scope and is hoisted with undefined",
+                    syntax: "if (true) {\n  let blockScoped = 1; // only available in this block\n  var functionScoped = 2; // available in entire function\n}",
+                    difficulty: "beginner",
+                    tags: ["variables", "scope", "hoisting"],
+                    category: "fundamentals"
+                },
+                {
+                    id: 4,
+                    question: "What are Promises?",
+                    answer: "Objects representing the eventual completion or failure of an asynchronous operation",
+                    syntax: "const promise = new Promise((resolve, reject) => {\n  // async operation\n  if (success) resolve(result);\n  else reject(error);\n});\n\npromise.then(result => console.log(result))\n       .catch(error => console.error(error));",
+                    difficulty: "advanced",
+                    tags: ["async", "promises", "callbacks"],
+                    category: "asynchronous-programming"
+                }
+            ];
+            
+            loadFlashcards(sampleData, subject);
+        }
+
+        function loadFlashcards(data, subject) {
+            if (!Array.isArray(data) || data.length === 0) {
+                document.getElementById('errorMessage').textContent = 'No flashcards found for this subject.';
+                document.getElementById('errorMessage').style.display = 'block';
+                return;
+            }
+
+            // Validate structure - expecting {id, question, answer, syntax, difficulty, tags, category}
+            const isValid = data.every(card => 
+                typeof card === 'object' && 
+                card.hasOwnProperty('id') &&
+                card.hasOwnProperty('question') && 
+                card.hasOwnProperty('answer')
+            );
+
+            if (!isValid) {
+                document.getElementById('errorMessage').textContent = 'Invalid flashcard format in the selected subject.';
+                document.getElementById('errorMessage').style.display = 'block';
+                return;
+            }
+
+            flashcards = data;
+            currentIndex = 0;
+            viewedCards.clear();
+            isFlipped = false;
+
+            // Update UI
+            document.getElementById('subjectSelection').style.display = 'none';
+            document.getElementById('flashcardContainer').style.display = 'block';
+            document.getElementById('subjectTitle').textContent = getSubjectDisplayName(subject);
+            document.getElementById('subjectSubtitle').textContent = `${data.length} flashcards loaded`;
+            
+            updateCard();
+            updateStats();
+        }
+
+        function getSubjectDisplayName(subject) {
+            const names = {
+                'javascript': 'JavaScript Fundamentals',
+                'python': 'Python Basics', 
+                'react': 'React Concepts',
+                'html-css': 'HTML & CSS',
+                'algorithms': 'Data Structures & Algorithms',
+                'databases': 'Database Concepts'
+            };
+            return names[subject] || subject.charAt(0).toUpperCase() + subject.slice(1);
+        }
+
+        function updateCard() {
+            if (flashcards.length === 0) return;
+
+            const card = flashcards[currentIndex];
+            document.getElementById('questionText').textContent = card.question;
+            document.getElementById('answerText').textContent = card.answer;
+            
+            // Handle syntax/example field
+            const syntaxElement = document.getElementById('syntaxText');
+            if (card.syntax || card.example) {
+                syntaxElement.textContent = card.syntax || card.example;
+                syntaxElement.style.display = 'block';
+            } else {
+                syntaxElement.style.display = 'none';
+            }
+            
+            // Handle difficulty badge
+            updateDifficultyBadge(card.difficulty);
+            
+            // Handle tags
+            updateTags(card.tags);
+            
+            // Handle category
+            updateCategory(card.category);
+            
+            document.getElementById('currentCard').textContent = currentIndex + 1;
+            document.getElementById('totalCards').textContent = flashcards.length;
+            
+            // Reset flip state
+            document.getElementById('flashcard').classList.remove('flipped');
+            isFlipped = false;
+            
+            // Update progress bar
+            const progress = ((currentIndex + 1) / flashcards.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            // Update button states
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+            document.getElementById('nextBtn').disabled = currentIndex === flashcards.length - 1;
+            
+            updateStats();
+        }
+
+        function updateDifficultyBadge(difficulty) {
+            const frontBadge = document.getElementById('difficultyBadge');
+            const backBadge = document.getElementById('difficultyBadgeBack');
+            
+            if (difficulty) {
+                const badgeText = difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
+                frontBadge.textContent = badgeText;
+                backBadge.textContent = badgeText;
+                
+                // Remove existing difficulty classes
+                frontBadge.className = 'difficulty-badge';
+                backBadge.className = 'difficulty-badge';
+                
+                // Add appropriate difficulty class
+                const difficultyClass = `difficulty-${difficulty.toLowerCase()}`;
+                frontBadge.classList.add(difficultyClass);
+                backBadge.classList.add(difficultyClass);
+                
+                frontBadge.style.display = 'block';
+                backBadge.style.display = 'block';
+            } else {
+                frontBadge.style.display = 'none';
+                backBadge.style.display = 'none';
+            }
+        }
+
+        function updateTags(tags) {
+            const frontContainer = document.getElementById('tagsContainer');
+            const backContainer = document.getElementById('tagsContainerBack');
+            
+            // Clear existing tags
+            frontContainer.innerHTML = '';
+            backContainer.innerHTML = '';
+            
+            if (tags && Array.isArray(tags) && tags.length > 0) {
+                tags.forEach(tag => {
+                    const tagElement = document.createElement('span');
+                    tagElement.className = 'tag-item';
+                    tagElement.textContent = tag;
+                    
+                    const tagElementBack = tagElement.cloneNode(true);
+                    
+                    frontContainer.appendChild(tagElement);
+                    backContainer.appendChild(tagElementBack);
+                });
+            }
+        }
+
+        function updateCategory(category) {
+            const frontCategory = document.getElementById('categoryBadge');
+            const backCategory = document.getElementById('categoryBadgeBack');
+            
+            if (category) {
+                const displayCategory = category.replace(/-/g, ' ');
+                frontCategory.textContent = displayCategory;
+                backCategory.textContent = displayCategory;
+                frontCategory.style.display = 'block';
+                backCategory.style.display = 'block';
+            } else {
+                frontCategory.style.display = 'none';
+                backCategory.style.display = 'none';
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('viewedCount').textContent = viewedCards.size;
+            document.getElementById('remainingCount').textContent = flashcards.length - viewedCards.size;
+            
+            const progressPercent = flashcards.length > 0 ? Math.round((viewedCards.size / flashcards.length) * 100) : 0;
+            document.getElementById('accuracyRate').textContent = progressPercent + '%';
+        }
+
+        function flipCard() {
+            const flashcard = document.getElementById('flashcard');
+            flashcard.classList.toggle('flipped');
+            isFlipped = !isFlipped;
+            
+            if (isFlipped) {
+                viewedCards.add(currentIndex);
+                updateStats();
+            }
+        }
+
+        function nextCard() {
+            if (currentIndex < flashcards.length - 1) {
+                currentIndex++;
+                updateCard();
+            }
+        }
+
+        function previousCard() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCard();
+            }
+        }
+
+        function shuffleCards() {
+            for (let i = flashcards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+            }
+            currentIndex = 0;
+            updateCard();
+        }
+
+        function resetProgress() {
+            viewedCards.clear();
+            currentIndex = 0;
+            updateCard();
+            updateStats();
+        }
+
+        function goBackToSelection() {
+            document.getElementById('subjectSelection').style.display = 'block';
+            document.getElementById('flashcardContainer').style.display = 'none';
+            document.getElementById('subjectDropdown').value = '';
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        // function showRandomMode() {
+        //     // Placeholder for random mode - you can implement this to mix multiple subjects
+        //     alert('Random Mode: This feature can load cards from multiple subjects randomly. Implement by combining multiple JSON files.');
+        // }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('flashcardContainer').style.display === 'block') {
+                switch(e.key) {
+                    case ' ':
+                    case 'Enter':
+                        e.preventDefault();
+                        flipCard();
+                        break;
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        previousCard();
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        nextCard();
+                        break;
+                    case 'Escape':
+                        goBackToSelection();
+                        break;
+                }
+            }
+        });
+
+        // Click to flip card
+        document.getElementById('flashcard').addEventListener('click', flipCard);
+    </script>
+</body>
+</html>

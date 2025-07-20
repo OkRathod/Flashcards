@@ -1,0 +1,794 @@
+[
+  {
+    "id": 1,
+    "question": "What is an operating system?",
+    "answer": "An operating system (OS) is system software that manages hardware and software resources and provides common services for computer programs. It acts as an interface between users and hardware, ensuring efficient resource allocation, process management, memory management, file management, and security.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["definition", "basics"],
+    "category": "fundamentals"
+  },
+  {
+    "id": 2,
+    "question": "What are the main functions of an operating system?",
+    "answer": "Main functions include resource management, process management, memory management, file system management, device management, security, and providing the user interface.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["functions", "basics"],
+    "category": "fundamentals"
+  },
+  {
+    "id": 3,
+    "question": "What is a process?",
+    "answer": "A process is an active instance of a program in execution. It consists of code, a current activity, a program counter, a set of registers, and allocated resources such as memory and files.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["process", "basics"],
+    "category": "process-management"
+  },
+  {
+    "id": 4,
+    "question": "What are process states?",
+    "answer": "Process states include New, Ready, Running, Waiting, and Terminated. These states represent stages in the process lifecycle as it competes for CPU time and resources.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["process", "states"],
+    "category": "process-management"
+  },
+  {
+    "id": 5,
+    "question": "Difference between program and process?",
+    "answer": "A program is a set of instructions stored in disk (passive entity), while a process is an instance of a program in execution (active entity) with allocated resources.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["program", "process"],
+    "category": "process-management"
+  },
+  {
+    "id": 6,
+    "question": "What is multiprocessing?",
+    "answer": "Multiprocessing is the use of two or more CPUs within a single computer system to run multiple processes simultaneously, increasing reliability and throughput.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["multiprocessing", "cpu"],
+    "category": "architecture"
+  },
+  {
+    "id": 7,
+    "question": "What is multithreading?",
+    "answer": "Multithreading allows multiple threads (smaller units of a process) to execute concurrently, improving resource sharing and efficiency in modern CPUs.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["multithreading", "threads"],
+    "category": "process-management"
+  },
+  {
+    "id": 8,
+    "question": "Explain the concept of process scheduling.",
+    "answer": "Process scheduling is the allocation of CPU time to different processes. The scheduler decides which process runs next to optimize CPU use, performance, and fairness.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["scheduling", "process"],
+    "category": "process-management"
+  },
+  {
+    "id": 9,
+    "question": "Name the types of schedulers in an OS.",
+    "answer": "Long-term scheduler (Job Scheduler), Short-term scheduler (CPU Scheduler), and Medium-term scheduler.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["schedulers"],
+    "category": "process-management"
+  },
+  {
+    "id": 10,
+    "question": "What is a thread?",
+    "answer": "A thread is the smallest unit of CPU execution within a process, sharing resources like memory and files with other threads of the same process, but having its own program counter and stack.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["thread", "process"],
+    "category": "process-management"
+  },
+  {
+    "id": 11,
+    "question": "What is deadlock?",
+    "answer": "Deadlock is a situation in multitasking where two or more processes are unable to proceed because each is waiting for the other to release a resource.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["deadlock"],
+    "category": "synchronization"
+  },
+  {
+    "id": 12,
+    "question": "What are the necessary conditions for deadlock?",
+    "answer": "Deadlock occurs when four conditions hold: Mutual Exclusion, Hold and Wait, No Preemption, and Circular Wait.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["deadlock", "conditions"],
+    "category": "synchronization"
+  },
+  {
+    "id": 13,
+    "question": "Define context switching.",
+    "answer": "Context switching is the process of storing and restoring the state of a CPU so that process execution can be resumed from the same point at a later time.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["context-switching"],
+    "category": "process-management"
+  },
+  {
+    "id": 14,
+    "question": "Describe critical section.",
+    "answer": "A critical section is a segment of code in a process where shared resources are accessed. To prevent data inconsistency, only one process should execute in its critical section at a time.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["critical-section", "concurrency"],
+    "category": "synchronization"
+  },
+  {
+    "id": 15,
+    "question": "What is a semaphore?",
+    "answer": "A semaphore is a synchronization tool used to control access to a common resource by multiple processes in a concurrent system.",
+    "syntax": "Semaphore s = 1;\nP(s) { while (s <= 0); s = s - 1; }\nV(s) { s = s + 1; }",
+    "difficulty": "intermediate",
+    "tags": ["synchronization", "semaphore", "concurrency"],
+    "category": "synchronization"
+  },
+  {
+    "id": 16,
+    "question": "Explain mutual exclusion with an example.",
+    "answer": "Mutual exclusion ensures that only one process accesses a critical section at a time to avoid race conditions.",
+    "syntax": "mutex lock;\nlock(mutex);\n// critical section\nunlock(mutex);",
+    "difficulty": "intermediate",
+    "tags": ["mutual-exclusion", "critical-section"],
+    "category": "synchronization"
+  },
+  {
+    "id": 17,
+    "question": "Difference between user level thread and kernel level thread?",
+    "answer": "User level threads are managed by user libraries, not directly by the OS, making them lightweight but lacking full parallelism on multicore systems. Kernel level threads are managed by the OS kernel, allowing true simultaneous execution on multiple processors but with higher overhead.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["threads"],
+    "category": "process-management"
+  },
+  {
+    "id": 18,
+    "question": "What is starvation?",
+    "answer": "Starvation occurs when a process waits indefinitely in the ready queue because other processes are continuously given preference.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["starvation", "scheduling"],
+    "category": "process-management"
+  },
+  {
+    "id": 19,
+    "question": "What is aging in scheduling?",
+    "answer": "Aging is a technique to gradually increase the priority of a process that waits in the system for a long time, thus preventing starvation.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["aging", "scheduling"],
+    "category": "process-management"
+  },
+  {
+    "id": 20,
+    "question": "Describe the First Come First Serve (FCFS) scheduling algorithm.",
+    "answer": "FCFS schedules processes in the order they arrive. The process that comes first is executed first.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["scheduling", "FCFS"],
+    "category": "process-management"
+  },
+  {
+    "id": 21,
+    "question": "Describe the Shortest Job First (SJF) scheduling algorithm.",
+    "answer": "SJF selects the process with the shortest estimated running time to execute next. This can reduce waiting time but may lead to starvation.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["scheduling", "SJF"],
+    "category": "process-management"
+  },
+  {
+    "id": 22,
+    "question": "Describe the Round Robin scheduling algorithm.",
+    "answer": "Round Robin assigns a fixed time quantum to each process in the ready queue, cycling through them in order. This ensures fairness and is suitable for time-sharing systems.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["scheduling", "round-robin"],
+    "category": "process-management"
+  },
+  {
+    "id": 23,
+    "question": "Explain priority scheduling algorithm.",
+    "answer": "Each process is assigned a priority and the process with the highest priority is executed first. Processes with equal priority are scheduled in FCFS order.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["scheduling", "priority"],
+    "category": "process-management"
+  },
+  {
+    "id": 24,
+    "question": "What is a kernel?",
+    "answer": "The kernel is the core of an operating system. It provides the lowest-level abstraction for resources, manages communication between hardware and software, and ensures effective resource management and security.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["kernel", "os-architecture"],
+    "category": "architecture"
+  },
+  {
+    "id": 25,
+    "question": "Difference between microkernel and monolithic kernel.",
+    "answer": "A microkernel runs only essential processes such as communication between hardware and software, delegating other services to user space. A monolithic kernel runs all system services in kernel space, making it faster but less secure and maintainable.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["kernel", "microkernel", "monolithic"],
+    "category": "architecture"
+  },
+  {
+    "id": 26,
+    "question": "What is virtual memory?",
+    "answer": "Virtual memory is a memory management technique that enables users to run programs larger than physical memory using disk space as an extension of RAM.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["virtual-memory", "memory-management"],
+    "category": "memory-management"
+  },
+  {
+    "id": 27,
+    "question": "Describe paging.",
+    "answer": "Paging is a memory management scheme where secondary memory is divided into fixed-size blocks called pages, and main memory is divided into frames. Pages are loaded into any available frame, enabling non-contiguous memory allocation.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["paging", "memory-management"],
+    "category": "memory-management"
+  },
+  {
+    "id": 28,
+    "question": "Explain segmentation.",
+    "answer": "Segmentation is a memory management technique where memory is divided into variable-sized segments based on the logical divisions of a program, such as functions or data arrays.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["segmentation", "memory-management"],
+    "category": "memory-management"
+  },
+  {
+    "id": 29,
+    "question": "Describe the page replacement algorithm LRU.",
+    "answer": "Least Recently Used (LRU) replaces the page that has not been used for the longest period. It keeps track of page usage over time.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["page-replacement", "LRU", "memory-management"],
+    "category": "memory-management"
+  },
+  {
+    "id": 30,
+    "question": "What is thrashing in the context of OS?",
+    "answer": "Thrashing occurs when the system spends more time swapping pages in and out of memory than executing processes, severely degrading system performance.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["thrashing", "memory-management"],
+    "category": "memory-management"
+  },
+  {
+    "id": 31,
+    "question": "Explain Belady's Anomaly.",
+    "answer": "Belady's Anomaly is when increasing the number of page frames results in more page faults for certain page reference patterns, often seen in FIFO page replacement.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["belady-anomaly", "memory-management"],
+    "category": "memory-management"
+  },
+  {
+    "id": 32,
+    "question": "What is demand paging?",
+    "answer": "Demand paging is a technique where only required pages are loaded into memory, reducing resource usage. Pages are loaded when a process requests them, triggering a page fault if not found.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["demand-paging", "memory-management"],
+    "category": "memory-management"
+  },
+  {
+    "id": 33,
+    "question": "Explain the Banker's algorithm.",
+    "answer": "The Banker's algorithm is a resource allocation and deadlock avoidance algorithm that checks if resource allocation leaves the system in a safe state.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["bankers-algorithm", "deadlock"],
+    "category": "synchronization"
+  },
+  {
+    "id": 34,
+    "question": "How does the OS handle a page fault?",
+    "answer": "When a page fault occurs, the OS saves the current process state, locates the required page in secondary storage, loads it into memory, updates the page table, and resumes the process.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["page-fault", "memory-management"],
+    "category": "memory-management"
+  },
+  {
+    "id": 35,
+    "question": "What is a file system?",
+    "answer": "A file system organizes and manages files and directories on storage devices, controlling how data is stored, retrieved, and updated.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["filesystem", "file-management"],
+    "category": "file-management"
+  },
+  {
+    "id": 36,
+    "question": "Explain contiguous and non-contiguous file allocation.",
+    "answer": "Contiguous allocation stores a file in consecutive blocks, offering fast access but causing fragmentation. Non-contiguous allocation uses linked or indexed blocks, reducing fragmentation and allowing dynamic file growth.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["file-allocation"],
+    "category": "file-management"
+  },
+  {
+    "id": 37,
+    "question": "What is an inode?",
+    "answer": "An inode is a data structure on UNIX file systems that stores metadata about a file, including ownership, permissions, and disk block locations, but not the filename or actual data.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["inode", "filesystem"],
+    "category": "file-management"
+  },
+  {
+    "id": 38,
+    "question": "Name different file access methods.",
+    "answer": "Sequential access, direct (random) access, and indexed access.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["file-access"],
+    "category": "file-management"
+  },
+  {
+    "id": 39,
+    "question": "What is fragmentation? Types?",
+    "answer": "Fragmentation refers to inefficient use of memory. Internal fragmentation occurs when memory is allocated in fixed-size blocks but not fully used; external fragmentation occurs when free memory is split into small pieces.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["fragmentation", "memory-management"],
+    "category": "memory-management"
+  },
+  {
+    "id": 40,
+    "question": "Explain swapping.",
+    "answer": "Swapping is moving processes temporarily out of main memory to secondary storage (swap space) to free memory for other processes. This is managed by the OS to enable multitasking.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["swapping", "memory-management"],
+    "category": "memory-management"
+  },
+  {
+    "id": 41,
+    "question": "What is demand paging? How is it implemented?",
+    "answer": "Demand paging loads a page into memory only when it is referenced during execution. Implementation utilizes valid/invalid page table bits and triggers a page fault to fetch absent pages.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["demand-paging", "memory-management"],
+    "category": "memory-management"
+  },
+  {
+    "id": 42,
+    "question": "Explain the difference between logical and physical address.",
+    "answer": "A logical address is generated by the CPU (also called a virtual address); the physical address is the actual location in memory. The Memory Management Unit (MMU) translates logical to physical addresses.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["address", "memory-management"],
+    "category": "memory-management"
+  },
+  {
+    "id": 43,
+    "question": "What is memory management unit (MMU)?",
+    "answer": "The MMU is a hardware component that handles address translation from virtual/logical addresses to physical addresses, as well as memory protection and cache management.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["mmu", "memory-management"],
+    "category": "memory-management"
+  },
+  {
+    "id": 44,
+    "question": "Describe RAID and its levels.",
+    "answer": "RAID (Redundant Array of Independent Disks) is a data storage technology for redundancy or performance. Levels include RAID 0 (striping), RAID 1 (mirroring), RAID 5 (parity), RAID 6 (double parity), among others.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["RAID", "storage"],
+    "category": "file-management"
+  },
+  {
+    "id": 45,
+    "question": "What is a device driver?",
+    "answer": "A device driver is software that enables the operating system to interact with hardware devices, acting as a translator between the device and programs.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["device-driver", "hardware"],
+    "category": "architecture"
+  },
+  {
+    "id": 46,
+    "question": "Explain time-sharing systems.",
+    "answer": "Time-sharing systems allow multiple users to interact with a computer at the same time by rapidly switching the CPU among user programs to achieve interactivity.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["time-sharing", "multiprogramming"],
+    "category": "architecture"
+  },
+  {
+    "id": 47,
+    "question": "Describe real-time operating system with an example.",
+    "answer": "A real-time operating system guarantees fixed time constraints for task execution. Example: An embedded OS in medical devices or automotive systems.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["real-time-os"],
+    "category": "architecture"
+  },
+  {
+    "id": 48,
+    "question": "What is a safe state in deadlock avoidance?",
+    "answer": "A safe state is when resources can be allocated such that each process can finish, ensuring the system will not enter a deadlock.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["safe-state", "deadlock"],
+    "category": "synchronization"
+  },
+  {
+    "id": 49,
+    "question": "What is process synchronization? Name techniques.",
+    "answer": "Process synchronization is coordinating processes to ensure correct sequencing. Techniques include semaphores, mutex locks, monitors, and message passing.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["synchronization"],
+    "category": "synchronization"
+  },
+  {
+    "id": 50,
+    "question": "Describe inter-process communication (IPC).",
+    "answer": "IPC is a mechanism that allows processes to communicate and synchronize their actions. Methods include message passing, shared memory, pipes, and sockets.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["ipc", "communication"],
+    "category": "inter-process-communication"
+  },
+  {
+    "id": 51,
+    "question": "Different types of operating systems?",
+    "answer": "Batch OS, Time-sharing OS, Distributed OS, Embedded OS, Real-time OS, Network OS.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["os-types"],
+    "category": "fundamentals"
+  },
+  {
+    "id": 52,
+    "question": "What is the difference between multitasking, multiprogramming, and multiprocessing?",
+    "answer": "Multitasking: running multiple tasks for a user; multiprogramming: running multiple programs in memory; multiprocessing: using multiple CPUs for parallel execution.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["multitasking", "multiprogramming", "multiprocessing"],
+    "category": "architecture"
+  },
+  {
+    "id": 53,
+    "question": "Explain the fork() system call.",
+    "answer": "fork() creates a new process by duplicating the calling process. The new child process is an exact copy of the parent, except for the returned value.",
+    "syntax": "pid_t pid = fork();\nif (pid == 0) {\n   // Child process\n} else if (pid > 0) {\n   // Parent process\n}",
+    "difficulty": "intermediate",
+    "tags": ["fork", "system-call", "process"],
+    "category": "process-management"
+  },
+  {
+    "id": 54,
+    "question": "What does the exec() system call do?",
+    "answer": "The exec() family of functions replaces the current process image with a new program, loading a binary into memory and executing it.",
+    "syntax": "execvp(\"/bin/ls\", argv);",
+    "difficulty": "intermediate",
+    "tags": ["exec", "system-call", "process"],
+    "category": "process-management"
+  },
+  {
+    "id": 55,
+    "question": "How does a zombie process occur?",
+    "answer": "A zombie process is a child process that has terminated, but its entry still exists in the process table because its parent has not yet read its exit status via wait().",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["zombie", "process"],
+    "category": "process-management"
+  },
+  {
+    "id": 56,
+    "question": "What is an orphan process?",
+    "answer": "An orphan process is a child process whose parent has terminated. The init process usually adopts orphan processes in UNIX-like systems.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["orphan", "process"],
+    "category": "process-management"
+  },
+  {
+    "id": 57,
+    "question": "Difference between hard link and soft link.",
+    "answer": "A hard link is a direct pointer to the file data, having the same inode as the original file, while a soft link (symbolic link) points to the file name or path, holding a different inode.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["links", "filesystem"],
+    "category": "file-management"
+  },
+  {
+    "id": 58,
+    "question": "Describe the producer-consumer problem solution with semaphore.",
+    "answer": "Semaphores can coordinate access between producer and consumer to a shared buffer, ensuring mutual exclusion and synchronization.",
+    "syntax": "Semaphore empty = n;\nSemaphore full = 0;\nSemaphore mutex = 1;\nProducer:\n   wait(empty);\n   wait(mutex);\n   // insert item\n   signal(mutex);\n   signal(full);\nConsumer:\n   wait(full);\n   wait(mutex);\n   // remove item\n   signal(mutex);\n   signal(empty);",
+    "difficulty": "advanced",
+    "tags": ["producer-consumer", "semaphore"],
+    "category": "synchronization"
+  },
+  {
+    "id": 59,
+    "question": "What is the purpose of the bootloader?",
+    "answer": "A bootloader is a small program that loads the operating system kernel into memory during system startup and starts its execution.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["bootloader", "startup"],
+    "category": "architecture"
+  },
+  {
+    "id": 60,
+    "question": "Explain memory protection mechanisms.",
+    "answer": "Memory protection ensures that one process cannot access the memory space of another process. Mechanisms include base and limit registers, segmentation, and paging with protection bits.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["memory-protection"],
+    "category": "memory-management"
+  },
+  {
+    "id": 61,
+    "question": "Describe the implementation and use of monitors.",
+    "answer": "A monitor is a synchronization construct that allows safe access to shared data by encapsulating variables, access methods, and synchronization primitives. Only one process can execute a monitor procedure at a time.",
+    "syntax": "monitor ProducerConsumer {\n   condition full, empty;\n   ...\n   procedure produce() { ... }\n   procedure consume() { ... }\n}",
+    "difficulty": "advanced",
+    "tags": ["monitor", "synchronization"],
+    "category": "synchronization"
+  },
+  {
+    "id": 62,
+    "question": "What is an interrupt? Types?",
+    "answer": "An interrupt is a signal to the processor indicating an event that needs immediate attention. Types: hardware, software, maskable, non-maskable, vectored, non-vectored.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["interrupts"],
+    "category": "architecture"
+  },
+  {
+    "id": 63,
+    "question": "What is DMA (Direct Memory Access)?",
+    "answer": "DMA is a feature allowing peripherals to access main memory directly, bypassing the CPU, improving data transfer speed for large operations.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["DMA", "hardware"],
+    "category": "architecture"
+  },
+  {
+    "id": 64,
+    "question": "Explain signal handling in Unix/Linux.",
+    "answer": "Signal handling is the process by which Unix-like OSs deliver asynchronous notifications (signals) to processes. Processes can define custom handlers or use default actions for signals like SIGKILL, SIGTERM, and SIGSEGV.",
+    "syntax": "signal(SIGINT, handler_function);",
+    "difficulty": "advanced",
+    "tags": ["signal-handling", "unix"],
+    "category": "process-management"
+  },
+  {
+    "id": 65,
+    "question": "Describe memory-mapped I/O.",
+    "answer": "Memory-mapped I/O is a technique where control registers for I/O devices are mapped into the same address space as regular memory, so devices can be read and written using normal instructions.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["memory-mapped-io"],
+    "category": "architecture"
+  },
+  {
+    "id": 66,
+    "question": "What are system calls? Give examples.",
+    "answer": "System calls are interface functions provided by the OS to allow user programs to request services from the kernel. Examples: fork(), exec(), wait(), open(), read(), write(), close().",
+    "syntax": "int fd = open(\"test.txt\", O_RDONLY);\nread(fd, buffer, sizeof(buffer));",
+    "difficulty": "intermediate",
+    "tags": ["system-calls"],
+    "category": "process-management"
+  },
+  {
+    "id": 67,
+    "question": "What is a race condition? How is it avoided?",
+    "answer": "A race condition is a situation in concurrent programming where the output depends on the sequence of execution. It is prevented using mutual exclusion mechanisms like locks, semaphores, and monitors.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["race-condition", "concurrency"],
+    "category": "synchronization"
+  },
+  {
+    "id": 68,
+    "question": "Explain swapping with a code example.",
+    "answer": "Swapping is temporarily moving processes in and out of main memory. Example: swapping in Unix is handled by the OS, but the concept can be simulated.",
+    "syntax": "void swap_processes(int* mem1, int* mem2, int size) {\n   int temp;\n   for (int i = 0; i < size; i++) {\n      temp = mem1[i];\n      mem1[i] = mem2[i];\n      mem2[i] = temp;\n   }\n}",
+    "difficulty": "advanced",
+    "tags": ["swapping", "memory-management"],
+    "category": "memory-management"
+  },
+  {
+    "id": 69,
+    "question": "What is TLB (Translation Lookaside Buffer)?",
+    "answer": "TLB is a cache used by the MMU to reduce the time taken to access the page table in virtual memory translations. It holds virtual-to-physical address mappings.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["TLB", "memory-management"],
+    "category": "memory-management"
+  },
+  {
+    "id": 70,
+    "question": "Why is OS security important? Name security mechanisms.",
+    "answer": "OS security is vital to protect data and resources from unauthorized access and attacks. Security mechanisms include user authentication, access control, encryption, auditing, and firewalls.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["security", "os"],
+    "category": "security"
+  },
+  {
+    "id": 71,
+    "question": "Explain the mmap() system call and its use case.",
+    "answer": "mmap() is used to map files or devices into memory, providing efficient file I/O by treating files as part of virtual memory.",
+    "syntax": "void* addr = mmap(NULL, length, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);",
+    "difficulty": "advanced",
+    "tags": ["mmap", "memory-management", "system-call"],
+    "category": "memory-management"
+  },
+  {
+    "id": 72,
+    "question": "Describe copy-on-write (COW) and how OS uses it.",
+    "answer": "Copy-on-write is an optimization in which processes initially share the same physical memory pages for read operations; on write attempts, the OS creates a separate copy for the writing process, reducing memory usage until modification is required.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["copy-on-write", "memory-management"],
+    "category": "memory-management"
+  },
+  {
+    "id": 73,
+    "question": "How is process scheduling done in real-time operating systems?",
+    "answer": "Real-time OSs use deadline-based schedulers such as Rate Monotonic Scheduling and Earliest Deadline First to ensure time constraints are met.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["real-time-os", "scheduling"],
+    "category": "process-management"
+  },
+  {
+    "id": 74,
+    "question": "Explain the working of the virtual file system (VFS).",
+    "answer": "The VFS provides an abstraction layer on top of concrete file systems, allowing applications to access different storage backends in a uniform manner. VFS translates system calls into calls to specific file system implementations.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["VFS", "filesystem"],
+    "category": "file-management"
+  },
+  {
+    "id": 75,
+    "question": "What are loadable kernel modules?",
+    "answer": "Loadable kernel modules are object files that can be dynamically loaded and unloaded from the running kernel, extending OS functionalities such as drivers or filesystems without rebooting.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["kernel-modules", "linux"],
+    "category": "architecture"
+  },
+  {
+    "id": 76,
+    "question": "Describe Software RAID vs. Hardware RAID.",
+    "answer": "Software RAID uses system resources and the OS to manage RAID configurations, while hardware RAID uses dedicated controllers for higher performance, reliability, and independence from the operating system.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["RAID", "storage"],
+    "category": "file-management"
+  },
+  {
+    "id": 77,
+    "question": "Explain device queue and ready queue.",
+    "answer": "The ready queue holds processes waiting for CPU time. Device queues hold processes waiting for I/O operations to complete.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["scheduling", "queue"],
+    "category": "process-management"
+  },
+  {
+    "id": 78,
+    "question": "Describe the concept of priority inversion and its solution.",
+    "answer": "Priority inversion occurs when a lower-priority process holds a resource needed by a higher-priority process. Solutions include priority inheritance protocols, where the lower-priority process temporarily inherits the higher priority.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["priority-inversion", "synchronization"],
+    "category": "synchronization"
+  },
+  {
+    "id": 79,
+    "question": "What is the use of ulimit command in Unix?",
+    "answer": "ulimit sets or reports user-level resource usage limits, such as maximum file size, memory, or number of processes a session can create.",
+    "syntax": "ulimit -a\nulimit -n 1024",
+    "difficulty": "advanced",
+    "tags": ["ulimit", "unix"],
+    "category": "process-management"
+  },
+  {
+    "id": 80,
+    "question": "Explain orphan and zombie process cleanup in Linux.",
+    "answer": "Zombie processes are cleaned when the parent calls wait(). Orphaned processes are adopted by the init process (PID 1), which periodically checks and cleans them up.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["zombie", "orphan", "linux"],
+    "category": "process-management"
+  },
+  {
+    "id": 81,
+    "question": "What is the Dining Philosophers Problem? Explain its solution using semaphores.",
+    "answer": "The Dining Philosophers Problem is a classic synchronization problem involving philosophers sitting around a table with one fork between each pair. Each philosopher needs two forks to eat but must avoid deadlock and starvation. The standard solution is to use semaphores to represent forks, ensuring that no two philosophers pick up the same fork simultaneously.",
+    "syntax": "semaphore forks[5] = {1,1,1,1,1};\nvoid philosopher(int i) {\n  while (true) {\n    think();\n    wait(forks[i]);\n    wait(forks[(i+1)%5]);\n    eat();\n    signal(forks[i]);\n    signal(forks[(i+1)%5]);\n  }\n}",
+    "difficulty": "advanced",
+    "tags": ["synchronization", "semaphores", "deadlock-avoidance"],
+    "category": "synchronization"
+  },
+  {
+    "id": 82,
+    "question": "Describe the Bounded Buffer (Producer-Consumer) Problem and solve it using semaphores.",
+    "answer": "The Producer-Consumer Problem is a classic example of a multi-process synchronization problem. A fixed-size buffer is shared by producers (who insert data) and consumers (who remove data). Semaphores are used to keep track of available slots and items, and to ensure mutual exclusion for buffer access.",
+    "syntax": "semaphore empty = N;\nsemaphore full = 0;\nsemaphore mutex = 1;\nProducer() {\n  while (true) {\n    wait(empty);\n    wait(mutex);\n    // add item to buffer\n    signal(mutex);\n    signal(full);\n  }\n}\nConsumer() {\n  while (true) {\n    wait(full);\n    wait(mutex);\n    // remove item from buffer\n    signal(mutex);\n    signal(empty);\n  }\n}",
+    "difficulty": "advanced",
+    "tags": ["synchronization", "semaphores", "IPC"],
+    "category": "synchronization"
+  },
+  {
+    "id": 83,
+    "question": "Explain the Readers-Writers Problem with code using semaphores.",
+    "answer": "The Readers-Writers Problem addresses how to allow multiple readers to read simultaneously, while ensuring that only one writer can write at a time (and not concurrently with readers). Semaphores or mutexes coordinate access so that writers get exclusive access, and readers can read in parallel.",
+    "syntax": "semaphore mutex = 1, wrt = 1;\nint readCount = 0;\nReader() {\n  wait(mutex);\n  readCount++;\n  if (readCount == 1) wait(wrt);\n  signal(mutex);\n  // Reading\n  wait(mutex);\n  readCount--;\n  if (readCount == 0) signal(wrt);\n  signal(mutex);\n}\nWriter() {\n  wait(wrt);\n  // Writing\n  signal(wrt);\n}",
+    "difficulty": "advanced",
+    "tags": ["synchronization", "reader-writer", "semaphores"],
+    "category": "synchronization"
+  },
+  {
+    "id": 84,
+    "question": "What is the Sleeping Barber Problem? Provide a solution using semaphores.",
+    "answer": "The Sleeping Barber Problem models a barbershop with one barber, one barber chair, and N waiting chairs. Customers either get a haircut, wait if there's space, or leave if all chairs are full. The barber sleeps when there are no customers. Semaphores manage waiting customers and the state of the barber and waiting room.",
+    "syntax": "semaphore customers = 0;\nsemaphore barber = 0;\nsemaphore mutex = 1;\nint waiting = 0;\nint chairs = N;\nBarber() {\n  while (true) {\n    wait(customers);\n    wait(mutex);\n    waiting--;\n    signal(barber);\n    signal(mutex);\n    // cut hair\n  }\n}\nCustomer() {\n  wait(mutex);\n  if (waiting < chairs) {\n    waiting++;\n    signal(customers);\n    signal(mutex);\n    wait(barber);\n    // get haircut\n  } else {\n    signal(mutex);\n    // leave\n  }\n}",
+    "difficulty": "advanced",
+    "tags": ["synchronization", "semaphores", "IPC"],
+    "category": "synchronization"
+  },
+  {
+    "id": 85,
+    "question": "Describe the Cigarette Smokers Problem and solution using inter-process communication.",
+    "answer": "In the Cigarette Smokers Problem, an agent provides two of three resources (tobacco, paper, match) on a table. The smoker that possesses the third resource makes and smokes a cigarette. Synchronization is achieved by using semaphores or condition variables to signal presence of resources and ensure only one smoker acts at a time.",
+    "syntax": "// Pseudocode for resource synchronization\nSemaphore agent = 1, tobacco = 0, paper = 0, match = 0;\nAgent() {\n  while (true) {\n    wait(agent);\n    // place two resources at random\n    signal(tobacco); signal(paper); // example\n  }\n}\nSmokerWithMatch() {\n  while (true) {\n    wait(tobacco);\n    wait(paper);\n    // make cigarette\n    signal(agent);\n  }\n}",
+    "difficulty": "advanced",
+    "tags": ["synchronization", "resource-allocation", "IPC"],
+    "category": "synchronization"
+  },
+  {
+    "id": 86,
+    "question": "Explain Peterson’s Algorithm for mutual exclusion.",
+    "answer": "Peterson’s Algorithm is a classical software solution for mutual exclusion between two processes. It uses two shared variables: one to show interest in entering the critical section and another to indicate whose turn it is.",
+    "syntax": "bool flag[2];\nint turn;\nProcess(int i) {\n  int j = 1 - i;\n  flag[i] = true;\n  turn = j;\n  while (flag[j] && turn == j);\n  // critical section\n  flag[i] = false;\n}",
+    "difficulty": "advanced",
+    "tags": ["mutual-exclusion", "synchronization", "peterson"],
+    "category": "synchronization"
+  },
+  {
+    "id": 87,
+    "question": "Describe Lamport’s Bakery Algorithm and its code for N-process mutual exclusion.",
+    "answer": "Lamport’s Bakery Algorithm generalizes mutual exclusion to multiple processes using a 'take-a-number' approach. Each process chooses a number. The process with the lowest number enters the critical section. If two processes choose the same number, their process IDs break the tie.",
+    "syntax": "boolean choosing[N];\nint number[N];\nvoid lock(int i) {\n  choosing[i] = true;\n  number[i] = 1 + max(number[0..N-1]);\n  choosing[i] = false;\n  for (int j = 0; j < N; j++) {\n    while (choosing[j]);\n    while (number[j] != 0 && (number[j] < number[i] || (number[j] == number[i] && j < i)));\n  }\n}\nvoid unlock(int i) {\n  number[i] = 0;\n}",
+    "difficulty": "advanced",
+    "tags": ["mutual-exclusion", "synchronization", "lamport"],
+    "category": "synchronization"
+  },
+  {
+    "id": 88,
+    "question": "How is a Resource Allocation Graph used in deadlock detection and avoidance? Illustrate with code logic.",
+    "answer": "A Resource Allocation Graph (RAG) models the allocation state of resources and processes. If the graph contains a cycle, deadlock may exist. Detecting cycles (using DFS) allows the OS to identify and avoid deadlocks.",
+    "syntax": "// Python-like pseudocode\nvisited = set()\ndef has_cycle(node, graph, stack):\n  stack.add(node)\n  for neighbor in graph[node]:\n    if neighbor not in visited:\n      if has_cycle(neighbor, graph, stack):\n        return True\n    elif neighbor in stack:\n      return True\n  stack.remove(node)\n  visited.add(node)\n  return False",
+    "difficulty": "advanced",
+    "tags": ["deadlock-detection", "resource-allocation-graph", "graph-algorithms"],
+    "category": "synchronization"
+  }
+]

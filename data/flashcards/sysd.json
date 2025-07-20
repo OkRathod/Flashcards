@@ -1,0 +1,768 @@
+[
+  {
+    "id": 1,
+    "question": "What is system design?",
+    "answer": "System design is the process of defining the architecture, modules, interfaces, and data for a system to satisfy specified requirements. It involves high-level design (architecture, components) and low-level design (detailed logic, algorithms).",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["basics", "definitions"],
+    "category": "fundamentals"
+  },
+  {
+    "id": 2,
+    "question": "What is the difference between horizontal and vertical scaling?",
+    "answer": "Horizontal scaling (scale out) means adding more machines to handle the load, increasing capacity and fault tolerance. Vertical scaling (scale up) means increasing the hardware capacity (CPU, RAM) of a single server. Horizontal scaling is more suitable for distributed systems and is commonly used for web-scale applications.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["scalability", "architecture"],
+    "category": "fundamentals"
+  },
+  {
+    "id": 3,
+    "question": "What is a load balancer and why is it used?",
+    "answer": "A load balancer distributes network or application traffic across multiple servers, ensuring no single server becomes a bottleneck. It helps with high availability, fault tolerance, and better utilization of resources.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["load-balancing", "high-availability"],
+    "category": "networking"
+  },
+  {
+    "id": 4,
+    "question": "Explain caching and its importance in system design.",
+    "answer": "Caching stores frequently accessed data in a fast, temporary storage (RAM, in-memory DBs like Redis) to reduce retrieval time, lower database load, and improve system performance.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["caching", "performance"],
+    "category": "optimization"
+  },
+  {
+    "id": 5,
+    "question": "What is the CAP Theorem?",
+    "answer": "The CAP Theorem states that a distributed system can only guarantee two out of three properties: Consistency, Availability, and Partition Tolerance. Designers must decide which to favor based on system needs.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["distributed-systems", "cap-theorem"],
+    "category": "architecture"
+  },
+  {
+    "id": 6,
+    "question": "What is a CDN (Content Delivery Network)?",
+    "answer": "A CDN is a geographically distributed network of proxy servers that delivers content (images, videos, scripts) to users based on their location, improving load times and reducing latency.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["cdn", "performance"],
+    "category": "networking"
+  },
+  {
+    "id": 7,
+    "question": "What is database sharding?",
+    "answer": "Database sharding is the process of splitting a large database into smaller, more manageable pieces called shards, each located on a separate database server, to improve scalability and performance.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["database", "sharding", "scaling"],
+    "category": "databases"
+  },
+  {
+    "id": 8,
+    "question": "What is eventual consistency?",
+    "answer": "Eventual consistency is a consistency model used in distributed systems where updates propagate to all nodes over time, so that, eventually, all nodes have the same data.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["consistency", "databases"],
+    "category": "distributed-systems"
+  },
+  {
+    "id": 9,
+    "question": "What is a reverse proxy?",
+    "answer": "A reverse proxy is a server that sits in front of web servers and forwards client requests to those servers, providing benefits like load balancing, security, and caching.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["networking", "proxies"],
+    "category": "networking"
+  },
+  {
+    "id": 10,
+    "question": "What are microservices?",
+    "answer": "Microservices are a software development approach where an application is structured as a collection of loosely coupled, independently deployable services, each responsible for a specific business capability.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["microservices", "architecture"],
+    "category": "architecture"
+  },
+  {
+    "id": 11,
+    "question": "Explain data replication and its role.",
+    "answer": "Data replication involves maintaining copies of data on multiple servers to enhance reliability, availability, and fault tolerance. If one replica fails, data can be served from another.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["replication", "databases"],
+    "category": "databases"
+  },
+  {
+    "id": 12,
+    "question": "Give an example of a consistent hashing algorithm.",
+    "answer": "Consistent hashing distributes keys across a ring of nodes where each node holds a certain range of hashes. When a node is added or removed, only a subset of keys re-map to other nodes, minimizing reshuffling.",
+    "syntax": "hash = hash_function(key)\nnode = ring.locate_nearest(hash)\nreturn node",
+    "difficulty": "advanced",
+    "tags": ["hashing", "distributed-systems"],
+    "category": "algorithms"
+  },
+  {
+    "id": 13,
+    "question": "What is a message queue and when is it used?",
+    "answer": "A message queue is a communication mechanism between services/applications that stores messages until they are processed, providing asynchronous, decoupled processing.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["queues", "communication"],
+    "category": "architecture"
+  },
+  {
+    "id": 14,
+    "question": "How does rate limiting work?",
+    "answer": "Rate limiting restricts the number of requests a user or service can make to an API within a given time period, protecting against abuse and ensuring system stability.",
+    "syntax": "if requests_in_window > limit:\n  block_request()\nelse:\n  process_request()",
+    "difficulty": "intermediate",
+    "tags": ["rate-limiting", "security"],
+    "category": "optimization"
+  },
+  {
+    "id": 15,
+    "question": "Why use NoSQL databases for some systems?",
+    "answer": "NoSQL databases provide flexible schema, horizontal scalability, and high performance for unstructured or semi-structured data, making them suitable for large-scale and real-time applications.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["nosql", "databases"],
+    "category": "databases"
+  },
+  {
+    "id": 16,
+    "question": "Give an example scenario for eventual consistency.",
+    "answer": "A social network's 'like' counter might be eventually consistent, showing slight delays before all users see the same number of likes, while allowing rapid performance at scale.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["eventual-consistency", "databases"],
+    "category": "distributed-systems"
+  },
+  {
+    "id": 17,
+    "question": "What is backpressure in streaming systems?",
+    "answer": "Backpressure is a mechanism where overcrowded downstream systems signal upstream producers to slow down, preventing overload and ensuring stability.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["streaming", "backpressure"],
+    "category": "optimization"
+  },
+  {
+    "id": 18,
+    "question": "How does a distributed cache like Redis work?",
+    "answer": "A distributed cache like Redis stores key-value pairs in-memory across nodes in a cluster, allowing multiple application servers to access cached data efficiently and consistently.",
+    "syntax": "redis.set('key', value)\nvalue = redis.get('key')",
+    "difficulty": "intermediate",
+    "tags": ["caching", "redis"],
+    "category": "databases"
+  },
+  {
+    "id": 19,
+    "question": "Explain API Gateway and its benefits in microservices architecture.",
+    "answer": "An API Gateway sits between clients and microservices, routing requests, handling authentication, rate limiting, and aggregating results, simplifying the client-side logic.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["api-gateway", "microservices"],
+    "category": "architecture"
+  },
+  {
+    "id": 20,
+    "question": "What is idempotency and why is it important?",
+    "answer": "Idempotency ensures that a request can be safely repeated with the same effect, which is crucial for reliability in distributed systems where retrying operations is common.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["idempotency", "api"],
+    "category": "reliability"
+  },
+  {
+    "id": 21,
+    "question": "How does replication differ from sharding?",
+    "answer": "Replication creates copies of the same data on multiple servers, increasing availability. Sharding splits data into partitions for scalability, distributing subsets across servers.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["replication", "sharding", "databases"],
+    "category": "databases"
+  },
+  {
+    "id": 22,
+    "question": "What is a distributed transaction, and how is it managed?",
+    "answer": "A distributed transaction spans multiple databases or services and must be completed across all nodes or rolled back entirely. Typically managed using two-phase commit protocol (2PC) or compensating transactions.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["transactions", "distributed-systems"],
+    "category": "databases"
+  },
+  {
+    "id": 23,
+    "question": "How would you design a URL shortening service like TinyURL?",
+    "answer": "A URL shortener generates unique short keys for each original URL, stores mappings in a database, and handles redirection. Key aspects: unique ID generation (hashing, base62), high availability, and analytics.",
+    "syntax": "short_url = base62_encode(hash(url))\ndb.save(short_url, url)\nredirect_if_exists(short_url)",
+    "difficulty": "intermediate",
+    "tags": ["url-shortener", "design-example"],
+    "category": "practical-design"
+  },
+   {
+    "id": 24,
+    "question": "What are stateless and stateful services?",
+    "answer": "Stateless services do not maintain client state between requests. Each request is independent. Stateful services store information about the client across requests, which can simplify certain operations but makes scaling and recovery more challenging.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["stateless", "stateful", "services"],
+    "category": "architecture"
+  },
+  {
+    "id": 25,
+    "question": "Explain the difference between synchronous and asynchronous communication.",
+    "answer": "Synchronous communication requires both parties to interact in real-time (e.g., HTTP request/response). Asynchronous communication allows sending and receiving messages at different times (e.g., message queues, email). Async is crucial for distributed, scalable systems.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["communication", "synchronous", "asynchronous"],
+    "category": "fundamentals"
+  },
+  {
+    "id": 26,
+    "question": "When should you use a relational database over NoSQL?",
+    "answer": "Use a relational database when you require strict consistency, complex queries, transactions, and well-defined schemas. NoSQL fits unstructured data, horizontal scaling, and high-velocity workloads.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["relational", "nosql", "databases"],
+    "category": "databases"
+  },
+  {
+    "id": 27,
+    "question": "What is a Service Discovery mechanism?",
+    "answer": "Service Discovery allows services to find each other dynamically in a microservice architecture. Tools like Consul, etcd, or Eureka track available service instances for automated endpoint detection.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["service-discovery", "microservices"],
+    "category": "architecture"
+  },
+  {
+    "id": 28,
+    "question": "What is a circuit breaker pattern?",
+    "answer": "A circuit breaker detects repeated failures in communication between services and stops further attempted calls for a period. This protects the system from overload.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["circuit-breaker", "resilience"],
+    "category": "resilient-design"
+  },
+  {
+    "id": 29,
+    "question": "What are read replicas, and how do they help?",
+    "answer": "Read replicas are copies of a primary database, updated asynchronously. They offload read traffic from the primary, improving scalability and performance for read-heavy workloads.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["read-replica", "databases"],
+    "category": "databases"
+  },
+  {
+    "id": 30,
+    "question": "How do you ensure data integrity in distributed systems?",
+    "answer": "Data integrity is maintained with ACID transactions, distributed locks, versioning, and consensus protocols like Paxos or Raft to coordinate state and avoid conflicts.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["integrity", "distributed-systems"],
+    "category": "data"
+  },
+  {
+    "id": 31,
+    "question": "What is a Bloom filter and where is it used?",
+    "answer": "A Bloom filter is a memory-efficient probabilistic data structure for set membership checking, with false positives but no false negatives. Used in caches and databases to avoid unnecessary reads.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["bloom-filter", "algorithms"],
+    "category": "data-structures"
+  },
+  {
+    "id": 32,
+    "question": "What's the difference between strong and eventual consistency?",
+    "answer": "Strong consistency guarantees every user sees the latest data immediately, but may reduce system availability. Eventual consistency allows temporary divergence but ensures all replicas converge eventually, favoring scalability.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["consistency", "database"],
+    "category": "data"
+  },
+  {
+    "id": 33,
+    "question": "Describe the Two-Phase Commit protocol.",
+    "answer": "The Two-Phase Commit (2PC) protocol coordinates distributed transactions by first asking all participants to prepare to commit and, if all agree, committing. If any vote no or fail, all abort. It ensures atomicity but can block if coordinator fails.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["2pc", "transactions", "distributed"],
+    "category": "databases"
+  },
+  {
+    "id": 34,
+    "question": "Explain partitioning and strategies used for it.",
+    "answer": "Partitioning splits data into independent parts to spread load. Strategies include range, hash, and list partitioning. The choice depends on data distribution, query patterns, and scale goals.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["partitioning", "database"],
+    "category": "databases"
+  },
+  {
+    "id": 35,
+    "question": "What is a quorum in distributed systems?",
+    "answer": "A quorum is the minimum number of nodes that must agree to perform an action, such as committing a transaction, in order to ensure consistency in distributed systems.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["quorum", "consensus"],
+    "category": "distributed-systems"
+  },
+  {
+    "id": 36,
+    "question": "How does leader election work?",
+    "answer": "Leader election is a process that ensures one node acts as the coordinator for a distributed operation. Algorithms such as Raft and Paxos are widely used for leader election.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["leader-election", "distributed"],
+    "category": "algorithms"
+  },
+  {
+    "id": 37,
+    "question": "What is a monolithic architecture?",
+    "answer": "Monolithic architecture is a traditional model where all functional modules of an application are built as a single unit. It is easier to develop and deploy initially but can become hard to scale or modify as it grows.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["monolith", "architecture"],
+    "category": "architecture"
+  },
+  {
+    "id": 38,
+    "question": "Explain polling and long polling.",
+    "answer": "Polling is when a client periodically asks the server for new data. Long polling holds the connection open until new data is available or a timeout occurs, then closes and restarts, reducing latency but increasing resource usage.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["polling", "communication"],
+    "category": "optimization"
+  },
+  {
+    "id": 39,
+    "question": "What is eventual consistency? Give an example use-case.",
+    "answer": "Eventual consistency means updates made to a distributed database will be replicated and all nodes will eventually converge to the same value. It's suited for social feeds, messaging apps where slight delay is acceptable.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["eventual-consistency", "databases"],
+    "category": "distributed-systems"
+  },
+  {
+    "id": 40,
+    "question": "What's a write-ahead log (WAL) in databases?",
+    "answer": "A write-ahead log (WAL) records changes before they are applied to the database, ensuring durability and enabling crash recovery.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["write-ahead-log", "durability"],
+    "category": "databases"
+  },
+  {
+    "id": 41,
+    "question": "How can you avoid the thundering herd problem?",
+    "answer": "The thundering herd problem happens when multiple processes wake up simultaneously and overload the system. Solutions include request staggering, introducing random delays, or using locks/semaphores.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["performance", "thundering-herd"],
+    "category": "optimization"
+  },
+  {
+    "id": 42,
+    "question": "Explain the role of indices in databases.",
+    "answer": "Indices speed up data retrieval in databases by maintaining additional data structures (like B-trees or hash maps) to quickly locate desired records.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["indices", "database"],
+    "category": "databases"
+  },
+  {
+    "id": 43,
+    "question": "How does pagination work, and why is it important?",
+    "answer": "Pagination divides large result sets into chunks (pages) to avoid overwhelming clients or servers. Techniques include offset-based and keyset/seek pagination. It improves performance and user experience.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["pagination", "api"],
+    "category": "optimization"
+  },
+  {
+    "id": 44,
+    "question": "What is deadlock? How to prevent it?",
+    "answer": "Deadlock occurs when processes are stuck waiting for each other's resources indefinitely. Prevention strategies include lock ordering, timeout, and using deadlock detection algorithms.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["deadlock", "concurrency"],
+    "category": "optimization"
+  },
+  {
+    "id": 45,
+    "question": "Explain time-to-live (TTL) in caching.",
+    "answer": "TTL defines how long a cached entry remains valid before being refreshed or evicted. Proper TTL reduces staleness and memory waste.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["caching", "ttl"],
+    "category": "optimization"
+  },
+  {
+    "id": 46,
+    "question": "What is sticky session in load balancing?",
+    "answer": "Sticky sessions (session affinity) direct a user's requests to the same backend server. This is useful for stateful sessions, but can cause uneven loads and make scaling complex.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["sticky-session", "load-balancing"],
+    "category": "networking"
+  },
+  {
+    "id": 47,
+    "question": "How do you design for disaster recovery?",
+    "answer": "Disaster recovery planning covers routine backups, geographically distributed redundancy, automated failover, and documented recovery procedures to minimize downtime and data loss.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["disaster-recovery", "reliability"],
+    "category": "reliability"
+  },
+  {
+    "id": 48,
+    "question": "What is write amplification in storage systems?",
+    "answer": "Write amplification occurs when a system writes more data to storage than the logical change requires, commonly found in SSDs and log-structured systems. It can be mitigated through indexing, batching, and file compaction techniques.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["write-amplification", "storage"],
+    "category": "optimization"
+  },
+  {
+    "id": 49,
+    "question": "What is a webhook?",
+    "answer": "A webhook is a mechanism where a server notifies another system of events by making an HTTP POST to a configured URL in real-time.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["webhook", "communication"],
+    "category": "api"
+  },
+  {
+    "id": 50,
+    "question": "What is the difference between push and pull-based systems?",
+    "answer": "In push systems, the server sends updates to clients as they happen (e.g., webhooks, SSE). In pull systems, clients periodically request updates (e.g., polling REST APIs).",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["push", "pull", "communication"],
+    "category": "architecture"
+  },
+  {
+    "id": 51,
+    "question": "What roles do proxies serve in system architecture?",
+    "answer": "Proxies mediate requests between clients and servers, used for security, traffic control, caching, load balancing, and content compression.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["proxy", "architecture"],
+    "category": "networking"
+  },
+  {
+    "id": 52,
+    "question": "What's the difference between REST and GraphQL?",
+    "answer": "REST organizes resources with endpoints per entity and uses HTTP verbs; GraphQL exposes a single endpoint and allows clients to specify the shape and size of the response, minimizing over-fetching.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["rest", "graphql", "api"],
+    "category": "api"
+  },
+  {
+    "id": 53,
+    "question": "What is a Singleton service?",
+    "answer": "A Singleton service is a design pattern where only one instance of the service exists throughout the application's lifetime, ensuring shared state and coordination.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["singleton", "patterns"],
+    "category": "architecture"
+  },
+  {
+    "id": 54,
+    "question": "How to design a notification system?",
+    "answer": "Use queues or pub/sub topics for incoming events, worker processes for preparing notifications, and delivery channels (email, SMS, push) managed via separate services for modularity and scalability.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["notification", "design"],
+    "category": "practical-design"
+  },
+  {
+    "id": 55,
+    "question": "Explain event sourcing.",
+    "answer": "Event sourcing persists application state as a sequence of events. Each change is recorded as an event rather than overwriting state, allowing historic reconstruction, audit, and easier debugging.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["event-sourcing", "patterns"],
+    "category": "architecture"
+  },
+  {
+    "id": 56,
+    "question": "What is a Content Addressable Storage (CAS) system?",
+    "answer": "CAS systems store content by the hash of its data. Retrieval is based on content rather than location or filename, used in backup, deduplication, and distributed filesystems.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["cas", "storage"],
+    "category": "data-structures"
+  },
+  {
+    "id": 57,
+    "question": "What is a CDN cache miss?",
+    "answer": "A cache miss happens when the CDN does not have the requested content, triggering a fetch from the origin server, increasing latency for that request.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["cdn", "caching"],
+    "category": "networking"
+  },
+  {
+    "id": 58,
+    "question": "How do you prevent hot key issues in distributed caching?",
+    "answer": "Hot key issues—disproportionate access to certain keys—can be mitigated by sharding the value (if possible), replicating, or using a randomized key prefix.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["caching", "performance"],
+    "category": "optimization"
+  },
+  {
+    "id": 59,
+    "question": "Describe the Saga pattern for transactions.",
+    "answer": "The Saga pattern breaks a distributed transaction into a sequence of local transactions. Each step has a compensating transaction to undo its effect if a failure occurs later in the sequence.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["saga", "transactions"],
+    "category": "architecture"
+  },
+  {
+    "id": 60,
+    "question": "What is the purpose of input validation at the API layer?",
+    "answer": "Input validation enforces correct data formats, types, sizes, and constraints at the API boundary, preventing malformed data and security vulnerabilities.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["input-validation", "api"],
+    "category": "security"
+  },
+  {
+    "id": 61,
+    "question": "What metrics are important for monitoring distributed systems?",
+    "answer": "Key metrics are latency, throughput, error rate, resource utilization (CPU, memory), and saturation indicators like queue depth or thread pool idle time.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["monitoring", "metrics"],
+    "category": "operations"
+  },
+  {
+    "id": 62,
+    "question": "What is meant by graceful degradation?",
+    "answer": "Graceful degradation is designing a system to provide reduced functionality rather than total failure in adverse conditions (e.g., read-only mode during DB outage).",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["resilience", "graceful-degradation"],
+    "category": "reliability"
+  },
+  {
+    "id": 63,
+    "question": "Describe a time-series database use-case.",
+    "answer": "Time-series databases are optimized for storing chronological data, such as logs, application metrics, sensor data, and financial tickers, supporting efficient queries over time intervals.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["time-series", "database"],
+    "category": "databases"
+  },
+  {
+    "id": 64,
+    "question": "What are the drawbacks of microservices?",
+    "answer": "Drawbacks include operational complexity, distributed system challenges (network, data consistency), and higher infrastructure cost. Proper monitoring and deployment automation are required.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["microservices", "drawbacks"],
+    "category": "architecture"
+  },
+  {
+    "id": 65,
+    "question": "What is the role of a schema registry?",
+    "answer": "A schema registry manages and enforces message schemas for distributed data pipelines, ensuring compatibility between producers and consumers (e.g., Avro/Protobuf schemas in Kafka).",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["schema-registry", "data-pipelines"],
+    "category": "data"
+  },
+  {
+    "id": 66,
+    "question": "Explain optimistic vs pessimistic concurrency control.",
+    "answer": "Optimistic control assumes rare conflicts, verifies at commit (e.g., version numbers). Pessimistic locks resources up-front, blocking others (e.g., row-level locks in SQL).",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["concurrency-control", "database"],
+    "category": "data"
+  },
+  {
+    "id": 67,
+    "question": "What is a merge conflict? How is it resolved?",
+    "answer": "A merge conflict happens when multiple changes affect the same part of data. It is resolved manually or by a pre-defined rule to select the winning version.",
+    "syntax": "",
+    "difficulty": "easy",
+    "tags": ["merge-conflict", "consistency"],
+    "category": "data"
+  },
+  {
+    "id": 68,
+    "question": "What is data denormalization?",
+    "answer": "Data denormalization duplicates data to reduce joins and improve read performance, at the expense of write complexity and potential inconsistencies.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["denormalization", "database"],
+    "category": "databases"
+  },
+  {
+    "id": 69,
+    "question": "What is the difference between leader-based and peer-to-peer replication?",
+    "answer": "Leader-based has a single leader that handles writes and syncs to followers; peer-to-peer allows any node to accept writes, synchronizing as needed—used in DynamoDB and Cassandra.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["replication", "leader", "peer-to-peer"],
+    "category": "databases"
+  },
+  {
+    "id": 70,
+    "question": "What is geo-replication and why is it used?",
+    "answer": "Geo-replication replicates data across different geographic locations for disaster recovery, lower latency, and regional compliance. Critical for global applications.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["geo-replication", "databases"],
+    "category": "databases"
+  },
+
+  {
+    "id": 71,
+    "question": "Design a scalable URL shortening service like TinyURL.",
+    "answer": "Use hashing or an incremental counter encoded to Base62 to generate a short key. Store mappings in a fast-access database (like Redis/MySQL). Add caching for frequently-resolved URLs, replication for high availability, and rate limiting to avoid abuse.",
+    "syntax": "def shorten(url):\n    key = base62_encode(hash(url))\n    db.save(key, url)\n    return key\n\ndef resolve(key):\n    url = cache.get(key) or db.get(key)\n    return url",
+    "difficulty": "advanced",
+    "tags": ["system-design", "url-shortener"],
+    "category": "design-scenarios"
+  },
+  {
+    "id": 72,
+    "question": "Design a rate limiting system for an API gateway.",
+    "answer": "Track requests per user/IP per time window in memory (e.g., Redis). Enforce hard (max) and soft (warn) limits. Techniques: fixed window, sliding window, token bucket. Return HTTP 429 on exceeding limits.",
+    "syntax": "if requests(user_id, window) > limit:\n    return 429\nelse:\n    process()",
+    "difficulty": "advanced",
+    "tags": ["rate-limiting", "api-gateway"],
+    "category": "design-scenarios"
+  },
+  {
+    "id": 73,
+    "question": "How would you design a global chat application (like WhatsApp)?",
+    "answer": "Use WebSockets for real-time messaging, message queues to guarantee delivery and ordering, persistent storage (NoSQL for high write throughput), and multiple data centers for geo-replication. Use sharding for user distribution and end-to-end encryption for security.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["chat", "real-time", "system-design"],
+    "category": "design-scenarios"
+  },
+  {
+    "id": 74,
+    "question": "How to design a news feed system, like Facebook or Twitter?",
+    "answer": "Use fan-out on write (push new posts to followers' feeds) or fan-out on read (generate feed at query-time). Store feeds in cache for active users. Prioritize by recency, popularity. Use queuing for background processing.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["news-feed", "system-design"],
+    "category": "design-scenarios"
+  },
+  {
+    "id": 75,
+    "question": "Design a scalable file storage system (like Dropbox).",
+    "answer": "Break files into chunks, store them distributed across storage nodes/S3. Use metadata DB to track chunks. Deduplicate with content-based addressing and replicate for durability. CDN for download acceleration.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["file-storage", "system-design"],
+    "category": "design-scenarios"
+  },
+  {
+    "id": 76,
+    "question": "How would you design a real-time analytics dashboard?",
+    "answer": "Ingest event streams via Kafka. Use a stream processor (Spark/Flink) for aggregation. Store results in a time-series DB, expose via REST or WebSocket endpoints. Use in-memory cache for fast queries.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["analytics", "real-time", "dashboard"],
+    "category": "design-scenarios"
+  },
+  {
+    "id": 77,
+    "question": "Design a taxi-hailing system.",
+    "answer": "Geo-index drivers and passengers using a spatial DB. Use pub/sub to match drivers to requests. Store trip state in fast NoSQL, replicate for durability, and use queuing for surge pricing updates.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["taxi-hailing", "system-design"],
+    "category": "design-scenarios"
+  },
+  {
+    "id": 78,
+    "question": "How would you design a notification delivery system?",
+    "answer": "Queue notifications, use workers to deliver via different channels (SMS, push, email), store delivery status, retry with backoff on failure, and deduplicate notifications.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["notification", "system-design"],
+    "category": "design-scenarios"
+  },
+  {
+    "id": 79,
+    "question": "How to design a scalable rate limiting system for billions of users?",
+    "answer": "Use distributed in-memory storage (e.g., Redis Cluster) for counters, consistent hashing to distribute load, and approximate algorithms (e.g., Bloom filter for pre-filtering). Employ sharding, LRU caching, and periodic persistence.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["rate-limiting", "large-scale"],
+    "category": "design-scenarios"
+  },
+  {
+    "id": 80,
+    "question": "Design a system like Instagram Stories.",
+    "answer": "Media is uploaded to object storage (S3), processed by workers, metadata in NoSQL for fast access, CDN for delivery, and TTL logic for expiration. Event queue manages notifications and analytics.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["stories", "media", "system-design"],
+    "category": "design-scenarios"
+  },
+  {
+    "id": 81,
+    "question": "How would you design a distributed unique ID generator?",
+    "answer": "Options include UUIDs, Twitter Snowflake (timestamp, machine ID, sequence number). Ensure high throughput, uniqueness, and ordering to avoid collisions at massive scale.",
+    "syntax": "// Example: Snowflake ID\ntimestamp | machineID | sequence",
+    "difficulty": "advanced",
+    "tags": ["unique-id", "distributed"],
+    "category": "algorithms"
+  },
+  {
+    "id": 82,
+    "question": "Design an online ticket booking system.",
+    "answer": "Store seat inventory in a transactional DB, use row-level locks for concurrency, queues for order processing, periodic cleanup of expired reservations, and rate limiting on booking APIs.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["ticket-booking", "system-design"],
+    "category": "design-scenarios"
+  },
+  {
+    "id": 83,
+    "question": "How would you design a real-time leaderboard?",
+    "answer": "Use an in-memory store (like Redis Sorted Sets) to update and rank scores in real-time, back up periodically, and shard for scale.",
+    "syntax": "redis.zadd('leaderboard', score, user_id)",
+    "difficulty": "advanced",
+    "tags": ["leaderboard", "real-time"],
+    "category": "design-scenarios"
+  },
+  {
+    "id": 84,
+    "question": "Design a distributed log system (like Kafka).",
+    "answer": "Partition logs by key, replicate for durability, use brokers to manage partitions, store in immutable segments, and offer consumer group semantics for parallel consumption.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["distributed-log", "kafka"],
+    "category": "design-scenarios"
+  },
+  {
+    "id": 85,
+    "question": "How would you design a calendar scheduling application?",
+    "answer": "Use relational DB for event data, indexing on users/date. Conflict detection logic for overlapping meetings, notifications via jobs/queues, recurring event logic, and time zone conversions.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["calendar", "scheduling"],
+    "category": "design-scenarios"
+  }
+]

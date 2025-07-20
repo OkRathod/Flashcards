@@ -1,0 +1,813 @@
+[
+  {
+    "id": 1,
+    "question": "What is a computer network?",
+    "answer": "A computer network is a system where two or more computers and devices are interconnected to share data, resources, and communication. Devices communicate using wired or wireless connections, enabling file sharing, internet access, and remote communication.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["networking", "basics"],
+    "category": "fundamentals"
+  },
+  {
+    "id": 2,
+    "question": "What are the different types of networks?",
+    "answer": "The main types of networks are PAN (Personal Area Network), LAN (Local Area Network), MAN (Metropolitan Area Network), WAN (Wide Area Network), and GAN (Global Area Network). These vary by range and use, from Bluetooth (PAN) to the Internet (GAN).",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["networking", "types"],
+    "category": "fundamentals"
+  },
+  {
+    "id": 3,
+    "question": "What is an IP address? What are the main types?",
+    "answer": "An IP address is a unique identifier for devices on a network. The main types are IPv4 (32-bit, e.g., 192.168.1.1) and IPv6 (128-bit, e.g., 2001:db8::1), used for locating and identifying devices across the Internet or local networks.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["ip", "addressing"],
+    "category": "addressing"
+  },
+  {
+    "id": 4,
+    "question": "Explain the OSI model and its seven layers.",
+    "answer": "The OSI (Open Systems Interconnection) model is a conceptual framework with seven layers: Physical, Data Link, Network, Transport, Session, Presentation, and Application. Each layer has defined roles, from hardware transmission (Physical) up to user interfaces (Application).",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["osi", "networking-model"],
+    "category": "models"
+  },
+  {
+    "id": 5,
+    "question": "What is subnetting and why is it used?",
+    "answer": "Subnetting divides a large network into smaller, more manageable sub-networks called subnets. This improves routing efficiency, enhances security, and aids in logical separation of departments within organizations.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["subnetting", "routing"],
+    "category": "network-management"
+  },
+  {
+    "id": 6,
+    "question": "Describe the TCP and UDP protocols. What is the difference?",
+    "answer": "TCP (Transmission Control Protocol) is connection-oriented, provides reliable delivery, uses acknowledgements and retransmissions, and ensures packets arrive in order. UDP (User Datagram Protocol) is connectionless, faster, provides no delivery guarantees, and often used for streaming or real-time data.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["tcp", "udp", "protocols"],
+    "category": "transport-layer"
+  },
+  {
+    "id": 7,
+    "question": "What is a VLAN and why is it implemented?",
+    "answer": "A Virtual Local Area Network (VLAN) allows the creation of logically segmented broadcast domains within a single switch or network infrastructure. It improves security, performance, and manageability by isolating traffic between different groups.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["vlan", "security"],
+    "category": "network-segmentation"
+  },
+  {
+    "id": 8,
+    "question": "How does DNS work in the Internet?",
+    "answer": "Domain Name System (DNS) translates human-readable domain names (like www.example.com) into machine-understandable IP addresses. When a domain is entered, the DNS resolver queries name servers up the chain until it finds the correct IP, then returns it to the client.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["dns", "resolution"],
+    "category": "services"
+  },
+  {
+    "id": 9,
+    "question": "What happens when you type www.google.com in your browser?",
+    "answer": "When you type a URL, the browser checks local cache, then queries DNS to resolve the address. It establishes a TCP connection with Google's server using a three-way handshake, sends an HTTP(S) request, receives a response, and renders the page for you.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["http", "dns", "tcp"],
+    "category": "application"
+  },
+  {
+    "id": 10,
+    "question": "What is the ARP protocol?",
+    "answer": "ARP (Address Resolution Protocol) maps IP addresses to MAC (hardware) addresses on a local network. When a device wants to communicate locally, it queries ARP to obtain the recipient's MAC address before sending the frame.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["arp", "addressing", "lan"],
+    "category": "protocols"
+  },
+  {
+    "id": 11,
+    "question": "What is the TCP three-way handshake?",
+    "answer": "The three-way handshake establishes a reliable TCP connection: the client sends SYN, the server responds with SYN-ACK, and the client completes with ACK. This synchronizes both endpoints before data transfer.",
+    "syntax": "Client: SYN →\nServer: SYN-ACK ←\nClient: ACK →",
+    "difficulty": "intermediate",
+    "tags": ["tcp", "handshake"],
+    "category": "transport-layer"
+  },
+  {
+    "id": 12,
+    "question": "What is NAT and why is it used?",
+    "answer": "Network Address Translation (NAT) allows multiple private devices to share a single public IP when accessing the Internet. It improves security by masking internal IPs and helps conserve the limited public IPv4 address space.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["nat", "security"],
+    "category": "addressing"
+  },
+  {
+    "id": 13,
+    "question": "How is data switched in Ethernet LANs?",
+    "answer": "Ethernet LANs use switches that forward frames based on their destination MAC addresses. The switch stores a MAC address table and only forwards data to the appropriate port, increasing efficiency over hubs.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["ethernet", "switch"],
+    "category": "network-devices"
+  },
+  {
+    "id": 14,
+    "question": "What is QoS (Quality of Service) in networking?",
+    "answer": "QoS refers to techniques and features that prioritize certain types of network traffic, reduce latency, and guarantee bandwidth for critical applications (such as voice or video), thus improving overall network quality.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["qos", "performance"],
+    "category": "optimization"
+  },
+  {
+    "id": 15,
+    "question": "Explain subnet mask and its function.",
+    "answer": "A subnet mask distinguishes the network and host portions of an IP address. It is used during routing and subnetting to determine the destination network for a given IP.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["subnet", "mask"],
+    "category": "addressing"
+  },
+  {
+    "id": 16,
+    "question": "What is a firewall in networking?",
+    "answer": "A firewall is a hardware or software system that monitors and controls incoming and outgoing network traffic based on predetermined security rules. It acts as a barrier between trusted and untrusted networks.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["firewall", "security"],
+    "category": "security"
+  },
+  {
+    "id": 17,
+    "question": "What are load balancers and why are they used?",
+    "answer": "A load balancer splits incoming network traffic across multiple servers to ensure no single server is overwhelmed, improving performance and reliability of applications.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["load-balancing", "performance"],
+    "category": "optimization"
+  },
+  {
+    "id": 18,
+    "question": "Give an example of a simple socket programming code in Python for a TCP client.",
+    "answer": "The following Python code snippet shows a basic TCP client which connects to a server and sends a message.",
+    "syntax": "import socket\ns = socket.socket(socket.AF_INET, socket.SOCK_STREAM)\ns.connect(('localhost', 8080))\ns.send(b'Hello, server!')\ns.close()",
+    "difficulty": "intermediate",
+    "tags": ["network-programming", "tcp"],
+    "category": "application"
+  },
+  {
+    "id": 19,
+    "question": "Explain VPN and its use cases.",
+    "answer": "A Virtual Private Network (VPN) creates a private, encrypted connection over a public network like the Internet. It's used for secure remote access, bypassing geo-restrictions, and safeguarding sensitive data in transit.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["vpn", "security"],
+    "category": "security"
+  },
+  {
+    "id": 20,
+    "question": "What is the difference between Unicasting, Broadcasting, Multicasting, and Anycasting?",
+    "answer": "Unicasting sends data from one sender to one receiver; Broadcasting sends data to all nodes in a network; Multicasting sends data from one sender to a selected group; Anycasting delivers to the nearest node among a group.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["unicast", "broadcast", "multicast", "anycast"],
+    "category": "communication-methods"
+  },
+  {
+    "id": 21,
+    "question": "Explain the difference between HTTP and HTTPS.",
+    "answer": "HTTP (HyperText Transfer Protocol) is the protocol used for transmitting web pages over the Internet. HTTPS is the secure version of HTTP, which encrypts data using SSL/TLS to ensure the privacy and integrity of information exchanged.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["http", "https", "protocols", "security"],
+    "category": "application-layer"
+  },
+  {
+    "id": 22,
+    "question": "What is a proxy server and what are its benefits?",
+    "answer": "A proxy server acts as an intermediary between client devices and the internet. It can cache content, filter requests, monitor usage, improve performance, and provide anonymity and security benefits.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["proxy", "security", "optimization"],
+    "category": "network-devices"
+  },
+  {
+    "id": 23,
+    "question": "What is the difference between switch and hub?",
+    "answer": "A hub is a basic device that broadcasts incoming data to all ports. A switch is more intelligent, forwarding data only to the intended destination port based on MAC addresses, improving efficiency and security.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["switch", "hub", "network-devices"],
+    "category": "network-devices"
+  },
+  {
+    "id": 24,
+    "question": "Describe the purpose and working of DHCP.",
+    "answer": "The Dynamic Host Configuration Protocol (DHCP) automatically assigns IP addresses and configuration parameters to network devices, simplifying network management and reducing manual configuration errors.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["dhcp", "ip", "configuration"],
+    "category": "services"
+  },
+  {
+    "id": 25,
+    "question": "What are routing algorithms? Name two types.",
+    "answer": "Routing algorithms determine the optimal path for data packets across a network. They can be classified as Distance Vector (e.g., RIP) and Link State (e.g., OSPF) algorithms, each with different mechanisms for path calculation.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["routing", "algorithms", "rip", "ospf"],
+    "category": "network-layer"
+  },
+  {
+    "id": 26,
+    "question": "Explain BGP and its purpose in large networks.",
+    "answer": "The Border Gateway Protocol (BGP) is a path vector protocol used to exchange routing information between autonomous systems (AS) on the Internet, making it crucial for Internet backbone routing and policy control.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["bgp", "routing", "internet"],
+    "category": "network-layer"
+  },
+  {
+    "id": 27,
+    "question": "What is packet switching, and how does it differ from circuit switching?",
+    "answer": "Packet switching breaks data into packets and routes them independently over the network, allowing efficient use of bandwidth. Circuit switching establishes a dedicated path for the entire communication session, as in traditional telephony.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["packet-switching", "circuit-switching"],
+    "category": "transmission-methods"
+  },
+  {
+    "id": 28,
+    "question": "What is a MAC address? How is it different from an IP address?",
+    "answer": "A MAC (Media Access Control) address is a unique identifier assigned to network interfaces for local communication at the Data Link layer, while an IP address is used for network-layer addressing and routing across networks.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["mac-address", "ip-address", "addressing"],
+    "category": "addressing"
+  },
+  {
+    "id": 29,
+    "question": "What is ICMP, and what is it used for?",
+    "answer": "The Internet Control Message Protocol (ICMP) is used for network diagnostics and error reporting. Tools like ping and traceroute use ICMP to test connectivity and report unreachable hosts or routers.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["icmp", "protocols", "diagnostics"],
+    "category": "network-layer"
+  },
+  {
+    "id": 30,
+    "question": "Explain the sliding window protocol.",
+    "answer": "The sliding window protocol is a flow control method used in TCP, allowing a sender to transmit multiple frames before needing an acknowledgment. This improves efficiency by keeping the pipeline full and managing congestion.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["sliding-window", "tcp", "flow-control"],
+    "category": "transport-layer"
+  },
+  {
+    "id": 31,
+    "question": "What is multicast routing?",
+    "answer": "Multicast routing delivers data from one sender to multiple specific receivers. Protocols like IGMP (IPv4) or MLD (IPv6) manage group membership, and routers use multicast routing protocols to optimize data delivery.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["multicast", "routing", "igmp"],
+    "category": "network-layer"
+  },
+  {
+    "id": 32,
+    "question": "Describe wireless network security protocols (WEP, WPA, WPA2, WPA3).",
+    "answer": "WEP was the original, weak wireless security protocol. WPA improved security using TKIP. WPA2 uses stronger AES encryption. WPA3 provides the strongest security, mutual authentication, and better protection against password guessing.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["wifi", "security", "wpa", "wpa2", "wpa3"],
+    "category": "security"
+  },
+  {
+    "id": 33,
+    "question": "What is CSMA/CD and where is it used?",
+    "answer": "Carrier Sense Multiple Access with Collision Detection (CSMA/CD) is a media access control method used in traditional Ethernet to manage data transmission and collisions. Devices listen before transmitting and back off if a collision occurs.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["csma/cd", "ethernet", "media-access"],
+    "category": "data-link-layer"
+  },
+  {
+    "id": 34,
+    "question": "Explain MPLS (Multiprotocol Label Switching).",
+    "answer": "MPLS is a high-performance routing technique that forwards data based on labels instead of network addresses, enabling faster, more efficient traffic management and supporting QoS and VPN implementations.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["mpls", "routing", "label-switching"],
+    "category": "network-layer"
+  },
+  {
+    "id": 35,
+    "question": "What is latency? What factors affect it?",
+    "answer": "Latency is the delay from sending a packet to its successful delivery. Factors include propagation delay, transmission time, processing time, and queuing in routers.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["latency", "performance"],
+    "category": "performance"
+  },
+  {
+    "id": 36,
+    "question": "What is bandwidth? How is it measured?",
+    "answer": "Bandwidth is the maximum rate of data transfer across a network path, measured in bits per second (bps), typically Mbps or Gbps for modern networks.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["bandwidth", "performance"],
+    "category": "performance"
+  },
+  {
+    "id": 37,
+    "question": "How do you troubleshoot a network outage?",
+    "answer": "Begin by verifying physical connections, checking IP address configuration, pinging local and remote devices, examining router and switch logs, and using tools like traceroute and netstat to narrow down issues.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["troubleshooting", "diagnostics"],
+    "category": "troubleshooting"
+  },
+  {
+    "id": 38,
+    "question": "What are sockets in networking?",
+    "answer": "A socket is an endpoint for communication between two machines, identified by an IP address and port number. Sockets are used by applications for sending and receiving data across a network.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["sockets", "programming"],
+    "category": "application"
+  },
+  {
+    "id": 39,
+    "question": "Write a simple server-side socket code in Python.",
+    "answer": "This demonstrates a basic TCP server that listens on a port and receives data from a client:",
+    "syntax": "import socket\ns = socket.socket(socket.AF_INET, socket.SOCK_STREAM)\ns.bind(('localhost', 8080))\ns.listen(1)\nconn, addr = s.accept()\nprint(conn.recv(1024))\nconn.close()",
+    "difficulty": "intermediate",
+    "tags": ["sockets", "tcp", "python"],
+    "category": "application"
+  },
+  {
+    "id": 40,
+    "question": "What is the TTL field in an IP header?",
+    "answer": "TTL (Time to Live) is a field in the IP header that limits the lifespan of a packet. It is decremented by 1 at each hop; when it reaches zero, the packet is discarded. This prevents routing loops.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["ttl", "ip-header"],
+    "category": "network-layer"
+  },
+  {
+    "id": 41,
+    "question": "How does NAT handle inbound connections?",
+    "answer": "NAT uses port forwarding or NAT traversal to map inbound external requests to the correct internal device and port, since private IPs aren't directly reachable from outside.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["nat", "port-forwarding"],
+    "category": "addressing"
+  },
+  {
+    "id": 42,
+    "question": "What is a DMZ in networking?",
+    "answer": "A DMZ (Demilitarized Zone) is a separated network that contains public-facing servers. It acts as a buffer zone between the internet and a private network to reduce security risks.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["dmz", "security", "networks"],
+    "category": "security"
+  },
+  {
+    "id": 43,
+    "question": "What is the difference between IPv4 and IPv6?",
+    "answer": "IPv4 uses 32-bit addresses, supporting around 4.3 billion unique addresses, formatted as four octets (e.g., 192.168.1.1). IPv6 uses 128-bit addresses, supports exponentially more devices, and uses hex notation (e.g., 2001:db8::1).",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["ipv4", "ipv6", "addressing"],
+    "category": "addressing"
+  },
+  {
+    "id": 44,
+    "question": "What is congestion control in TCP?",
+    "answer": "Congestion control prevents network overload by adjusting the transmission rate based on feedback (like packet loss or delay). TCP uses algorithms like slow start, congestion avoidance, fast retransmit, and fast recovery.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["congestion-control", "tcp"],
+    "category": "transport-layer"
+  },
+  {
+    "id": 45,
+    "question": "Explain the use of SSL/TLS.",
+    "answer": "SSL/TLS are cryptographic protocols that provide secure communication over networks, ensuring confidentiality, data integrity, and authentication. Widely used in HTTPS for web security.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["ssl", "tls", "security"],
+    "category": "security"
+  },
+  {
+    "id": 46,
+    "question": "What is a Broadcast Domain and how can it be reduced?",
+    "answer": "A broadcast domain is a network area where any broadcast sent will reach all nodes. Routers and VLANs can segment and decrease broadcast domains, increasing efficiency and security.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["broadcast", "vlan"],
+    "category": "network-segmentation"
+  },
+  {
+    "id": 47,
+    "question": "What is port scanning? Name a popular tool.",
+    "answer": "Port scanning is a technique used to identify open ports and services on a host, often as part of network auditing or security assessments. Nmap (Network Mapper) is a widely used tool.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["port-scan", "security", "nmap"],
+    "category": "security"
+  },
+  {
+    "id": 48,
+    "question": "What is a SYN flood attack?",
+    "answer": "A SYN flood is a type of Denial-of-Service (DoS) attack that floods a server with incomplete TCP handshake requests, consuming resources and preventing legitimate connections.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["syn-flood", "dos", "security"],
+    "category": "security"
+  },
+  {
+    "id": 49,
+    "question": "Explain the function of ICMP Echo and Echo Reply.",
+    "answer": "The Echo request and Echo reply messages (ICMP type 8 and 0) are used for network diagnostics, allowing tools like ping to test network connectivity between hosts.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["icmp", "ping", "echo"],
+    "category": "network-layer"
+  },
+  {
+    "id": 50,
+    "question": "What is 'default gateway' in networking?",
+    "answer": "The default gateway is a router or network device that forwards packets from the local network to destinations outside, typically toward the Internet. Configuring it is necessary for external communication.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["default-gateway", "routing"],
+    "category": "routing"
+  },
+  {
+    "id": 51,
+    "question": "Explain the Ping and Traceroute utilities.",
+    "answer": "Ping tests basic reachability between hosts using ICMP Echo messages, while Traceroute diagnoses route paths and identifies where packet loss or delay occurs by showing each hop along the way.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["ping", "traceroute", "diagnostics"],
+    "category": "troubleshooting"
+  },
+  {
+    "id": 52,
+    "question": "What is Wireshark and why is it used?",
+    "answer": "Wireshark is a powerful packet analyzer that captures and inspects network traffic in real time, widely used for troubleshooting, protocol development, and security analysis.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["wireshark", "packet-capture", "analysis"],
+    "category": "troubleshooting"
+  },
+  {
+    "id": 53,
+    "question": "What is a routing table?",
+    "answer": "A routing table is a data table stored in routers or networked computers that lists available routes to various network destinations, helping determine the best path for each IP packet.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["routing-table", "routes"],
+    "category": "routing"
+  },
+  {
+    "id": 54,
+    "question": "Explain the function of OSPF protocol.",
+    "answer": "OSPF (Open Shortest Path First) is a link-state interior gateway protocol for finding the shortest path between routers in large or complex networks using the Dijkstra algorithm.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["ospf", "routing", "link-state"],
+    "category": "network-layer"
+  },
+  {
+    "id": 55,
+    "question": "What is a port number? Give some common examples.",
+    "answer": "A port number identifies a specific process or service within a host. E.g., HTTP uses port 80, HTTPS uses 443, FTP uses 21, and SSH uses 22.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["port", "tcp", "udp"],
+    "category": "addressing"
+  },
+  {
+    "id": 56,
+    "question": "What is an IDS and an IPS?",
+    "answer": "IDS (Intrusion Detection System) monitors network traffic for suspicious activity, while IPS (Intrusion Prevention System) also takes action to block or prevent detected threats in real time.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["ids", "ips", "security"],
+    "category": "security"
+  },
+  {
+    "id": 57,
+    "question": "What are VLAN trunking and tagging?",
+    "answer": "Trunking allows multiple VLANs to share a single physical link using tags (often IEEE 802.1Q). Tagging identifies which VLAN a frame belongs to. This enables logical segmentation across switches.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["vlan", "trunking", "tagging"],
+    "category": "network-segmentation"
+  },
+  {
+    "id": 58,
+    "question": "What is DNS spoofing?",
+    "answer": "DNS spoofing is an attack where corrupted DNS data redirects users from legitimate sites to malicious ones, often for phishing or malware. DNSSEC can help prevent this.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["dns", "spoofing", "security"],
+    "category": "security"
+  },
+  {
+    "id": 59,
+    "question": "Describe the PPP protocol and its use.",
+    "answer": "PPP (Point-to-Point Protocol) is a data link protocol used to connect two nodes directly. It provides authentication, encryption, and compression for dial-up and leased line connections.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["ppp", "protocols"],
+    "category": "data-link-layer"
+  },
+  {
+    "id": 60,
+    "question": "What is Network Address Translation (NAT) Overload or PAT?",
+    "answer": "NAT overload (Port Address Translation or PAT) maps multiple private IP addresses to a single public IP by tracking ports, enabling many devices to share one public address for Internet access.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["nat", "pat", "addressing"],
+    "category": "addressing"
+  },
+  {
+    "id": 61,
+    "question": "Explain ARP spoofing and its consequences.",
+    "answer": "ARP spoofing is a technique where an attacker sends fake ARP messages to associate their MAC address with the IP address of another device, enabling man-in-the-middle attacks or DoS.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["arp", "spoofing", "security"],
+    "category": "security"
+  },
+  {
+    "id": 62,
+    "question": "What does 'duplex' mean in networking?",
+    "answer": "Duplex refers to the direction of data transmission: half-duplex allows bidirectional communication but not simultaneously, while full-duplex allows sending and receiving at the same time.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["duplex", "transmission"],
+    "category": "transmission-methods"
+  },
+  {
+    "id": 63,
+    "question": "What are the main differences between a router and a gateway?",
+    "answer": "A router forwards packets between networks using IP addresses. A gateway is a broader term—it's a device that connects different networks, often performing protocol translation in addition to routing.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["router", "gateway"],
+    "category": "network-devices"
+  },
+  {
+    "id": 64,
+    "question": "What is a service port? How do TCP and UDP differ in creating connections?",
+    "answer": "A service port is a logical access point for communication in transport layer protocols. TCP sets up a connection with a three-way handshake, while UDP is connectionless and sends packets without handshakes.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["tcp", "udp", "port"],
+    "category": "transport-layer"
+  },
+  {
+    "id": 65,
+    "question": "How is packet loss detected and handled in TCP?",
+    "answer": "TCP detects packet loss using sequence numbers and acknowledgments. If no ACK is received within a timeout or triple duplicate ACKs are seen, the sender retransmits the lost packet.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["tcp", "packet-loss", "retransmission"],
+    "category": "transport-layer"
+  },
+  {
+    "id": 66,
+    "question": "What is DNS caching?",
+    "answer": "DNS caching stores previously resolved domain-to-IP mappings for a set time (TTL). This speeds up future queries for the same domain and reduces DNS lookup traffic.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["dns", "caching"],
+    "category": "services"
+  },
+  {
+    "id": 67,
+    "question": "How can you secure a Wi-Fi network?",
+    "answer": "Use WPA2/WPA3 for encryption, a strong passphrase, disable WPS, regularly update firmware, enable MAC address filtering, and reduce signal range if possible.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["wifi", "security"],
+    "category": "security"
+  },
+  {
+    "id": 68,
+    "question": "Explain network segmentation and its security benefits.",
+    "answer": "Network segmentation divides a network into smaller segments (subnets or VLANs), limiting broadcast domains and confining breaches, which enhances security by containing threats.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["segmentation", "vlan", "security"],
+    "category": "security"
+  },
+  {
+    "id": 69,
+    "question": "What is a network topology? Name popular types.",
+    "answer": "Network topology describes the physical or logical arrangement of nodes and links in a network. Common types include bus, star, ring, mesh, and hybrid topologies.",
+    "syntax": "",
+    "difficulty": "beginner",
+    "tags": ["topology", "network-design"],
+    "category": "fundamentals"
+  },
+  {
+    "id": 70,
+    "question": "Explain the concept of SDN (Software Defined Networking).",
+    "answer": "SDN separates the network infrastructure's control plane from the data plane, enabling centralized management, automation, and programmability to simplify and optimize network operations.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["sdn", "network-management"],
+    "category": "advanced-concepts"
+  },
+  
+  {
+    "id": 71,
+    "question": "What is the difference between static routing and dynamic routing?",
+    "answer": "Static routing is manually configured by a network administrator and does not change unless manually updated. Dynamic routing uses protocols (like OSPF, EIGRP, RIP) to automatically discover and maintain routes, adapting to network changes in real time.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["static-routing", "dynamic-routing", "routing"],
+    "category": "routing"
+  },
+  {
+    "id": 72,
+    "question": "Explain the difference between Layer 2 and Layer 3 switches.",
+    "answer": "Layer 2 switches operate at the Data Link layer, forwarding frames based on MAC addresses. Layer 3 switches operate at the Network layer and can perform routing between different networks, using IP addresses.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["layer2-switch", "layer3-switch", "osi"],
+    "category": "network-devices"
+  },
+  {
+    "id": 73,
+    "question": "How would you troubleshoot slow network performance?",
+    "answer": "Steps: (1) Check physical connections. (2) Measure latency and bandwidth (ping, speed test). (3) Diagnose using traceroute, netstat, or Wireshark. (4) Inspect for congestion or broadcast storms. (5) Verify device or interface errors. (6) Check for malware, high CPU, or memory usage.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["troubleshooting", "performance"],
+    "category": "troubleshooting"
+  },
+  {
+    "id": 74,
+    "question": "What are the main differences between the OSI and TCP/IP models?",
+    "answer": "The OSI has 7 layers (Physical, Data Link, Network, Transport, Session, Presentation, Application); TCP/IP has 4 (Link, Internet, Transport, Application). OSI is conceptual; TCP/IP is protocol-oriented. Some layers (like session/presentation) are absent in TCP/IP.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["osi", "tcp-ip", "models"],
+    "category": "models"
+  },
+  {
+    "id": 75,
+    "question": "Describe how NAT traversal works.",
+    "answer": "NAT traversal refers to techniques that allow devices behind NAT to establish inbound and outbound connections. Methods include port forwarding, Universal Plug and Play (UPnP), Session Traversal Utilities for NAT (STUN), and application-level gateways.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["nat", "traversal"],
+    "category": "addressing"
+  },
+  {
+    "id": 76,
+    "question": "How would you secure a public web server in a production environment?",
+    "answer": "Best practices: (1) Place it in a DMZ. (2) Use strong firewalls and access control. (3) Apply regular OS and app patches. (4) Use HTTPS with valid SSL/TLS certificates. (5) Enable logging and intrusion detection. (6) Limit open ports to necessary services only.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["web-security", "server", "dmz", "firewall"],
+    "category": "security"
+  },
+  {
+    "id": 77,
+    "question": "How does an HTTPS handshake establish a secure connection?",
+    "answer": "The client and server exchange SSL/TLS versions and cryptographic capabilities, the server sends its certificate, keys are exchanged (via asymmetric encryption), and a symmetric session key is generated for data encryption thereafter.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["https", "tls", "handshake"],
+    "category": "security"
+  },
+  {
+    "id": 78,
+    "question": "Explain the purpose and working of the Spanning Tree Protocol (STP).",
+    "answer": "STP prevents Layer 2 network loops by selectively blocking redundant paths. Switches elect a root bridge, calculate the shortest path, and disable links that could cause loops, ensuring a loop-free topology.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["stp", "loop-prevention", "switching"],
+    "category": "network-layer"
+  },
+  {
+    "id": 79,
+    "question": "How would you capture and analyze network packets on a Linux machine?",
+    "answer": "Use tcpdump for CLI-based capture: \n\nsudo tcpdump -i eth0 -w output.pcap\n\nAnalyze with Wireshark (GUI), which can open .pcap files and provide insights into protocols and packet details.",
+    "syntax": "sudo tcpdump -i eth0 -w output.pcap",
+    "difficulty": "intermediate",
+    "tags": ["tcpdump", "wireshark", "packet-capture"],
+    "category": "troubleshooting"
+  },
+  {
+    "id": 80,
+    "question": "What are GRE tunnels and where are they used?",
+    "answer": "GRE (Generic Routing Encapsulation) tunnels encapsulate a wide variety of network protocols inside point-to-point connections. They're used for VPNs, connecting remote sites, and supporting multicast routing.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["gre", "tunneling", "vpn"],
+    "category": "advanced-concepts"
+  },
+  {
+    "id": 81,
+    "question": "How does load balancing work at Layer 4 versus Layer 7?",
+    "answer": "Layer 4 (Transport) load balancers route traffic based on IP address and port (TCP/UDP). Layer 7 (Application) load balancers use HTTP headers, URL paths, cookies, or application data to make routing decisions.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["load-balancing", "layer4", "layer7"],
+    "category": "optimization"
+  },
+  {
+    "id": 82,
+    "question": "Give an example of configuring a static IP address on Linux.",
+    "answer": "You can configure a static IP using the 'ip' or 'nmcli' command, or by editing configuration files, e.g., /etc/network/interfaces or /etc/netplan/*.yaml.",
+    "syntax": "sudo ip addr add 192.168.1.100/24 dev eth0\nsudo ip route add default via 192.168.1.1",
+    "difficulty": "intermediate",
+    "tags": ["linux", "ip", "static-configuration"],
+    "category": "network-management"
+  },
+  {
+    "id": 83,
+    "question": "What are split horizon and poison reverse in distance vector routing protocols?",
+    "answer": "Split horizon prevents a router from advertising a route back out the interface on which it was learned, reducing routing loops. Poison reverse advertises routes as unreachable with an infinite metric to further reinforce loop prevention.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["distance-vector", "rip", "routing"],
+    "category": "routing"
+  },
+  {
+    "id": 84,
+    "question": "How does port security work on a Cisco switch?",
+    "answer": "Port security allows specifying which MAC addresses can connect to a switch port. If an unknown or excess MAC address tries to access, the switch can shut the port or raise an alert.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["cisco", "port-security", "switch"],
+    "category": "security"
+  },
+  {
+    "id": 85,
+    "question": "What is asymmetric routing and why can it cause issues with stateful firewalls?",
+    "answer": "Asymmetric routing means packets in a conversation take different paths between endpoints. Stateful firewalls track sessions; if a return packet takes another route and bypasses the firewall, it can be dropped as illegitimate.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["asymmetric-routing", "firewall", "routing"],
+    "category": "network-layer"
+  },
+  {
+    "id": 86,
+    "question": "Explain how a DNS amplification attack works.",
+    "answer": "A DNS amplification attack is a type of DDoS attack where an attacker spoofs requests to open DNS servers, causing them to send large responses to a victim, overwhelming their network with amplified traffic.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["dns", "amplification", "ddos"],
+    "category": "security"
+  },
+  {
+    "id": 87,
+    "question": "How does IPv6 handle address assignment differently from IPv4?",
+    "answer": "IPv6 supports stateless address autoconfiguration (SLAAC), where devices automatically generate their IP addresses. DHCPv6 can also be used. There's no NAT, and global uniqueness is easier due to the larger address space.",
+    "syntax": "",
+    "difficulty": "intermediate",
+    "tags": ["ipv6", "slaac", "dhcpv6"],
+    "category": "addressing"
+  },
+  {
+    "id": 88,
+    "question": "What is a zero trust network?",
+    "answer": "Zero trust is a security model that assumes no part of the system is inherently trusted. All devices, users, and network flows are continuously verified, regardless of their location or previous authentication.",
+    "syntax": "",
+    "difficulty": "advanced",
+    "tags": ["zero-trust", "security"],
+    "category": "security"
+  },
+  {
+    "id": 89,
+    "question": "What command would you use to check active network connections on a Linux server?",
+    "answer": "You can use the 'netstat', 'ss', or 'lsof' commands. For example, 'ss -tuln' lists all listening TCP and UDP sockets.",
+    "syntax": "ss -tuln",
+    "difficulty": "intermediate",
+    "tags": ["linux", "network-commands"],
+    "category": "troubleshooting"
+  },
+  {
+    "id": 90,
+    "question": "How would you block an IP address using a firewall on Linux?",
+    "answer": "Use the iptables or nftables command. Example: to block 1.2.3.4, use 'sudo iptables -A INPUT -s 1.2.3.4 -j DROP'.",
+    "syntax": "sudo iptables -A INPUT -s 1.2.3.4 -j DROP",
+    "difficulty": "intermediate",
+    "tags": ["linux", "firewall", "iptables"],
+    "category": "security"
+  }
+]
