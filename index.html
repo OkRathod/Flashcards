@@ -175,7 +175,6 @@
             transform: rotateY(180deg);
             height: auto;
             z-index: 10;
-
         }
 
         .card-content {
@@ -350,16 +349,19 @@
             justify-content: space-around;
             margin: 20px 0;
             color: white;
+            z-index: -10;
         }
 
         .stat-item {
             text-align: center;
+            z-index: -10;
         }
 
         .stat-value {
             font-size: 24px;
             font-weight: bold;
             display: block;
+            z-index: -10;
         }
 
         .stat-label {
@@ -367,6 +369,7 @@
             opacity: 0.8;
             text-transform: uppercase;
             letter-spacing: 1px;
+            z-index: -10;
         }
 
         .instructions {
@@ -420,10 +423,6 @@
                 min-width: 200px;
                 padding: 12px 40px 12px 15px;
             }
-
-            #prevBtn{
-                z-index: -10;
-            }
         }
     </style>
 </head>
@@ -442,6 +441,7 @@
                     <option value="sysd">System Design</option>
                     <option value="dsa">Data Structures and Algorithms</option>
                     <option value="sqlq">SQL Questions</option>
+                    <option value="DSA150">Leetcode Top Interview 150</option>
                 </select>
                 <div class="dropdown-arrow">▼</div>
             </div>
@@ -546,7 +546,8 @@
             'cn': '/data/flashcards/cn.json',
             'sysd': '/data/flashcards/sysd.json',
             'dsa': '/data/flashcards/dsa.json',
-            'sqlq': '/data/flashcards/sqlq.json'
+            'sqlq': '/data/flashcards/sqlq.json',
+            'DSA150': '/data/flashcards/dsa150.json'
         };
 
         async function loadSubject() {

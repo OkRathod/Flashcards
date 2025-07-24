@@ -1,0 +1,1352 @@
+[
+  {
+    "id": 1,
+    "question": "Merge Sorted Array",
+    "answer": "1. Maintain three indices: i for nums1 (filled portion), j for nums2, k for write location from the end. 2. Write the larger of nums1[i] and nums2[j] at nums1[k], decrement the pointers. 3. If nums2 has leftovers, copy to nums1. O(m + n), in-place.",
+    "syntax": "// C++-style pseudocode\nvoid merge(int nums1[], int m, int nums2[], int n) {\n  int i = m-1, j = n-1, k = m+n-1;\n  while(i >= 0 && j >= 0) nums1[k--] = (nums1[i] > nums2[j]) ? nums1[i--] : nums2[j--];\n  while(j >= 0) nums1[k--] = nums2[j--];\n}",
+    "difficulty": "easy",
+    "tags": ["array", "two-pointer", "in-place"],
+    "category": "arrays"
+  },
+  {
+    "id": 2,
+    "question": "Remove Element",
+    "answer": "1. Use pointer k for next write position. 2. Copy any non-val elements into nums[k++]. 3. Return k as the new logical length.",
+    "syntax": "// C++-style pseudocode\nint removeElement(vector<int>& nums, int val) {\n  int k = 0;\n  for(int n : nums) if(n != val) nums[k++] = n;\n  return k;\n}",
+    "difficulty": "easy",
+    "tags": ["array", "two-pointer"],
+    "category": "arrays"
+  },
+  {
+    "id": 3,
+    "question": "Remove Duplicates from Sorted Array",
+    "answer": "1. Use slow pointer for unique elements. 2. Fast scans; when nums[fast] != nums[slow], copy over. 3. Return slow+1 at end.",
+    "syntax": "// C++-style pseudocode\nint removeDuplicates(vector<int>& nums) {\n  if(nums.empty()) return 0;\n  int slow = 0;\n  for(int fast = 1; fast < nums.size(); ++fast)\n    if(nums[fast] != nums[slow]) nums[++slow] = nums[fast];\n  return slow + 1;\n}",
+    "difficulty": "easy",
+    "tags": ["array", "two-pointer"],
+    "category": "arrays"
+  },
+  {
+    "id": 4,
+    "question": "Remove Duplicates from Sorted Array II",
+    "answer": "1. Allow max two occurrences: slow pointer starts at 2. 2. Copy nums[fast] if nums[fast] != nums[slow-2].",
+    "syntax": "// C++-style pseudocode\nint removeDuplicates(vector<int>& nums) {\n  if(nums.size() <= 2) return nums.size();\n  int slow = 2;\n  for(int fast = 2; fast < nums.size(); ++fast)\n    if(nums[fast] != nums[slow-2]) nums[slow++] = nums[fast];\n  return slow;\n}",
+    "difficulty": "medium",
+    "tags": ["array", "two-pointer"],
+    "category": "arrays"
+  },
+  {
+    "id": 5,
+    "question": "Majority Element",
+    "answer": "1. Boyer-Moore voting: maintain candidate and counter. 2. Vote counter resets to new candidate when zero.",
+    "syntax": "// C++-style pseudocode\nint majorityElement(vector<int>& nums) {\n  int cand = 0, cnt = 0;\n  for(int x : nums) {\n    if(cnt == 0) cand = x;\n    cnt += (x == cand ? 1 : -1);\n  }\n  return cand;\n}",
+    "difficulty": "easy",
+    "tags": ["array", "voting-algorithm"],
+    "category": "arrays"
+  },
+  {
+    "id": 6,
+    "question": "Rotate Array",
+    "answer": "1. Normalize k by k %= n. 2. Reverse the entire array. 3. Reverse first k, then reverse from k to end.",
+    "syntax": "// C++-style pseudocode\nvoid rotate(vector<int>& nums, int k) {\n  int n = nums.size(); k %= n;\n  reverse(nums.begin(), nums.end());\n  reverse(nums.begin(), nums.begin() + k);\n  reverse(nums.begin() + k, nums.end());\n}",
+    "difficulty": "easy",
+    "tags": ["array", "in-place", "reverse"],
+    "category": "arrays"
+  },
+  {
+    "id": 7,
+    "question": "Best Time to Buy and Sell Stock",
+    "answer": "1. Track min price so far. 2. Update profit with current price - min price.",
+    "syntax": "// C++-style pseudocode\nint maxProfit(vector<int>& prices) {\n  int mn = INT_MAX, ans = 0;\n  for(int p : prices) { mn = min(mn, p); ans = max(ans, p - mn); }\n  return ans;\n}",
+    "difficulty": "easy",
+    "tags": ["array", "greedy"],
+    "category": "arrays"
+  },
+  {
+    "id": 8,
+    "question": "Best Time to Buy and Sell Stock II",
+    "answer": "1. Accumulate all positive price deltas. 2. Equivalent to summing each local ascent.",
+    "syntax": "// C++-style pseudocode\nint maxProfitII(vector<int>& prices) {\n  int profit = 0;\n  for(int i = 1; i < prices.size(); ++i)\n    if(prices[i] > prices[i-1]) profit += prices[i] - prices[i-1];\n  return profit;\n}",
+    "difficulty": "easy",
+    "tags": ["array", "greedy"],
+    "category": "arrays"
+  },
+  {
+    "id": 9,
+    "question": "Jump Game",
+    "answer": "1. Greedy: maintain farthest reachable index while scanning. 2. If at any point i > farthest, return false.",
+    "syntax": "// C++-style pseudocode\nbool canJump(vector<int>& nums) {\n  int reach = 0;\n  for(int i = 0; i <= reach && i < nums.size(); ++i)\n    reach = max(reach, i + nums[i]);\n  return reach >= nums.size() - 1;\n}",
+    "difficulty": "medium",
+    "tags": ["array", "greedy"],
+    "category": "arrays"
+  },
+  {
+    "id": 10,
+    "question": "Jump Game II",
+    "answer": "1. Think in BFS levels: Each jump expands to the farthest next index. 2. Increment step at the end of each level.",
+    "syntax": "// C++-style pseudocode\nint jump(vector<int>& nums) {\n  int steps = 0, end = 0, far = 0;\n  for(int i = 0; i < nums.size() - 1; ++i) {\n    far = max(far, i + nums[i]);\n    if(i == end) { ++steps; end = far; }\n  }\n  return steps;\n}",
+    "difficulty": "medium",
+    "tags": ["array", "greedy", "bfs"],
+    "category": "arrays"
+  },
+  {
+    "id": 11,
+    "question": "H-Index",
+    "answer": "1. Sort citations ascending. 2. For each h, if citations[h] >= n - h, return n - h where n is total citations count.",
+    "syntax": "// C++-style pseudocode\nint hIndex(vector<int>& citations) {\n  sort(citations.begin(), citations.end());\n  int n = citations.size();\n  for(int h = 0; h < n; ++h) {\n    if(citations[h] >= n - h) return n - h;\n  }\n  return 0;\n}",
+    "difficulty": "medium",
+    "tags": ["sorting", "greedy"],
+    "category": "arrays"
+  },
+  {
+    "id": 12,
+    "question": "Insert Delete GetRandom O(1)",
+    "answer": "1. Use hashmap for value to index, and vector for values. 2. Insert appends to vector and records index. 3. Delete swaps with last element, pops vector, updates hashmap. 4. GetRandom picks random index.",
+    "syntax": "// C++-style pseudocode\nclass RandomizedSet {\n  unordered_map<int,int> pos;\n  vector<int> nums;\npublic:\n  bool insert(int val) {\n    if(pos.count(val)) return false;\n    pos[val] = nums.size();\n    nums.push_back(val);\n    return true;\n  }\n  bool remove(int val) {\n    if(!pos.count(val)) return false;\n    int idx = pos[val];\n    int last = nums.back();\n    nums[idx] = last;\n    pos[last] = idx;\n    nums.pop_back();\n    pos.erase(val);\n    return true;\n  }\n  int getRandom() {\n    return nums[rand() % nums.size()];\n  }\n};",
+    "difficulty": "medium",
+    "tags": ["hash-table", "design", "array"],
+    "category": "design"
+  },
+  {
+    "id": 13,
+    "question": "Product of Array Except Self",
+    "answer": "1. Compute prefix products in ans array. 2. Then multiply suffix products in reverse pass.\n3. No division used.\n4. O(n) time and O(1) extra space (excluding output).",
+    "syntax": "// C++-style pseudocode\nvector<int> productExceptSelf(vector<int>& nums) {\n  int n = nums.size();\n  vector<int> ans(n,1);\n  for(int i=1; i<n; ++i) ans[i] = ans[i-1] * nums[i-1];\n  int R = 1;\n  for(int i=n-1; i>=0; --i) {\n    ans[i] *= R;\n    R *= nums[i];\n  }\n  return ans;\n}",
+    "difficulty": "medium",
+    "tags": ["array", "prefix-sum"],
+    "category": "arrays"
+  },
+  {
+    "id": 14,
+    "question": "Gas Station",
+    "answer": "1. If total gas is less than total cost, no solution. 2. Keep track of current tank, reset start index when negative. 3. Return start index at end.",
+    "syntax": "// C++-style pseudocode\nint canCompleteCircuit(vector<int>& gas, vector<int>& cost) {\n  int total = 0, tank = 0, start = 0;\n  for(int i = 0; i < gas.size(); ++i) {\n    total += gas[i] - cost[i];\n    tank += gas[i] - cost[i];\n    if(tank < 0) {\n      start = i + 1;\n      tank = 0;\n    }\n  }\n  return (total < 0) ? -1 : start;\n}",
+    "difficulty": "medium",
+    "tags": ["greedy", "array"],
+    "category": "greedy"
+  },
+  {
+    "id": 15,
+    "question": "Candy",
+    "answer": "1. Assign 1 candy to each child. 2. Left to right: if rating[i] > rating[i-1], c[i] = c[i-1] + 1.\n3. Right to left: if rating[i] > rating[i+1], c[i] = max(c[i], c[i+1]+1).\n4. Sum all candies.",
+    "syntax": "// C++-style pseudocode\nint candy(vector<int>& ratings) {\n  int n = ratings.size();\n  vector<int> c(n, 1);\n  for(int i=1; i<n; ++i) {\n    if(ratings[i] > ratings[i-1]) c[i] = c[i-1] + 1;\n  }\n  for(int i=n-2; i>=0; --i) {\n    if(ratings[i] > ratings[i+1]) c[i] = max(c[i], c[i+1] + 1);\n  }\n  return accumulate(c.begin(), c.end(), 0);\n}",
+    "difficulty": "medium",
+    "tags": ["greedy", "array"],
+    "category": "greedy"
+  },
+  {
+    "id": 16,
+    "question": "Trapping Rain Water",
+    "answer": "1. Use two pointers from left and right end. 2. Track max heights from both sides. 3. Move pointer with lower height, accumulate trapped water.\n4. O(n) time and O(1) space.",
+    "syntax": "// C++-style pseudocode\nint trap(vector<int>& height) {\n  int l = 0, r = height.size() - 1, leftMax = 0, rightMax = 0, ans = 0;\n  while(l < r) {\n    if(height[l] < height[r]) {\n      if(height[l] >= leftMax) leftMax = height[l];\n      else ans += leftMax - height[l];\n      ++l;\n    } else {\n      if(height[r] >= rightMax) rightMax = height[r];\n      else ans += rightMax - height[r];\n      --r;\n    }\n  }\n  return ans;\n}",
+    "difficulty": "hard",
+    "tags": ["two-pointer", "greedy"],
+    "category": "two-pointer"
+  },
+  {
+    "id": 17,
+    "question": "Roman to Integer",
+    "answer": "1. Map Roman numerals to integers.\n2. Iterate over string; add current value.\n3. If current < next, subtract current instead.\n4. Sum to answer.",
+    "syntax": "// C++-style pseudocode\nint romanToInt(string s) {\n  unordered_map<char,int> val = {{'I',1},{'V',5},{'X',10},{'L',50},{'C',100},{'D',500},{'M',1000}};\n  int total = 0;\n  for(int i = 0; i < s.size(); ++i) {\n    if(i+1 < s.size() && val[s[i]] < val[s[i+1]]) total -= val[s[i]];\n    else total += val[s[i]];\n  }\n  return total;\n}",
+    "difficulty": "easy",
+    "tags": ["string", "hash-map"],
+    "category": "strings"
+  },
+  {
+    "id": 18,
+    "question": "Integer to Roman",
+    "answer": "1. Predefine value-symbol pairs including subtractive forms.\n2. Greedily subtract values while appending symbols.\n3. Return built string.",
+    "syntax": "// C++-style pseudocode\nstring intToRoman(int num) {\n  vector<pair<int,string>> val = {{1000,\"M\"},{900,\"CM\"},{500,\"D\"},{400,\"CD\"},{100,\"C\"},{90,\"XC\"},{50,\"L\"},{40,\"XL\"},{10,\"X\"},{9,\"IX\"},{5,\"V\"},{4,\"IV\"},{1,\"I\"}};\n  string res;\n  for(auto &p : val) {\n    while(num >= p.first) {\n      res += p.second;\n      num -= p.first;\n    }\n  }\n  return res;\n}",
+    "difficulty": "easy",
+    "tags": ["string", "greedy"],
+    "category": "strings"
+  },
+  {
+    "id": 19,
+    "question": "Length of Last Word",
+    "answer": "1. Trim trailing spaces from end.\n2. Count characters until a space or beginning reached.\n3. Return count.",
+    "syntax": "// C++-style pseudocode\nint lengthOfLastWord(string s) {\n  int i = s.size() -1, len = 0;\n  while(i >=0 && s[i] == ' ') --i;\n  while(i >=0 && s[i] != ' ') { ++len; --i; }\n  return len;\n}",
+    "difficulty": "easy",
+    "tags": ["string"],
+    "category": "strings"
+  },
+  {
+    "id": 20,
+    "question": "Longest Common Prefix",
+    "answer": "1. Take first string as prefix.\n2. For each other string, reduce prefix while no longer matching.\n3. Early break if prefix empty.",
+    "syntax": "// C++-style pseudocode\nstring longestCommonPrefix(vector<string>& strs) {\n  if(strs.empty()) return \"\";\n  string prefix = strs[0];\n  for(int i=1; i<strs.size(); ++i) {\n    while(strs[i].find(prefix) != 0)\n      prefix.pop_back();\n    if(prefix.empty()) return \"\";\n  }\n  return prefix;\n}",
+    "difficulty": "easy",
+    "tags": ["string"],
+    "category": "strings"
+  },
+  {
+    "id": 21,
+    "question": "Reverse Words in a String",
+    "answer": "1. Split string into words.\n2. Reverse order.\n3. Join words with single spaces.",
+    "syntax": "// C++-style pseudocode\nstring reverseWords(string s) {\n  stringstream ss(s);\n  vector<string> words;\n  string word;\n  while(ss >> word) words.push_back(word);\n  reverse(words.begin(), words.end());\n  string res;\n  for(int i=0; i<words.size(); ++i) {\n    if(i) res += \" \";\n    res += words[i];\n  }\n  return res;\n}",
+    "difficulty": "easy",
+    "tags": ["string", "two-pointer"],
+    "category": "strings"
+  },
+  {
+    "id": 22,
+    "question": "Zigzag Conversion",
+    "answer": "1. Handle the special case when numRows is 1 (no zigzag pattern).\n2. Simulate writing characters into rows from top to bottom and then bottom to top, using a direction flag.\n3. Concatenate the rows to get the final string.\n4. Time complexity O(n), space complexity O(n).",
+    "syntax": "// C++-style pseudocode\nstring convert(string s, int numRows) {\n    if (numRows == 1) return s;\n    vector<string> rows(min(numRows, int(s.size())));\n    int curRow = 0;\n    bool goingDown = false;\n    for (char c : s) {\n        rows[curRow] += c;\n        if (curRow == 0 || curRow == numRows - 1) goingDown = !goingDown;\n        curRow += goingDown ? 1 : -1;\n    }\n    string ret;\n    for (string row : rows) ret += row;\n    return ret;\n}",
+    "difficulty": "medium",
+    "tags": ["string", "simulation"],
+    "category": "strings"
+  },
+  {
+    "id": 23,
+    "question": "Find the Index of the First Occurrence in a String",
+    "answer": "1. Use Knuth-Morris-Pratt (KMP) algorithm: compute longest prefix suffix (LPS) array for pattern.\n2. Iterate through text comparing characters; if mismatch, roll back pattern using LPS array rather than restarting from scratch.\n3. Return the start index of first match or -1 if not found.\n4. Runs in O(n + m) time, where n = length of text, m = length of pattern.",
+    "syntax": "// C++-style pseudocode\nint strStr(const string& haystack, const string& needle) {\n    if (needle.empty()) return 0;\n    vector<int> lps(needle.size(), 0);\n    for (int i = 1, j = 0; i < needle.size(); ) {\n        if (needle[i] == needle[j]) lps[i++] = ++j;\n        else if (j) j = lps[j - 1];\n        else lps[i++] = 0;\n    }\n    for (int i = 0, j = 0; i < haystack.size(); ) {\n        if (haystack[i] == needle[j]) { ++i; ++j; if (j == needle.size()) return i - j; }\n        else if (j) j = lps[j - 1];\n        else ++i;\n    }\n    return -1;\n}",
+    "difficulty": "medium",
+    "tags": ["string", "kmp", "pattern-matching"],
+    "category": "strings"
+  },
+  {
+    "id": 24,
+    "question": "Text Justification",
+    "answer": "1. Use a greedy approach to pack words in each line, such that the total length does not exceed maxWidth.\n2. Distribute extra spaces evenly; if spaces can't be evenly distributed, assign extra spaces to the left slots.\n3. For the last line or lines with a single word, left-justify and pad with spaces at the end.\n4. Time complexity O(n), space complexity O(n) for storing lines.",
+    "syntax": "// C++-style pseudocode\nvector<string> fullJustify(vector<string>& words, int maxWidth) {\n    vector<string> res;\n    int n = words.size(), i = 0;\n    while (i < n) {\n        int lineLen = words[i].size(), j = i + 1;\n        while (j < n && lineLen + 1 + words[j].size() <= maxWidth) lineLen += 1 + words[j++].size();\n        string line = words[i];\n        int gaps = j - i - 1;\n        if (j == n || gaps == 0) { // last line or single word\n            for (int k = i + 1; k < j; ++k) line += ' ' + words[k];\n            line += string(maxWidth - line.size(), ' ');\n        } else {\n            int spaces = maxWidth - lineLen + gaps;\n            int even = spaces / gaps, extra = spaces % gaps;\n            for (int k = i + 1; k < j; ++k) {\n                int spaceCount = even + (k - i <= extra ? 1 : 0);\n                line += string(spaceCount, ' ') + words[k];\n            }\n        }\n        res.push_back(line);\n        i = j;\n    }\n    return res;\n}",
+    "difficulty": "hard",
+    "tags": ["string", "greedy"],
+    "category": "strings"
+  },
+  {
+    "id": 25,
+    "question": "Valid Palindrome",
+    "answer": "1. Use two pointers from start and end.\n2. Skip all non-alphanumeric characters.\n3. Compare characters case-insensitively.\n4. If mismatch found, return false; otherwise, true after pointers cross.\n5. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nbool isPalindrome(string s) {\n    int left = 0, right = s.size() - 1;\n    while (left < right) {\n        while (left < right && !isalnum(s[left])) ++left;\n        while (left < right && !isalnum(s[right])) --right;\n        if (tolower(s[left]) != tolower(s[right])) return false;\n        ++left; --right;\n    }\n    return true;\n}",
+    "difficulty": "easy",
+    "tags": ["string", "two-pointer"],
+    "category": "strings"
+  },
+  {
+    "id": 26,
+    "question": "Is Subsequence",
+    "answer": "1. Maintain pointer i for string s.\n2. Iterate over t; when t[j] == s[i], increment i.\n3. If i == s.length() at end, s is subsequence of t.\n4. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nbool isSubsequence(string s, string t) {\n    int i = 0;\n    for (char c : t) {\n        if (i < s.size() && c == s[i]) ++i;\n    }\n    return i == s.size();\n}",
+    "difficulty": "easy",
+    "tags": ["two-pointer", "string"],
+    "category": "strings"
+  },
+  {
+    "id": 27,
+    "question": "Two Sum II - Input Array Is Sorted",
+    "answer": "1. Initialize two pointers: left at start, right at end.\n2. Compute sum of nums[left] + nums[right].\n3. If sum == target, return indices.\n4. If sum < target, increment left; else decrement right.\n5. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nvector<int> twoSum(vector<int>& numbers, int target) {\n    int left = 0, right = numbers.size() - 1;\n    while (left < right) {\n        int sum = numbers[left] + numbers[right];\n        if (sum == target) return {left + 1, right + 1};\n        else if (sum < target) left++;\n        else right--;\n    }\n    return {};\n}",
+    "difficulty": "easy",
+    "tags": ["two-pointer", "array"],
+    "category": "arrays"
+  },
+  {
+    "id": 28,
+    "question": "Container With Most Water",
+    "answer": "1. Use two pointers at start and end.\n2. Calculate area each step.\n3. Move pointer at smaller height inward.\n4. Track maximum area.\n5. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nint maxArea(vector<int>& height) {\n    int left = 0, right = height.size() - 1;\n    int max_area = 0;\n    while (left < right) {\n        int area = (right - left) * min(height[left], height[right]);\n        max_area = max(max_area, area);\n        if (height[left] < height[right]) left++;\n        else right--;\n    }\n    return max_area;\n}",
+    "difficulty": "medium",
+    "tags": ["two-pointer", "greedy"],
+    "category": "two-pointer"
+  },
+  {
+    "id": 29,
+    "question": "3Sum",
+    "answer": "1. Sort the array.\n2. Fix an element and use two pointers for the remaining array to find pairs summing to -fixed.\n3. Avoid duplicates by skipping equal elements.\n4. Time O(n^2), space O(1).",
+    "syntax": "// C++-style pseudocode\nvector<vector<int>> threeSum(vector<int>& nums) {\n    sort(nums.begin(), nums.end());\n    vector<vector<int>> res;\n    for (int i = 0; i < nums.size(); i++) {\n        if (i > 0 && nums[i] == nums[i-1]) continue;\n        int left = i + 1, right = nums.size() - 1;\n        while (left < right) {\n            int sum = nums[i] + nums[left] + nums[right];\n            if (sum < 0) left++;\n            else if (sum > 0) right--;\n            else {\n                res.push_back({nums[i], nums[left], nums[right]});\n                while (left < right && nums[left] == nums[left+1]) left++;\n                while (left < right && nums[right] == nums[right-1]) right--;\n                left++; right--;\n            }\n        }\n    }\n    return res;\n}",
+    "difficulty": "medium",
+    "tags": ["two-pointer", "sorting"],
+    "category": "two-pointer"
+  },
+  {
+    "id": 30,
+    "question": "Minimum Size Subarray Sum",
+    "answer": "1. Use sliding window with two pointers, expanding right pointer to increase sum.\n2. Shrink left pointer when sum >= target to minimize subarray size.\n3. Track minimum length during the process.\n4. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nint minSubArrayLen(int target, vector<int>& nums) {\n    int left = 0, sum = 0, min_len = INT_MAX;\n    for (int right = 0; right < nums.size(); right++) {\n        sum += nums[right];\n        while (sum >= target) {\n            min_len = min(min_len, right - left + 1);\n            sum -= nums[left++];\n        }\n    }\n    return min_len == INT_MAX ? 0 : min_len;\n}",
+    "difficulty": "medium",
+    "tags": ["two-pointer", "sliding-window"],
+    "category": "two-pointer"
+  },
+  {
+    "id": 31,
+    "question": "Longest Substring Without Repeating Characters",
+    "answer": "1. Use sliding window with left and right pointers.\n2. Maintain a hashmap for last seen indices of characters.\n3. Move left pointer when duplicate found.\n4. Track max window length.\n5. O(n) time, O(min(n,m)) space.",
+    "syntax": "// C++-style pseudocode\nint lengthOfLongestSubstring(string s) {\n    unordered_map<char, int> map;\n    int left = 0, max_len = 0;\n    for (int right = 0; right < s.size(); right++) {\n        if (map.count(s[right])) left = max(map[s[right]] + 1, left);\n        map[s[right]] = right;\n        max_len = max(max_len, right - left + 1);\n    }\n    return max_len;\n}",
+    "difficulty": "medium",
+    "tags": ["string", "sliding-window"],
+    "category": "strings"
+  },
+  {
+    "id": 32,
+    "question": "Substring with Concatenation of All Words",
+    "answer": "1. All words have same length.\n2. Slide windows with offsets equal to word length.\n3. Use two hashmaps for counting needed and current words.\n4. Update window to maintain validity.\n5. Time O(n * word_len), space O(m), where m is number of words.",
+    "syntax": "// C++-style pseudocode\nvector<int> findSubstring(string s, vector<string>& words) {\n    vector<int> res;\n    if(words.empty() || s.empty()) return res;\n    int word_len = words[0].size(), n = s.size(), total_len = word_len * words.size();\n    unordered_map<string, int> need;\n    for(auto& w : words) need[w]++;\n    for(int offset = 0; offset < word_len; offset++) {\n        unordered_map<string, int> window;\n        int left = offset, count = 0;\n        for(int right = offset; right <= n - word_len; right += word_len) {\n            string word = s.substr(right, word_len);\n            if(need.count(word)) {\n                window[word]++;\n                if(window[word] <= need[word]) count++;\n                while(window[word] > need[word]) {\n                    string left_word = s.substr(left, word_len);\n                    window[left_word]--;\n                    if(window[left_word] < need[left_word]) count--;\n                    left += word_len;\n                }\n                if(count == words.size()) res.push_back(left);\n            } else {\n                window.clear();\n                count = 0;\n                left = right + word_len;\n            }\n        }\n    }\n    return res;\n}",
+    "difficulty": "hard",
+    "tags": ["string", "hash-map", "sliding-window"],
+    "category": "strings"
+  },
+  {
+    "id": 33,
+    "question": "Minimum Window Substring",
+    "answer": "1. Maintain two hashmaps: need counts the chars needed, window counts the current window chars.\n2. Use two pointers expanding and contracting the window.\n3. When window contains all needed characters, update answer.\n4. Time O(n), space O(k).",
+    "syntax": "// C++-style pseudocode\nstring minWindow(string s, string t) {\n    unordered_map<char,int> need, window;\n    for (char c : t) need[c]++;\n    int left = 0, right = 0, valid = 0, start = 0, len = INT_MAX;\n    while (right < s.size()) {\n        char c = s[right++];\n        if (need.count(c)) {\n            window[c]++;\n            if (window[c] == need[c]) valid++;\n        }\n        while (valid == need.size()) {\n            if (right - left < len) {\n                start = left;\n                len = right - left;\n            }\n            char d = s[left++];\n            if (need.count(d)) {\n                if (window[d] == need[d]) valid--;\n                window[d]--;\n            }\n        }\n    }\n    return len == INT_MAX ? \"\" : s.substr(start, len);\n}",
+    "difficulty": "hard",
+    "tags": ["string", "sliding-window"],
+    "category": "strings"
+  },
+  {
+    "id": 34,
+    "question": "Valid Sudoku",
+    "answer": "1. Use 3 arrays of hash sets or boolean arrays for rows, columns, and boxes to track numbers.\n2. For each cell, check if number already appears in same row, column, or 3x3 box.\n3. Return false if any violations.\n4. Time O(81), space O(81).",
+    "syntax": "// C++-style pseudocode\nbool isValidSudoku(vector<vector<char>>& board) {\n    vector<vector<bool>> row(9, vector<bool>(9, false));\n    vector<vector<bool>> col(9, vector<bool>(9, false));\n    vector<vector<bool>> box(9, vector<bool>(9, false));\n    for (int i = 0; i < 9; i++) {\n        for (int j = 0; j < 9; j++) {\n            if (board[i][j] == '.') continue;\n            int num = board[i][j] - '1';\n            int k = (i / 3) * 3 + j / 3;\n            if (row[i][num] || col[j][num] || box[k][num]) return false;\n            row[i][num] = col[j][num] = box[k][num] = true;\n        }\n    }\n    return true;\n}",
+    "difficulty": "medium",
+    "tags": ["hash-table", "matrix"],
+    "category": "matrix"
+  },
+  {
+    "id": 35,
+    "question": "Spiral Matrix",
+    "answer": "1. Maintain four boundaries: top, bottom, left, right.\n2. Traverse in spiral order by moving right, down, left, up while adjusting boundaries.\n3. Time O(m*n), space O(m*n).",
+    "syntax": "// C++-style pseudocode\nvector<int> spiralOrder(vector<vector<int>>& matrix) {\n    if (matrix.empty()) return {};\n    int top = 0, bottom = matrix.size() - 1;\n    int left = 0, right = matrix[0].size() - 1;\n    vector<int> res;\n    while (top <= bottom && left <= right) {\n        for (int i = left; i <= right; ++i) res.push_back(matrix[top][i]);\n        ++top;\n        for (int i = top; i <= bottom; ++i) res.push_back(matrix[i][right]);\n        --right;\n        if (top <= bottom) {\n            for (int i = right; i >= left; --i) res.push_back(matrix[bottom][i]);\n            --bottom;\n        }\n        if (left <= right) {\n            for (int i = bottom; i >= top; --i) res.push_back(matrix[i][left]);\n            ++left;\n        }\n    }\n    return res;\n}",
+    "difficulty": "medium",
+    "tags": ["simulation", "matrix"],
+    "category": "matrix"
+  },
+  {
+    "id": 36,
+    "question": "Rotate Image",
+    "answer": "1. Transpose the matrix: swap matrix[i][j] and matrix[j][i].\n2. Reverse each row to achieve 90-degree rotation.\n3. Do all operations in-place.\n4. Time O(n^2), space O(1).",
+    "syntax": "// C++-style pseudocode\nvoid rotate(vector<vector<int>>& matrix) {\n    int n = matrix.size();\n    for (int i = 0; i < n; ++i) {\n        for (int j = i + 1; j < n; ++j) {\n            swap(matrix[i][j], matrix[j][i]);\n        }\n    }\n    for (auto& row : matrix) reverse(row.begin(), row.end());\n}",
+    "difficulty": "medium",
+    "tags": ["matrix", "in-place"],
+    "category": "matrix"
+  },
+  {
+    "id": 37,
+    "question": "Set Matrix Zeroes",
+    "answer": "1. Use first row and first column as markers to indicate zero rows and columns.\n2. Scan the matrix and mark corresponding first row/column elements.\n3. Update matrix applying zeros where marked.\n4. Handle first row and column separately.\n5. Time O(m*n), space O(1).",
+    "syntax": "// C++-style pseudocode\nvoid setZeroes(vector<vector<int>>& matrix) {\n    bool firstRow = false, firstCol = false;\n    int m = matrix.size(), n = matrix[0].size();\n    for (int i = 0; i < m; ++i) if (matrix[i][0] == 0) firstCol = true;\n    for (int j = 0; j < n; ++j) if (matrix[0][j] == 0) firstRow = true;\n\n    for (int i = 1; i < m; ++i) {\n        for (int j = 1; j < n; ++j) {\n            if (matrix[i][j] == 0) {\n                matrix[i][0] = 0;\n                matrix[0][j] = 0;\n            }\n        }\n    }\n\n    for (int i = 1; i < m; ++i) {\n        for (int j = 1; j < n; ++j) {\n            if (matrix[i][0] == 0 || matrix[0][j] == 0) matrix[i][j] = 0;\n        }\n    }\n\n    if (firstRow) fill(matrix[0].begin(), matrix[0].end(), 0);\n    if (firstCol) for (int i = 0; i < m; ++i) matrix[i][0] = 0;\n}",
+    "difficulty": "medium",
+    "tags": ["matrix", "in-place"],
+    "category": "matrix"
+  },
+  {
+    "id": 38,
+    "question": "Game of Life",
+    "answer": "1. Use in-place encoding with two bits: current state (bit0) and next state (bit1).\n2. For each cell, count live neighbors based on bit0.\n3. Apply rules and set next state in bit1.\n4. Shift bits to update board at the end.\n5. Time O(m*n), space O(1).",
+    "syntax": "// C++-style pseudocode\nvoid gameOfLife(vector<vector<int>>& board) {\n    int m = board.size(), n = board[0].size();\n    auto getBit = [&](int r, int c) {\n        if (r < 0 || c < 0 || r >= m || c >= n) return 0;\n        return board[r][c] & 1;\n    };\n    for (int r = 0; r < m; ++r) {\n        for (int c = 0; c < n; ++c) {\n            int liveNeighbors = 0;\n            for (int i = -1; i <= 1; ++i) {\n                for (int j = -1; j <= 1; ++j) {\n                    if (i == 0 && j == 0) continue;\n                    liveNeighbors += getBit(r + i, c + j);\n                }\n            }\n            if ((board[r][c] & 1) && (liveNeighbors == 2 || liveNeighbors == 3))\n                board[r][c] |= 2;\n            if (!(board[r][c] & 1) && liveNeighbors == 3)\n                board[r][c] |= 2;\n        }\n    }\n    for (int r = 0; r < m; ++r) {\n        for (int c = 0; c < n; ++c) {\n            board[r][c] >>= 1;\n        }\n    }\n}",
+    "difficulty": "medium",
+    "tags": ["matrix", "bit-manipulation"],
+    "category": "matrix"
+  },
+  {
+    "id": 39,
+    "question": "Ransom Note",
+    "answer": "1. Count character frequencies in magazine.\n2. For each char in ransom note, decrement count.\n3. If count < 0, return false.\n4. Time O(m + n), space O(1 for alphabet size).",
+    "syntax": "// C++-style pseudocode\nbool canConstruct(string ransomNote, string magazine) {\n    int count[26] = {0};\n    for (char c : magazine) count[c - 'a']++;\n    for (char c : ransomNote) {\n        if (--count[c - 'a'] < 0) return false;\n    }\n    return true;\n}",
+    "difficulty": "easy",
+    "tags": ["hash-map", "string"],
+    "category": "strings"
+  },
+  {
+    "id": 40,
+    "question": "Isomorphic Strings",
+    "answer": "1. Maintain two maps (or arrays) to store mapping for s to t and t to s.\n2. For each character, check and maintain mapping consistency.\n3. Return false if violation found.\n4. Time O(n), space O(1 with fixed charset).",
+    "syntax": "// C++-style pseudocode\nbool isIsomorphic(string s, string t) {\n    int mapS[256] = {0}, mapT[256] = {0};\n    for (int i = 0; i < s.size(); ++i) {\n        if (mapS[s[i]] != mapT[t[i]]) return false;\n        mapS[s[i]] = mapT[t[i]] = i + 1;\n    }\n    return true;\n}",
+    "difficulty": "easy",
+    "tags": ["string", "hash-map"],
+    "category": "strings"
+  },
+  {
+    "id": 41,
+    "question": "Word Pattern",
+    "answer": "1. Split s into words.\n2. Map pattern chars to words and vice versa ensuring bijection.\n3. If any mapping mismatch, return false.\n4. Time O(n), space O(n).",
+    "syntax": "// C++-style pseudocode\nbool wordPattern(string pattern, string s) {\n    vector<string> words;\n    stringstream ss(s);\n    string word;\n    while (ss >> word) words.push_back(word);\n    if (pattern.size() != words.size()) return false;\n    unordered_map<char, string> p2w;\n    unordered_map<string, char> w2p;\n    for (int i = 0; i < pattern.size(); i++) {\n        char c = pattern[i];\n        if (p2w.count(c) && p2w[c] != words[i]) return false;\n        if (w2p.count(words[i]) && w2p[words[i]] != c) return false;\n        p2w[c] = words[i];\n        w2p[words[i]] = c;\n    }\n    return true;\n}",
+    "difficulty": "easy",
+    "tags": ["string", "hash-map"],
+    "category": "strings"
+  },
+  {
+    "id": 42,
+    "question": "Valid Anagram",
+    "answer": "1. Check if lengths differ, return false.\n2. Count character frequencies for s, decrement for t.\n3. If any count negative, not an anagram.\n4. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nbool isAnagram(string s, string t) {\n    if (s.size() != t.size()) return false;\n    int count[26] = {0};\n    for (int i = 0; i < s.size(); ++i) {\n        count[s[i] - 'a']++;\n        count[t[i] - 'a']--;\n    }\n    for (int c : count) {\n        if (c != 0) return false;\n    }\n    return true;\n}",
+    "difficulty": "easy",
+    "tags": ["string", "hash-map"],
+    "category": "strings"
+  },
+  {
+    "id": 43,
+    "question": "Group Anagrams",
+    "answer": "1. Sort each word and use sorted string as key.\n2. Group words with same key in hash map.\n3. Return grouped collections.\n4. Time depends on total string length, typically O(n k log k).",
+    "syntax": "// C++-style pseudocode\nvector<vector<string>> groupAnagrams(vector<string>& strs) {\n    unordered_map<string, vector<string>> mp;\n    for (auto &s : strs) {\n        string key = s;\n        sort(key.begin(), key.end());\n        mp[key].push_back(s);\n    }\n    vector<vector<string>> res;\n    for (auto &[k, v] : mp) res.push_back(move(v));\n    return res;\n}",
+    "difficulty": "medium",
+    "tags": ["hash-map", "string", "sorting"],
+    "category": "strings"
+  },
+  {
+    "id": 44,
+    "question": "Two Sum",
+    "answer": "1. Use a hashmap to store value → index.\n2. For each element, check if target - element exists.\n3. Return indices on first match.\n4. O(n) time, O(n) space.",
+    "syntax": "// C++-style pseudocode\nvector<int> twoSum(vector<int>& nums, int target) {\n    unordered_map<int, int> mp;\n    for (int i = 0; i < nums.size(); ++i) {\n        int complement = target - nums[i];\n        if (mp.count(complement)) return {mp[complement], i};\n        mp[nums[i]] = i;\n    }\n    return {};\n}",
+    "difficulty": "easy",
+    "tags": ["hash-map", "array"],
+    "category": "arrays"
+  },
+  {
+    "id": 45,
+    "question": "Happy Number",
+    "answer": "1. Use Floyd’s cycle-finding algorithm with sum of squares of digits function.\n2. If cycle reaches 1, number is happy, else not.\n3. Time and space generally small due to fast convergence.",
+    "syntax": "// C++-style pseudocode\nint sumSquares(int n) {\n    int total = 0;\n    while (n > 0) {\n        int digit = n % 10;\n        total += digit * digit;\n        n /= 10;\n    }\n    return total;\n}\nbool isHappy(int n) {\n    int slow = n, fast = sumSquares(n);\n    while (fast != 1 && slow != fast) {\n        slow = sumSquares(slow);\n        fast = sumSquares(sumSquares(fast));\n    }\n    return fast == 1;\n}",
+    "difficulty": "easy",
+    "tags": ["math", "hash-set", "cycle-detection"],
+    "category": "math"
+  },
+  {
+    "id": 46,
+    "question": "Contains Duplicate II",
+    "answer": "1. Use hashmap storing last index seen.\n2. On visiting element, check if previous index is within k.\n3. Return true if such duplicate exists, false otherwise.\n4. Time O(n), space O(n).",
+    "syntax": "// C++-style pseudocode\nbool containsNearbyDuplicate(vector<int>& nums, int k) {\n    unordered_map<int, int> mp;\n    for (int i = 0; i < nums.size(); ++i) {\n        if (mp.count(nums[i]) && i - mp[nums[i]] <= k) return true;\n        mp[nums[i]] = i;\n    }\n    return false;\n}",
+    "difficulty": "easy",
+    "tags": ["hash-map", "array"],
+    "category": "arrays"
+  },
+  {
+    "id": 47,
+    "question": "Longest Consecutive Sequence",
+    "answer": "1. Insert all elements into set.\n2. For each element, start a sequence only if element-1 not in set.\n3. Search consecutive sequence length.\n4. Track maximum length.\n5. O(n) time and space.",
+    "syntax": "// C++-style pseudocode\nint longestConsecutive(vector<int>& nums) {\n    unordered_set<int> s(nums.begin(), nums.end());\n    int longest = 0;\n    for (int num : s) {\n        if (s.find(num - 1) == s.end()) {\n            int length = 1;\n            while (s.find(num + length) != s.end()) length++;\n            longest = max(longest, length);\n        }\n    }\n    return longest;\n}",
+    "difficulty": "hard",
+    "tags": ["hash-set", "array"],
+    "category": "hashing"
+  },
+  {
+    "id": 48,
+    "question": "Summary Ranges",
+    "answer": "1. Iterate over sorted nums.\n2. Accumulate ranges until current and next not contiguous.\n3. Store range as 'start->end' or single number string.\n4. Time O(n), space O(1) excluding output.",
+    "syntax": "// C++-style pseudocode\nvector<string> summaryRanges(vector<int>& nums) {\n    vector<string> res;\n    int n = nums.size();\n    for (int i = 0; i < n; i++) {\n        int start = nums[i];\n        while (i + 1 < n && nums[i + 1] == nums[i] + 1) i++;\n        if (start != nums[i]) res.push_back(to_string(start) + \"->\" + to_string(nums[i]));\n        else res.push_back(to_string(start));\n    }\n    return res;\n}",
+    "difficulty": "easy",
+    "tags": ["array"],
+    "category": "arrays"
+  },
+  {
+    "id": 49,
+    "question": "Merge Intervals",
+    "answer": "1. Sort intervals based on start times.\n2. Iterate through intervals, merging overlapping ones.\n3. Add merged intervals to result.\n4. Time O(n log n), space O(n).",
+    "syntax": "// C++-style pseudocode\nvector<vector<int>> merge(vector<vector<int>>& intervals) {\n    if (intervals.empty()) return {};\n    sort(intervals.begin(), intervals.end());\n    vector<vector<int>> res;\n    res.push_back(intervals[0]);\n    for (int i = 1; i < intervals.size(); ++i) {\n        if (res.back()[1] >= intervals[i][0]) {\n            res.back()[1] = max(res.back()[1], intervals[i][1]);\n        } else {\n            res.push_back(intervals[i]);\n        }\n    }\n    return res;\n}",
+    "difficulty": "medium",
+    "tags": ["sorting", "interval"],
+    "category": "sorting & searching"
+  },
+  {
+    "id": 50,
+    "question": "What is an augmented tree and give an example use case.",
+    "answer": "An augmented tree is a binary search tree enhanced with extra information at each node, such as subtree size, sum, or min/max. This allows efficient complex queries, such as order statistics (kth smallest/largest), interval overlap counting, and range sum.",
+    "syntax": "// BST with subtree size\nclass AugTreeNode {\n  constructor(val) {\n    this.val = val;\n    this.size = 1;\n    this.left = this.right = null;\n  }\n}",
+    "difficulty": "expert",
+    "tags": ["augmented-tree", "BST", "order-statistics"],
+    "category": "advanced-trees"
+  },
+  {
+    "id": 51,
+    "question": "Minimum Number of Arrows to Burst Balloons",
+    "answer": "1. Sort intervals by their end coordinate.\n2. Shoot an arrow at the end position of the first balloon.\n3. For each subsequent balloon, if its start is beyond the arrow position, shoot a new arrow at its end.\n4. Time O(n log n), space O(1).",
+    "syntax": "// C++-style pseudocode\nint findMinArrowShots(vector<vector<int>>& points) {\n  if (points.empty()) return 0;\n  sort(points.begin(), points.end(), [](auto& a, auto& b) { return a[1] < b[1]; });\n  int arrows = 1, pos = points[0][1];\n  for (auto& p : points) {\n    if (p[0] > pos) {\n      ++arrows;\n      pos = p[1];\n    }\n  }\n  return arrows;\n}",
+    "difficulty": "medium",
+    "tags": ["greedy", "intervals", "sorting"],
+    "category": "greedy"
+  },
+  {
+    "id": 52,
+    "question": "Valid Parentheses",
+    "answer": "1. Use a stack to track opening brackets.\n2. On encountering a closing bracket, check if top of stack is corresponding opening.\n3. If match, pop the stack, else return false.\n4. At the end, stack must be empty.\n5. Time O(n), space O(n).",
+    "syntax": "// C++-style pseudocode\nbool isValid(string s) {\n  stack<char> st;\n  unordered_map<char, char> pairs = {{')','('},{']','['},{'}','{'}};\n  for (char c : s) {\n    if (pairs.count(c)) {\n      if (st.empty() || st.top() != pairs[c]) return false;\n      st.pop();\n    } else {\n      st.push(c);\n    }\n  }\n  return st.empty();\n}",
+    "difficulty": "easy",
+    "tags": ["stack", "string"],
+    "category": "stack"
+  },
+  {
+    "id": 53,
+    "question": "Simplify Path",
+    "answer": "1. Split the path by '/' and process tokens.\n2. Use a stack to maintain directories.\n3. Ignore '.' tokens and pop stack on '..'.\n4. Join stack content to form canonical path.\n5. Time O(n), space O(n).",
+    "syntax": "// C++-style pseudocode\nstring simplifyPath(string path) {\n  vector<string> st;\n  stringstream ss(path);\n  string token;\n  while (getline(ss, token, '/')) {\n    if (token == \"\" || token == \".\") continue;\n    if (token == \"..\") {\n      if (!st.empty()) st.pop_back();\n    } else {\n      st.push_back(token);\n    }\n  }\n  string res = \"/\";\n  for (int i = 0; i < st.size(); i++) {\n    res += st[i];\n    if (i != st.size() - 1) res += \"/\";\n  }\n  return res;\n}",
+    "difficulty": "medium",
+    "tags": ["stack", "string"],
+    "category": "stack"
+  },
+  {
+    "id": 54,
+    "question": "Min Stack",
+    "answer": "1. Maintain a stack of pairs containing (value, current minimum).\n2. On push, new minimum is min(new value, current minimum).\n3. On pop, remove top element.\n4. GetMin returns current minimum at top.\n5. All operations O(1).",
+    "syntax": "// C++-style pseudocode\nclass MinStack {\n  stack<pair<int,int>> st;\npublic:\n  void push(int x) {\n    int currMin = st.empty() ? x : min(x, st.top().second);\n    st.push({x, currMin});\n  }\n  void pop() {\n    st.pop();\n  }\n  int top() {\n    return st.top().first;\n  }\n  int getMin() {\n    return st.top().second;\n  }\n};",
+    "difficulty": "easy",
+    "tags": ["stack", "design"],
+    "category": "stack"
+  },
+  {
+    "id": 55,
+    "question": "Evaluate Reverse Polish Notation",
+    "answer": "1. Use a stack to store operands.\n2. For each token, if operator, pop two operands, apply operation, and push result.\n3. If operand, push to stack.\n4. Final stack top is the answer.\n5. Time O(n), space O(n).",
+    "syntax": "// C++-style pseudocode\nint evalRPN(vector<string>& tokens) {\n  stack<int> st;\n  for (auto& t : tokens) {\n    if (t == \"+\" || t == \"-\" || t == \"*\" || t == \"/\") {\n      int b = st.top(); st.pop();\n      int a = st.top(); st.pop();\n      if (t == \"+\") st.push(a + b);\n      else if (t == \"-\") st.push(a - b);\n      else if (t == \"*\") st.push(a * b);\n      else st.push(a / b);\n    } else {\n      st.push(stoi(t));\n    }\n  }\n  return st.top();\n}",
+    "difficulty": "medium",
+    "tags": ["stack"],
+    "category": "stack"
+  },
+  {
+    "id": 56,
+    "question": "Basic Calculator",
+    "answer": "1. Use stack to store current result and sign for each parenthesis level.\n2. Iterate over string: parse numbers, apply +/− with sign.\n3. On '(' push current result and sign onto stack.\n4. On ')' pop and combine results.\n5. Time O(n), space O(n).",
+    "syntax": "// C++-style pseudocode\nint calculate(string s) {\n  stack<int> stk;\n  int result = 0, number = 0, sign = 1;\n  for (int i = 0; i < s.size(); ++i) {\n    char c = s[i];\n    if (isdigit(c)) {\n      number = number * 10 + (c - '0');\n    } else if (c == '+') {\n      result += sign * number;\n      number = 0;\n      sign = 1;\n    } else if (c == '-') {\n      result += sign * number;\n      number = 0;\n      sign = -1;\n    } else if (c == '(') {\n      stk.push(result);\n      stk.push(sign);\n      result = 0;\n      sign = 1;\n    } else if (c == ')') {\n      result += sign * number;\n      number = 0;\n      result *= stk.top(); stk.pop();\n      result += stk.top(); stk.pop();\n    }\n  }\n  result += sign * number;\n  return result;\n}",
+    "difficulty": "hard",
+    "tags": ["stack", "string"],
+    "category": "stack"
+  },
+  {
+    "id": 57,
+    "question": "Linked List Cycle",
+    "answer": "1. Use Floyd’s cycle detection: Two pointers fast and slow.\n2. Fast moves 2 steps, slow moves 1 step.\n3. If they meet, cycle exists.\n4. If fast reaches null, no cycle.\n5. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nbool hasCycle(ListNode* head) {\n  if (!head || !head->next) return false;\n  ListNode* slow = head;\n  ListNode* fast = head->next;\n  while (fast && fast->next) {\n    if (slow == fast) return true;\n    slow = slow->next;\n    fast = fast->next->next;\n  }\n  return false;\n}",
+    "difficulty": "easy",
+    "tags": ["linked-list", "two-pointer"],
+    "category": "linked-list"
+  },
+  {
+    "id": 58,
+    "question": "Add Two Numbers",
+    "answer": "1. Traverse both linked lists simultaneously.\n2. Sum corresponding digits and carry.\n3. Create new node for result digit.\n4. Continue until both lists and carry are processed.\n5. Time O(max(m,n)), space O(max(m,n)).",
+    "syntax": "// C++-style pseudocode\nListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {\n  ListNode dummy;\n  ListNode* curr = &dummy;\n  int carry = 0;\n  while (l1 || l2 || carry) {\n    int sum = carry;\n    if (l1) { sum += l1->val; l1 = l1->next; }\n    if (l2) { sum += l2->val; l2 = l2->next; }\n    carry = sum / 10;\n    curr->next = new ListNode(sum % 10);\n    curr = curr->next;\n  }\n  return dummy.next;\n}",
+    "difficulty": "medium",
+    "tags": ["linked-list"],
+    "category": "linked-list"
+  },
+  {
+    "id": 59,
+    "question": "Merge Two Sorted Lists",
+    "answer": "1. Use dummy head to merge.\n2. Compare heads of both lists, append smaller to merged list.\n3. Append remaining nodes after one list is exhausted.\n4. Time O(m+n), space O(1).",
+    "syntax": "// C++-style pseudocode\nListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {\n  ListNode dummy;\n  ListNode* curr = &dummy;\n  while (l1 && l2) {\n    if (l1->val < l2->val) { curr->next = l1; l1 = l1->next; }\n    else { curr->next = l2; l2 = l2->next; }\n    curr = curr->next;\n  }\n  curr->next = l1 ? l1 : l2;\n  return dummy.next;\n}",
+    "difficulty": "easy",
+    "tags": ["linked-list"],
+    "category": "linked-list"
+  },
+  {
+    "id": 60,
+    "question": "Copy List with Random Pointer",
+    "answer": "1. Interleave copied nodes after originals.\n2. Setup random pointers for copied nodes.\n3. Detach copied list from original.\n4. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nNode* copyRandomList(Node* head) {\n  if (!head) return nullptr;\n  for (Node* cur = head; cur; cur = cur->next->next) {\n    Node* copy = new Node(cur->val);\n    copy->next = cur->next;\n    cur->next = copy;\n  }\n  for (Node* cur = head; cur; cur = cur->next->next) {\n    if (cur->random) cur->next->random = cur->random->next;\n  }\n  Node* dummy = new Node(0);\n  Node* copyCur = dummy;\n  for (Node* cur = head; cur; cur = cur->next) {\n    copyCur->next = cur->next;\n    copyCur = copyCur->next;\n    cur->next = cur->next->next;\n  }\n  return dummy->next;\n}",
+    "difficulty": "medium",
+    "tags": ["linked-list", "hash-map"],
+    "category": "linked-list"
+  },
+  {
+    "id": 61,
+    "question": "Reverse Linked List II",
+    "answer": "1. Traverse to node prior to sublist start.\n2. Reverse sublist between left and right indices.\n3. Reconnect reversed sublist to list.\n4. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nListNode* reverseBetween(ListNode* head, int left, int right) {\n  ListNode dummy(0);\n  dummy.next = head;\n  ListNode* prev = &dummy;\n  for (int i = 0; i < left - 1; ++i) prev = prev->next;\n  ListNode* curr = prev->next;\n  for (int i = 0; i < right - left; ++i) {\n    ListNode* temp = curr->next;\n    curr->next = temp->next;\n    temp->next = prev->next;\n    prev->next = temp;\n  }\n  return dummy.next;\n}",
+    "difficulty": "medium",
+    "tags": ["linked-list"],
+    "category": "linked-list"
+  },
+  {
+    "id": 62,
+    "question": "Reverse Nodes in k-Group",
+    "answer": "1. For every k nodes, reverse them using standard linked list reversal.\n2. Use recursion or iteration for further groups.\n3. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nListNode* reverseKGroup(ListNode* head, int k) {\n  ListNode* curr = head;\n  int count = 0;\n  while (curr && count != k) {\n    curr = curr->next;\n    count++;\n  }\n  if (count == k) {\n    curr = reverseKGroup(curr, k);\n    while (count--) {\n      ListNode* temp = head->next;\n      head->next = curr;\n      curr = head;\n      head = temp;\n    }\n    head = curr;\n  }\n  return head;\n}",
+    "difficulty": "hard",
+    "tags": ["linked-list"],
+    "category": "linked-list"
+  },
+  {
+    "id": 63,
+    "question": "Remove Nth Node From End of List",
+    "answer": "1. Use two pointers spaced n nodes apart.\n2. Move both until fast reaches end.\n3. Remove slow->next.\n4. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nListNode* removeNthFromEnd(ListNode* head, int n) {\n  ListNode dummy(0);\n  dummy.next = head;\n  ListNode* fast = &dummy;\n  ListNode* slow = &dummy;\n  for (int i = 0; i <= n; ++i) fast = fast->next;\n  while (fast) {\n    fast = fast->next;\n    slow = slow->next;\n  }\n  ListNode* toDelete = slow->next;\n  slow->next = slow->next->next;\n  delete toDelete;\n  return dummy.next;\n}",
+    "difficulty": "medium",
+    "tags": ["linked-list", "two-pointer"],
+    "category": "linked-list"
+  },
+  {
+    "id": 64,
+    "question": "Remove Duplicates from Sorted List II",
+    "answer": "1. Use dummy node and pointers to skip nodes with duplicate values.\n2. Traverse list removing all duplicates completely.\n3. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nListNode* deleteDuplicates(ListNode* head) {\n  ListNode dummy(0);\n  dummy.next = head;\n  ListNode* prev = &dummy;\n  while (head) {\n    if (head->next && head->val == head->next->val) {\n      while (head->next && head->val == head->next->val) {\n        ListNode* temp = head;\n        head = head->next;\n        delete temp;\n      }\n      ListNode* temp = head;\n      head = head->next;\n      delete temp;\n      prev->next = head;\n    } else {\n      prev = head;\n      head = head->next;\n    }\n  }\n  return dummy.next;\n}",
+    "difficulty": "medium",
+    "tags": ["linked-list"],
+    "category": "linked-list"
+  },
+  {
+    "id": 65,
+    "question": "Rotate List",
+    "answer": "1. Compute length and connect tail to head (make list circular).\n2. Find new tail at length - k % length - 1.\n3. Break the circle and return new head.\n4. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nListNode* rotateRight(ListNode* head, int k) {\n  if (!head) return nullptr;\n  int length = 1;\n  ListNode* tail = head;\n  while (tail->next) {\n    tail = tail->next;\n    length++;\n  }\n  tail->next = head;\n  k %= length;\n  for (int i = 0; i < length - k - 1; i++) head = head->next;\n  ListNode* newHead = head->next;\n  head->next = nullptr;\n  return newHead;\n}",
+    "difficulty": "medium",
+    "tags": ["linked-list"],
+    "category": "linked-list"
+  },
+  {
+    "id": 66,
+    "question": "Partition List",
+    "answer": "1. Create two lists: one for nodes less than x, one for nodes greater or equal.\n2. Attach the two lists together.\n3. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nListNode* partition(ListNode* head, int x) {\n  ListNode beforeDummy(0), afterDummy(0);\n  ListNode* before = &beforeDummy;\n  ListNode* after = &afterDummy;\n  while (head) {\n    if (head->val < x) {\n      before->next = head;\n      before = before->next;\n    } else {\n      after->next = head;\n      after = after->next;\n    }\n    head = head->next;\n  }\n  after->next = nullptr;\n  before->next = afterDummy.next;\n  return beforeDummy.next;\n}",
+    "difficulty": "medium",
+    "tags": ["linked-list"],
+    "category": "linked-list"
+  },
+  {
+    "id": 67,
+    "question": "LRU Cache",
+    "answer": "1. Use a hashmap to map keys to nodes in a doubly linked list.\n2. Upon get or put, move node to front indicating recent use.\n3. Evict least recently used node at the list tail when capacity exceeded.\n4. Time O(1) for get and put, space O(capacity).",
+    "syntax": "// C++-style pseudocode\nclass LRUCache {\n  int capacity;\n  list<pair<int,int>> cache;\n  unordered_map<int, list<pair<int,int>>::iterator> mp;\npublic:\n  LRUCache(int capacity): capacity(capacity) {}\n  int get(int key) {\n    if (mp.find(key) == mp.end()) return -1;\n    cache.splice(cache.begin(), cache, mp[key]);\n    return mp[key]->second;\n  }\n  void put(int key, int value) {\n    if (mp.find(key) != mp.end()) {\n      cache.splice(cache.begin(), cache, mp[key]);\n      mp[key]->second = value;\n      return;\n    }\n    if (cache.size() == capacity) {\n      int k = cache.back().first;\n      cache.pop_back();\n      mp.erase(k);\n    }\n    cache.emplace_front(key, value);\n    mp[key] = cache.begin();\n  }\n};",
+    "difficulty": "hard",
+    "tags": ["design", "hash-map", "linked-list"],
+    "category": "design"
+  },
+  {
+    "id": 68,
+    "question": "Maximum Depth of Binary Tree",
+    "answer": "1. Recursively calculate the depth of left and right subtrees.\n2. Maximum depth is max of left and right plus one.\n3. Time O(n), space O(h).",
+    "syntax": "// C++-style pseudocode\nint maxDepth(TreeNode* root) {\n  if (!root) return 0;\n  return 1 + max(maxDepth(root->left), maxDepth(root->right));\n}",
+    "difficulty": "easy",
+    "tags": ["tree", "dfs"],
+    "category": "trees"
+  },
+  {
+    "id": 69,
+    "question": "Same Tree",
+    "answer": "1. Recursively compare values and subtrees.\n2. Return false if any mismatch.\n3. Time O(n), space O(h).",
+    "syntax": "// C++-style pseudocode\nbool isSameTree(TreeNode* p, TreeNode* q) {\n  if (!p && !q) return true;\n  if (!p || !q) return false;\n  return (p->val == q->val) && isSameTree(p->left, q->left) && isSameTree(p->right, q->right);\n}",
+    "difficulty": "easy",
+    "tags": ["tree", "dfs"],
+    "category": "trees"
+  },
+  {
+    "id": 70,
+    "question": "Invert Binary Tree",
+    "answer": "1. Swap left and right children at each node recursively.\n2. Time O(n), space O(h).",
+    "syntax": "// C++-style pseudocode\nTreeNode* invertTree(TreeNode* root) {\n  if (!root) return nullptr;\n  swap(root->left, root->right);\n  invertTree(root->left);\n  invertTree(root->right);\n  return root;\n}",
+    "difficulty": "easy",
+    "tags": ["tree", "dfs"],
+    "category": "trees"
+  },
+  {
+    "id": 71,
+    "question": "Symmetric Tree",
+    "answer": "1. Recursively check if left and right subtrees are mirror images.\n2. Base if both null return true; if one null return false.\n3. Time O(n), space O(h).",
+    "syntax": "// C++-style pseudocode\nbool isMirror(TreeNode* t1, TreeNode* t2) {\n  if (!t1 && !t2) return true;\n  if (!t1 || !t2) return false;\n  return (t1->val == t2->val) && isMirror(t1->left, t2->right) && isMirror(t1->right, t2->left);\n}\nbool isSymmetric(TreeNode* root) {\n  return isMirror(root, root);\n}",
+    "difficulty": "easy",
+    "tags": ["tree", "dfs"],
+    "category": "trees"
+  },
+  {
+    "id": 72,
+    "question": "Construct Binary Tree from Preorder and Inorder Traversal",
+    "answer": "1. The first element of preorder is root.\n2. Use inorder to find root index, split left and right subtrees.\n3. Recur for left and right.\n4. Time O(n), space O(n).",
+    "syntax": "// C++-style pseudocode\nTreeNode* buildTreeHelper(vector<int>& preorder, int preStart, int preEnd, vector<int>& inorder, int inStart, int inEnd, unordered_map<int,int>& inMap) {\n  if (preStart > preEnd || inStart > inEnd) return nullptr;\n  int rootVal = preorder[preStart];\n  TreeNode* root = new TreeNode(rootVal);\n  int inRoot = inMap[rootVal];\n  int numsLeft = inRoot - inStart;\n  root->left = buildTreeHelper(preorder, preStart+1, preStart+numsLeft, inorder, inStart, inRoot-1, inMap);\n  root->right = buildTreeHelper(preorder, preStart+numsLeft+1, preEnd, inorder, inRoot+1, inEnd, inMap);\n  return root;\n}\nTreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {\n  unordered_map<int,int> inMap;\n  for (int i = 0; i < inorder.size(); ++i) inMap[inorder[i]] = i;\n  return buildTreeHelper(preorder, 0, preorder.size()-1, inorder, 0, inorder.size()-1, inMap);\n}",
+    "difficulty": "medium",
+    "tags": ["tree", "dfs", "array"],
+    "category": "trees"
+  },
+  {
+    "id": 73,
+    "question": "Construct Binary Tree from Inorder and Postorder Traversal",
+    "answer": "1. The last element in postorder is root.\n2. Use inorder to find root index and split subtrees.\n3. Recur for right and left (note order).\n4. Time O(n), space O(n).",
+    "syntax": "// C++-style pseudocode\nTreeNode* buildTreeHelper(vector<int>& inorder, int inStart, int inEnd, vector<int>& postorder, int postStart, int postEnd, unordered_map<int,int>& inMap) {\n  if (inStart > inEnd || postStart > postEnd) return nullptr;\n  int rootVal = postorder[postEnd];\n  TreeNode* root = new TreeNode(rootVal);\n  int inRoot = inMap[rootVal];\n  int numsLeft = inRoot - inStart;\n  root->left = buildTreeHelper(inorder, inStart, inRoot-1, postorder, postStart, postStart+numsLeft-1, inMap);\n  root->right = buildTreeHelper(inorder, inRoot+1, inEnd, postorder, postStart+numsLeft, postEnd-1, inMap);\n  return root;\n}\nTreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {\n  unordered_map<int,int> inMap;\n  for (int i = 0; i < inorder.size(); ++i) inMap[inorder[i]] = i;\n  return buildTreeHelper(inorder, 0, inorder.size()-1, postorder, 0, postorder.size()-1, inMap);\n}",
+    "difficulty": "medium",
+    "tags": ["tree", "dfs", "array"],
+    "category": "trees"
+  },
+  {
+    "id": 74,
+    "question": "Populating Next Right Pointers in Each Node II",
+    "answer": "1. Use level order traversal without extra queue.\n2. Use 'next' pointers to traverse current level, connect children for next.\n3. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nNode* connect(Node* root) {\n  while (root) {\n    Node* dummy = new Node(0), *curr = dummy;\n    while (root) {\n      if (root->left) { curr->next = root->left; curr = curr->next; }\n      if (root->right) { curr->next = root->right; curr = curr->next; }\n      root = root->next;\n    }\n    root = dummy->next;\n    delete dummy;\n  }\n  return root;\n}",
+    "difficulty": "medium",
+    "tags": ["tree", "level-order", "pointer"],
+    "category": "trees"
+  },
+  {
+    "id": 75,
+    "question": "Flatten Binary Tree to Linked List",
+    "answer": "1. Postorder traversal flatten left and right subtree.\n2. Attach left flattened list between root and right flattened list.\n3. Set root's left to null.\n4. Time O(n), space O(h).",
+    "syntax": "// C++-style pseudocode\nvoid flatten(TreeNode* root) {\n  if (!root) return;\n  flatten(root->left);\n  flatten(root->right);\n  TreeNode* left = root->left;\n  TreeNode* right = root->right;\n  root->left = nullptr;\n  root->right = left;\n  TreeNode* curr = root;\n  while (curr->right) curr = curr->right;\n  curr->right = right;\n}",
+    "difficulty": "medium",
+    "tags": ["tree", "dfs"],
+    "category": "trees"
+  },
+  {
+    "id": 76,
+    "question": "Path Sum",
+    "answer": "1. DFS recursively subtract node's value from sum.\n2. On reaching leaf, check if sum == 0.\n3. Return true if any path matches.\n4. Time O(n), space O(h).",
+    "syntax": "// C++-style pseudocode\nbool hasPathSum(TreeNode* root, int sum) {\n  if (!root) return false;\n  if (!root->left && !root->right) return root->val == sum;\n  return hasPathSum(root->left, sum - root->val) || hasPathSum(root->right, sum - root->val);\n}",
+    "difficulty": "easy",
+    "tags": ["tree", "dfs"],
+    "category": "trees"
+  },
+  {
+    "id": 77,
+    "question": "Sum Root to Leaf Numbers",
+    "answer": "1. DFS accumulating current number along path.\n2. At leaf, add number formed to total.\n3. Time O(n), space O(h).",
+    "syntax": "// C++-style pseudocode\nint dfs(TreeNode* root, int curr) {\n  if (!root) return 0;\n  curr = curr * 10 + root->val;\n  if (!root->left && !root->right) return curr;\n  return dfs(root->left, curr) + dfs(root->right, curr);\n}\nint sumNumbers(TreeNode* root) { return dfs(root, 0); }",
+    "difficulty": "medium",
+    "tags": ["tree", "dfs"],
+    "category": "trees"
+  },
+  {
+    "id": 78,
+    "question": "Binary Tree Maximum Path Sum",
+    "answer": "1. Postorder DFS to calculate max gain for each node.\n2. Max gain = node val + max(left, 0) + max(right, 0).\n3. Update global max path sum during traversal.\n4. Time O(n), space O(h).",
+    "syntax": "// C++-style pseudocode\nint maxSum = INT_MIN;\nint maxGain(TreeNode* root) {\n  if (!root) return 0;\n  int leftGain = max(maxGain(root->left), 0);\n  int rightGain = max(maxGain(root->right), 0);\n  maxSum = max(maxSum, root->val + leftGain + rightGain);\n  return root->val + max(leftGain, rightGain);\n}\nint maxPathSum(TreeNode* root) {\n  maxGain(root);\n  return maxSum;\n}",
+    "difficulty": "hard",
+    "tags": ["tree", "dfs"],
+    "category": "trees"
+  },
+  {
+    "id": 79,
+    "question": "Binary Search Tree Iterator",
+    "answer": "1. Use a stack to simulate controlled in-order traversal.\n2. Push all left nodes initially.\n3. On next, pop stack and push right child's left branch.\n4. O(1) amortized time per operation, O(h) space.\n",
+    "syntax": "// C++-style pseudocode\nclass BSTIterator {\n  stack<TreeNode*> st;\n  void pushLeft(TreeNode* node) {\n    while (node) {\n      st.push(node);\n      node = node->left;\n    }\n  }\npublic:\n  BSTIterator(TreeNode* root) { pushLeft(root); }\n  int next() {\n    TreeNode* node = st.top(); st.pop();\n    pushLeft(node->right);\n    return node->val;\n  }\n  bool hasNext() { return !st.empty(); }\n};",
+    "difficulty": "medium",
+    "tags": ["tree", "stack", "iterator"],
+    "category": "trees"
+  },
+  {
+    "id": 80,
+    "question": "Count Complete Tree Nodes",
+    "answer": "1. Compute left and right tree height.\n2. If equal, it's a perfect tree: nodes = 2^height - 1.\n3. Else recurse left and right.\n4. Time O(log^2 n), space O(log n).",
+    "syntax": "// C++-style pseudocode\nint leftHeight(TreeNode* node) {\n  int h = 0;\n  while (node) {\n    h++;\n    node = node->left;\n  }\n  return h;\n}\nint rightHeight(TreeNode* node) {\n  int h = 0;\n  while (node) {\n    h++;\n    node = node->right;\n  }\n  return h;\n}\nint countNodes(TreeNode* root) {\n  if (!root) return 0;\n  int lh = leftHeight(root);\n  int rh = rightHeight(root);\n  if (lh == rh) return (1 << lh) - 1;\n  return 1 + countNodes(root->left) + countNodes(root->right);\n}",
+    "difficulty": "medium",
+    "tags": ["tree", "binary-search"],
+    "category": "trees"
+  },
+  {
+    "id": 81,
+    "question": "Lowest Common Ancestor of a Binary Tree",
+    "answer": "1. DFS returns a node if it matches p or q or null.\n2. Search left and right.\n3. If both sides non-null, current node is LCA.\n4. Else propagate non-null child.\n5. Time O(n), space O(h).",
+    "syntax": "// C++-style pseudocode\nTreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {\n  if (!root || root == p || root == q) return root;\n  TreeNode* left = lowestCommonAncestor(root->left, p, q);\n  TreeNode* right = lowestCommonAncestor(root->right, p, q);\n  if (left && right) return root;\n  return left ? left : right;\n}",
+    "difficulty": "medium",
+    "tags": ["tree", "dfs"],
+    "category": "trees"
+  },
+  {
+    "id": 82,
+    "question": "Binary Tree Right Side View",
+    "answer": "1. BFS level order traversal.\n2. Record last node value per level.\n3. Time O(n), space O(n).",
+    "syntax": "// C++-style pseudocode\nvector<int> rightSideView(TreeNode* root) {\n  vector<int> res;\n  if (!root) return res;\n  queue<TreeNode*> q; q.push(root);\n  while (!q.empty()) {\n    int size = q.size();\n    for (int i = 0; i < size; ++i) {\n      TreeNode* node = q.front(); q.pop();\n      if (i == size - 1) res.push_back(node->val);\n      if (node->left) q.push(node->left);\n      if (node->right) q.push(node->right);\n    }\n  }\n  return res;\n}",
+    "difficulty": "easy",
+    "tags": ["tree", "bfs"],
+    "category": "trees"
+  },
+  {
+    "id": 83,
+    "question": "Average of Levels in Binary Tree",
+    "answer": "1. BFS level order traversal.\n2. For each level, sum values and divide by number of nodes.\n3. Time O(n), space O(n).",
+    "syntax": "// C++-style pseudocode\nvector<double> averageOfLevels(TreeNode* root) {\n  vector<double> res;\n  if (!root) return res;\n  queue<TreeNode*> q; q.push(root);\n  while (!q.empty()) {\n    long sum = 0;\n    int count = q.size();\n    for (int i = 0; i < count; ++i) {\n      TreeNode* node = q.front(); q.pop();\n      sum += node->val;\n      if (node->left) q.push(node->left);\n      if (node->right) q.push(node->right);\n    }\n    res.push_back((double)sum / count);\n  }\n  return res;\n}",
+    "difficulty": "easy",
+    "tags": ["tree", "bfs"],
+    "category": "trees"
+  },
+  {
+    "id": 84,
+    "question": "Binary Tree Level Order Traversal",
+    "answer": "1. BFS traversal.\n2. Collect nodes in each level into separate list.\n3. Time O(n), space O(n).",
+    "syntax": "// C++-style pseudocode\nvector<vector<int>> levelOrder(TreeNode* root) {\n  vector<vector<int>> result;\n  if (!root) return result;\n  queue<TreeNode*> q; q.push(root);\n  while (!q.empty()) {\n    int size = q.size();\n    vector<int> level;\n    for (int i = 0; i < size; ++i) {\n      TreeNode* node = q.front(); q.pop();\n      level.push_back(node->val);\n      if (node->left) q.push(node->left);\n      if (node->right) q.push(node->right);\n    }\n    result.push_back(level);\n  }\n  return result;\n}",
+    "difficulty": "easy",
+    "tags": ["tree", "bfs"],
+    "category": "trees"
+  },
+  {
+    "id": 85,
+    "question": "Binary Tree Zigzag Level Order Traversal",
+    "answer": "1. BFS traversal.\n2. For every other level, reverse the list or insert nodes accordingly.\n3. Time O(n), space O(n).",
+    "syntax": "// C++-style pseudocode\nvector<vector<int>> zigzagLevelOrder(TreeNode* root) {\n  vector<vector<int>> res;\n  if (!root) return res;\n  queue<TreeNode*> q; q.push(root);\n  bool reverseOrder = false;\n  while (!q.empty()) {\n    int size = q.size();\n    vector<int> level(size);\n    for (int i = 0; i < size; ++i) {\n      TreeNode* node = q.front(); q.pop();\n      int idx = reverseOrder ? size - 1 - i : i;\n      level[idx] = node->val;\n      if (node->left) q.push(node->left);\n      if (node->right) q.push(node->right);\n    }\n    res.push_back(level);\n    reverseOrder = !reverseOrder;\n  }\n  return res;\n}",
+    "difficulty": "medium",
+    "tags": ["tree", "bfs"],
+    "category": "trees"
+  },
+  {
+    "id": 86,
+    "question": "Minimum Absolute Difference in BST",
+    "answer": "1. Inorder traversal gives sorted nodes.\n2. Track previous node value to compute minimum difference.\n3. Time O(n), space O(h).",
+    "syntax": "// C++-style pseudocode\nint getMinimumDifference(TreeNode* root) {\n  int minDiff = INT_MAX;\n  TreeNode* prev = nullptr;\n  function<void(TreeNode*)> inorder = [&](TreeNode* node) {\n    if (!node) return;\n    inorder(node->left);\n    if (prev) minDiff = min(minDiff, node->val - prev->val);\n    prev = node;\n    inorder(node->right);\n  };\n  inorder(root);\n  return minDiff;\n}",
+    "difficulty": "easy",
+    "tags": ["tree", "inorder"],
+    "category": "trees"
+  },
+  {
+    "id": 87,
+    "question": "Kth Smallest Element in a BST",
+    "answer": "1. Inorder traversal visits nodes in ascending order.\n2. Use count to return k-th visited node value.\n3. Time O(h + k), space O(h).",
+    "syntax": "// C++-style pseudocode\nint kthSmallest(TreeNode* root, int k) {\n  stack<TreeNode*> st;\n  TreeNode* curr = root;\n  while (curr || !st.empty()) {\n    while (curr) {\n      st.push(curr);\n      curr = curr->left;\n    }\n    curr = st.top(); st.pop();\n    if (--k == 0) return curr->val;\n    curr = curr->right;\n  }\n  return -1;\n}",
+    "difficulty": "medium",
+    "tags": ["tree", "inorder", "binary-search"],
+    "category": "trees"
+  },
+  {
+    "id": 88,
+    "question": "Validate Binary Search Tree",
+    "answer": "1. Recursively check if values respect BST property with min and max bounds.\n2. Time O(n), space O(h).",
+    "syntax": "// C++-style pseudocode\nbool validate(TreeNode* root, long minVal, long maxVal) {\n  if (!root) return true;\n  if (root->val <= minVal || root->val >= maxVal) return false;\n  return validate(root->left, minVal, root->val) && validate(root->right, root->val, maxVal);\n}\nbool isValidBST(TreeNode* root) {\n  return validate(root, LONG_MIN, LONG_MAX);\n}",
+    "difficulty": "medium",
+    "tags": ["tree", "dfs"],
+    "category": "trees"
+  },
+  {
+    "id": 89,
+    "question": "Number of Islands",
+    "answer": "1. Iterate grid; for each '1' start DFS/BFS to mark connected lands.\n2. Increment count for each unvisited island.\n3. Time O(m*n), space O(m*n) recursion/queue.",
+    "syntax": "// C++-style pseudocode\nvoid dfs(vector<vector<char>>& grid, int r, int c) {\n  if (r < 0 || c < 0 || r >= grid.size() || c >= grid[0].size() || grid[r][c] == '0') return;\n  grid[r][c] = '0';\n  dfs(grid, r+1, c);\n  dfs(grid, r-1, c);\n  dfs(grid, r, c+1);\n  dfs(grid, r, c-1);\n}\nint numIslands(vector<vector<char>>& grid) {\n  int count = 0;\n  for (int i = 0; i < grid.size(); ++i) {\n    for (int j = 0; j < grid[0].size(); ++j) {\n      if (grid[i][j] == '1') {\n        dfs(grid, i, j);\n        count++;\n      }\n    }\n  }\n  return count;\n}",
+    "difficulty": "medium",
+    "tags": ["dfs", "bfs", "matrix"],
+    "category": "graph"
+  },
+  {
+    "id": 90,
+    "question": "Surrounded Regions",
+    "answer": "1. Flood fill from 'O's on borders, mark them safe.\n2. Flip all unsafe 'O's to 'X', safe back to 'O'.\n3. Time O(m*n), space O(m*n).",
+    "syntax": "// C++-style pseudocode\nvoid dfs(vector<vector<char>>& board, int r, int c) {\n  if (r < 0 || c < 0 || r >= board.size() || c >= board[0].size() || board[r][c] != 'O') return;\n  board[r][c] = '#';\n  dfs(board, r + 1, c);\n  dfs(board, r - 1, c);\n  dfs(board, r, c + 1);\n  dfs(board, r, c - 1);\n}\nvoid solve(vector<vector<char>>& board) {\n  if (board.empty()) return;\n  int m = board.size(), n = board[0].size();\n  for (int i = 0; i < m; ++i) {\n    dfs(board, i, 0);\n    dfs(board, i, n - 1);\n  }\n  for (int j = 0; j < n; ++j) {\n    dfs(board, 0, j);\n    dfs(board, m - 1, j);\n  }\n  for (int i = 0; i < m; ++i) {\n    for (int j = 0; j < n; ++j) {\n      if (board[i][j] == 'O') board[i][j] = 'X';\n      if (board[i][j] == '#') board[i][j] = 'O';\n    }\n  }\n}",
+    "difficulty": "medium",
+    "tags": ["dfs", "bfs", "matrix"],
+    "category": "graph"
+  },
+  {
+    "id": 91,
+    "question": "Clone Graph",
+    "answer": "1. Use DFS/BFS with hashmap to map original nodes to cloned nodes.\n2. For each node, clone neighbors recursively.\n3. Time O(V+E), space O(V).",
+    "syntax": "// C++-style pseudocode\nNode* cloneGraph(Node* node) {\n  if (!node) return nullptr;\n  unordered_map<Node*, Node*> mp;\n  function<Node*(Node*)> dfs = [&](Node* n) {\n    if (mp.count(n)) return mp[n];\n    Node* clone = new Node(n->val);\n    mp[n] = clone;\n    for (auto neigh : n->neighbors) clone->neighbors.push_back(dfs(neigh));\n    return clone;\n  };\n  return dfs(node);\n}",
+    "difficulty": "medium",
+    "tags": ["graph", "dfs", "bfs"],
+    "category": "graph"
+  },
+  {
+    "id": 92,
+    "question": "Evaluate Division",
+    "answer": "1. Build graph with weighted edges from equations.\n2. For each query, use DFS to find path product from numerator to denominator.\n3. If no path found, return -1.\n4. Time depends on queries, graph size.",
+    "syntax": "// C++-style pseudocode\ndouble dfs(unordered_map<string, vector<pair<string, double>>>& graph, string start, string end, unordered_set<string>& visited) {\n  if (!graph.count(start) || !graph.count(end)) return -1.0;\n  if (start == end) return 1.0;\n  visited.insert(start);\n  for (auto& [neighbor, weight] : graph[start]) {\n    if (!visited.count(neighbor)) {\n      double val = dfs(graph, neighbor, end, visited);\n      if (val != -1.0) return val * weight;\n    }\n  }\n  return -1.0;\n}\nvector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {\n  unordered_map<string, vector<pair<string, double>>> graph;\n  for (int i = 0; i < equations.size(); ++i) {\n    graph[equations[i][0]].push_back({equations[i][1], values[i]});\n    graph[equations[i][1]].push_back({equations[i][0], 1.0 / values[i]});\n  }\n  vector<double> res;\n  for (auto& q : queries) {\n    unordered_set<string> visited;\n    double val = dfs(graph, q[0], q[1], visited);\n    res.push_back(val);\n  }\n  return res;\n}",
+    "difficulty": "medium",
+    "tags": ["graph", "dfs"],
+    "category": "graph"
+  },
+  {
+    "id": 93,
+    "question": "Course Schedule",
+    "answer": "1. Use Kahn’s algorithm for cycle detection: compute in-degree, queue nodes with zero in-degree.\n2. Dequeue and reduce in-degree of neighbors.\n3. If all nodes visited, no cycle; else cycle exists.\n4. O(V+E) time and space.",
+    "syntax": "// C++-style pseudocode\nbool canFinish(int numCourses, vector<vector<int>>& prerequisites) {\n  vector<vector<int>> adj(numCourses);\n  vector<int> indegree(numCourses,0);\n  for (auto& pre : prerequisites) {\n    adj[pre[1]].push_back(pre[0]);\n    indegree[pre[0]]++;\n  }\n  queue<int> q;\n  for (int i = 0; i < numCourses; ++i) if (indegree[i] == 0) q.push(i);\n  int count = 0;\n  while (!q.empty()) {\n    int u = q.front(); q.pop(); count++;\n    for (int v : adj[u]) {\n      if (--indegree[v] == 0) q.push(v);\n    }\n  }\n  return count == numCourses;\n}",
+    "difficulty": "medium",
+    "tags": ["graph", "topological-sort"],
+    "category": "graph"
+  },
+  {
+    "id": 94,
+    "question": "Course Schedule II",
+    "answer": "1. Same as Course Schedule but record the order.\n2. Return order if no cycle; otherwise empty list.\n3. O(V+E) time and space.",
+    "syntax": "// C++-style pseudocode\nvector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {\n  vector<vector<int>> adj(numCourses);\n  vector<int> indegree(numCourses, 0);\n  for (auto& pre : prerequisites) {\n    adj[pre[1]].push_back(pre[0]);\n    indegree[pre[0]]++;\n  }\n  queue<int> q;\n  for (int i = 0; i < numCourses; ++i) if (indegree[i] == 0) q.push(i);\n  vector<int> order;\n  while (!q.empty()) {\n    int u = q.front(); q.pop();\n    order.push_back(u);\n    for (int v : adj[u]) {\n      if (--indegree[v] == 0) q.push(v);\n    }\n  }\n  if (order.size() != numCourses) return {};\n  return order;\n}",
+    "difficulty": "medium",
+    "tags": ["graph", "topological-sort"],
+    "category": "graph"
+  },
+  {
+    "id": 95,
+    "question": "Snakes and Ladders",
+    "answer": "1. Use BFS from square 1.\n2. For each position, explore next 6 reachable squares, considering snakes/ladders.\n3. Use map to convert between 2D board and 1D positions.\n4. Time O(n^2), space O(n^2).",
+    "syntax": "// C++-style pseudocode\nint snakesAndLadders(vector<vector<int>>& board) {\n  int n = board.size();\n  auto getIdx = [&](int s) {\n    int r = n - 1 - (s - 1) / n;\n    int c = (s - 1) % n;\n    if ((n - 1 - r) % 2) c = n - 1 - c;\n    return make_pair(r, c);\n  };\n  vector<int> dist(n*n + 1, -1);\n  queue<int> q;\n  dist[1] = 0; q.push(1);\n  while (!q.empty()) {\n    int s = q.front(); q.pop();\n    for (int i = 1; i <= 6; ++i) {\n      int ns = s + i;\n      if (ns > n*n) break;\n      auto [r, c] = getIdx(ns);\n      if (board[r][c] != -1) ns = board[r][c];\n      if (dist[ns] == -1) {\n        dist[ns] = dist[s] + 1;\n        if (ns == n*n) return dist[ns];\n        q.push(ns);\n      }\n    }\n  }\n  return -1;\n}",
+    "difficulty": "medium",
+    "tags": ["graph", "bfs"],
+    "category": "graph"
+  },
+  {
+    "id": 96,
+    "question": "Minimum Genetic Mutation",
+    "answer": "1. Use BFS to mutate gene strings by changing one character at a time.\n2. Only mutate to valid bank sequences.\n3. Track mutations count.\n4. Time O(N * 8 * 4), space O(N).",
+    "syntax": "// C++-style pseudocode\nint minMutation(string start, string end, vector<string>& bank) {\n  unordered_set<string> dict(bank.begin(), bank.end());\n  if (!dict.count(end)) return -1;\n  unordered_set<string> visited; visited.insert(start);\n  queue<string> q; q.push(start);\n  int steps = 0;\n  vector<char> genes = {'A', 'C', 'G', 'T'};\n  while (!q.empty()) {\n    int size = q.size();\n    while (size--) {\n      string cur = q.front(); q.pop();\n      if (cur == end) return steps;\n      for (int i = 0; i < 8; ++i) {\n        char old = cur[i];\n        for (char g : genes) {\n          if (g == old) continue;\n          cur[i] = g;\n          if (dict.count(cur) && !visited.count(cur)) {\n            visited.insert(cur);\n            q.push(cur);\n          }\n        }\n        cur[i] = old;\n      }\n    }\n    ++steps;\n  }\n  return -1;\n}",
+    "difficulty": "medium",
+    "tags": ["graph", "bfs"],
+    "category": "graph"
+  },
+  {
+    "id": 97,
+    "question": "Word Ladder",
+    "answer": "1. Use bidirectional BFS to search from start and end simultaneously.\n2. At each step, generate all possible one-character mutations.\n3. If both ends meet, return length.\n4. Time reduces exponentially by double BFS.",
+    "syntax": "// C++-style pseudocode\nint ladderLength(string beginWord, string endWord, vector<string>& wordList) {\n  unordered_set<string> dict(wordList.begin(), wordList.end());\n  if (!dict.count(endWord)) return 0;\n  unordered_set<string> beginSet{beginWord}, endSet{endWord}, visited;\n  int len = 1;\n  while (!beginSet.empty() && !endSet.empty()) {\n    if (beginSet.size() > endSet.size()) swap(beginSet, endSet);\n    unordered_set<string> temp;\n    for (auto word : beginSet) {\n      for (int i = 0; i < word.size(); ++i) {\n        string newWord = word;\n        for (char c = 'a'; c <= 'z'; ++c) {\n          newWord[i] = c;\n          if (endSet.count(newWord)) return len + 1;\n          if (dict.count(newWord) && !visited.count(newWord)) {\n            temp.insert(newWord);\n            visited.insert(newWord);\n          }\n        }\n      }\n    }\n    beginSet = temp;\n    len++;\n  }\n  return 0;\n}",
+    "difficulty": "hard",
+    "tags": ["graph", "bfs", "bidirectional-bfs"],
+    "category": "graph"
+  },
+  {
+    "id": 98,
+    "question": "Implement Trie (Prefix Tree)",
+    "answer": "1. Each node stores an array/map of children and a boolean isEnd.\n2. Insert traverses nodes creating as needed, marks end.\n3. Search and startsWith traverse, check isEnd for search.\n4. Time O(L) per operation, L length of word.",
+    "syntax": "// C++-style pseudocode\nclass TrieNode {\npublic:\n  TrieNode* children[26] = {};\n  bool isEnd = false;\n};\n\nclass Trie {\n  TrieNode* root;\npublic:\n  Trie() { root = new TrieNode(); }\n  void insert(string word) {\n    TrieNode* node = root;\n    for (char c : word) {\n      int idx = c - 'a';\n      if (!node->children[idx]) node->children[idx] = new TrieNode();\n      node = node->children[idx];\n    }\n    node->isEnd = true;\n  }\n  bool search(string word) {\n    TrieNode* node = root;\n    for (char c : word) {\n      int idx = c - 'a';\n      if (!node->children[idx]) return false;\n      node = node->children[idx];\n    }\n    return node->isEnd;\n  }\n  bool startsWith(string prefix) {\n    TrieNode* node = root;\n    for (char c : prefix) {\n      int idx = c - 'a';\n      if (!node->children[idx]) return false;\n      node = node->children[idx];\n    }\n    return true;\n  }\n};",
+    "difficulty": "medium",
+    "tags": ["trie", "design"],
+    "category": "design"
+  },
+  {
+    "id": 99,
+    "question": "Design Add and Search Words Data Structure",
+    "answer": "1. Implement Trie to store words.\n2. For search, handle '.' as wildcard by DFS exploring all children.\n3. Time O(26^n) worst, space O(n) for recursion.",
+    "syntax": "// C++-style pseudocode\nclass WordDictionary {\n  struct TrieNode {\n    TrieNode* children[26] = {};\n    bool isWord = false;\n  };\n  TrieNode* root;\n  bool dfs(string& word, int i, TrieNode* node) {\n    if (!node) return false;\n    if (i == word.size()) return node->isWord;\n    char c = word[i];\n    if (c == '.') {\n      for (int j = 0; j < 26; ++j) {\n        if (dfs(word, i+1, node->children[j])) return true;\n      }\n      return false;\n    } else {\n      return dfs(word, i+1, node->children[c - 'a']);\n    }\n  }\npublic:\n  WordDictionary() { root = new TrieNode(); }\n  void addWord(string word) {\n    TrieNode* node = root;\n    for (char c : word) {\n      int idx = c - 'a';\n      if (!node->children[idx]) node->children[idx] = new TrieNode();\n      node = node->children[idx];\n    }\n    node->isWord = true;\n  }\n  bool search(string word) {\n    return dfs(word, 0, root);\n  }\n};",
+    "difficulty": "medium",
+    "tags": ["trie", "dfs", "design"],
+    "category": "design"
+  },
+  {
+    "id": 100,
+    "question": "Word Search II",
+    "answer": "1. Build Trie for given words.\n2. For each cell, DFS with backtracking, prune search using Trie nodes.\n3. Mark visited cells to avoid reuse in current path.\n4. Time O(m * n * 4^l), space O(total words length).",
+    "syntax": "// C++-style pseudocode\nstruct TrieNode {\n  TrieNode* children[26] = {};\n  string word = \"\";\n};\n\nvoid dfs(vector<vector<char>>& board, int r, int c, TrieNode* node, vector<string>& res) {\n  char ch = board[r][c];\n  if (ch == '#' || !node->children[ch - 'a']) return;\n  node = node->children[ch - 'a'];\n  if (!node->word.empty()) {\n    res.push_back(node->word);\n    node->word.clear(); // de-duplicate\n  }\n  board[r][c] = '#';\n  int rows = board.size(), cols = board[0].size();\n  int dirs[4][2] = {{1,0}, {-1,0}, {0,1}, {0,-1}};\n  for (auto& d : dirs) {\n    int nr = r + d[0], nc = c + d[1];\n    if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {\n      dfs(board, nr, nc, node, res);\n    }\n  }\n  board[r][c] = ch;\n}\n\nvector<string> findWords(vector<vector<char>>& board, vector<string>& words) {\n  TrieNode* root = new TrieNode();\n  for (string& w : words) {\n    TrieNode* node = root;\n    for (char c : w) {\n      if (!node->children[c - 'a']) node->children[c - 'a'] = new TrieNode();\n      node = node->children[c - 'a'];\n    }\n    node->word = w;\n  }\n\n  vector<string> res;\n  for (int i = 0; i < board.size(); i++) {\n    for (int j = 0; j < board[0].size(); j++) {\n      dfs(board, i, j, root, res);\n    }\n  }\n  return res;\n}",
+    "difficulty": "hard",
+    "tags": ["trie", "dfs", "backtracking"],
+    "category": "design"
+  },
+  {
+    "id": 101,
+    "question": "Letter Combinations of a Phone Number",
+    "answer": "1. Map each digit to its corresponding letters.\n2. Use backtracking to generate all possible letter combinations.\n3. At each recursion, append one letter and move to next digit.\n4. Time complexity O(4^n), where n is the number of digits.",
+    "syntax": "// C++-style pseudocode\nvector<string> letterCombinations(string digits) {\n  if (digits.empty()) return {};\n  vector<string> mapping = {\"\", \"\", \"abc\", \"def\", \"ghi\", \"jkl\", \"mno\", \"pqrs\", \"tuv\", \"wxyz\"};\n  vector<string> res; string path;\n  function<void(int)> backtrack = [&](int idx) {\n    if (idx == digits.size()) {\n      res.push_back(path);\n      return;\n    }\n    string letters = mapping[digits[idx] - '0'];\n    for (char c : letters) {\n      path.push_back(c);\n      backtrack(idx + 1);\n      path.pop_back();\n    }\n  };\n  backtrack(0);\n  return res;\n}",
+    "difficulty": "medium",
+    "tags": ["backtracking", "string"],
+    "category": "backtracking"
+  },
+  {
+    "id": 102,
+    "question": "Combinations",
+    "answer": "1. Use backtracking to choose or skip numbers.\n2. Append combination when size equals k.\n3. Prune branches early if remaining numbers insufficient.\n4. Time complexity O(C(n,k)), combinations count.",
+    "syntax": "// C++-style pseudocode\nvector<vector<int>> combine(int n, int k) {\n  vector<vector<int>> res; vector<int> path;\n  function<void(int)> backtrack = [&](int start) {\n    if (path.size() == k) {\n      res.push_back(path);\n      return;\n    }\n    for (int i = start; i <= n; ++i) {\n      path.push_back(i);\n      backtrack(i + 1);\n      path.pop_back();\n    }\n  };\n  backtrack(1);\n  return res;\n}",
+    "difficulty": "medium",
+    "tags": ["backtracking", "combinatorics"],
+    "category": "backtracking"
+  },
+  {
+    "id": 103,
+    "question": "Permutations",
+    "answer": "1. Use backtracking with a visited array to track selected elements.\n2. Append permutation when size equals n.\n3. Swap or choose to build permutations.\n4. Time complexity O(n!).",
+    "syntax": "// C++-style pseudocode\nvector<vector<int>> permute(vector<int>& nums) {\n  vector<vector<int>> res; vector<int> path; vector<bool> used(nums.size(), false);\n  function<void()> backtrack = [&]() {\n    if (path.size() == nums.size()) {\n      res.push_back(path);\n      return;\n    }\n    for (int i = 0; i < nums.size(); ++i) {\n      if (used[i]) continue;\n      used[i] = true;\n      path.push_back(nums[i]);\n      backtrack();\n      path.pop_back();\n      used[i] = false;\n    }\n  };\n  backtrack();\n  return res;\n}",
+    "difficulty": "medium",
+    "tags": ["backtracking", "permutation"],
+    "category": "backtracking"
+  },
+  {
+    "id": 104,
+    "question": "Combination Sum",
+    "answer": "1. Use backtracking to try candidates with the ability to reuse numbers.\n2. Subtract candidate value from remaining target.\n3. Append path if remaining is zero.\n4. Time exponential, depends on candidates and target.",
+    "syntax": "// C++-style pseudocode\nvector<vector<int>> combinationSum(vector<int>& candidates, int target) {\n  vector<vector<int>> res; vector<int> path;\n  sort(candidates.begin(), candidates.end());\n  function<void(int,int)> backtrack = [&](int start, int remain) {\n    if (remain == 0) {\n      res.push_back(path);\n      return;\n    }\n    for (int i = start; i < candidates.size(); ++i) {\n      if (candidates[i] > remain) break;\n      path.push_back(candidates[i]);\n      backtrack(i, remain - candidates[i]);\n      path.pop_back();\n    }\n  };\n  backtrack(0, target);\n  return res;\n}",
+    "difficulty": "medium",
+    "tags": ["backtracking", "dfs", "pruning"],
+    "category": "backtracking"
+  },
+  {
+    "id": 105,
+    "question": "N-Queens II",
+    "answer": "1. Use backtracking with bitmasks to track columns and diagonals.\n2. Count valid placements of queens on the board.\n3. Optimize pruning using bitwise operations.\n4. Time O(n!), space O(n).",
+    "syntax": "// C++-style pseudocode\nint totalNQueens(int n) {\n  int count = 0;\n  function<void(int,int,int,int)> backtrack = [&](int row, int cols, int diags1, int diags2) {\n    if (row == n) { count++; return; }\n    int available = ((1 << n) -1) & ~(cols | diags1 | diags2);\n    while (available) {\n      int pos = available & (-available);\n      available -= pos;\n      backtrack(row + 1, cols | pos, (diags1 | pos) << 1, (diags2 | pos) >> 1);\n    }\n  };\n  backtrack(0, 0, 0, 0);\n  return count;\n}",
+    "difficulty": "hard",
+    "tags": ["backtracking", "bitmask"],
+    "category": "backtracking"
+  },
+  {
+    "id": 106,
+    "question": "Generate Parentheses",
+    "answer": "1. Use backtracking to add '(' if open < n and ')' if close < open.\n2. Append string when length reaches 2*n.\n3. Time O(Catalan number), space O(n).",
+    "syntax": "// C++-style pseudocode\nvector<string> generateParenthesis(int n) {\n  vector<string> res; string s;\n  function<void(int,int)> backtrack = [&](int open, int close) {\n    if (s.size() == 2 * n) { res.push_back(s); return; }\n    if (open < n) { s.push_back('('); backtrack(open+1, close); s.pop_back(); }\n    if (close < open) { s.push_back(')'); backtrack(open, close+1); s.pop_back(); }\n  };\n  backtrack(0, 0);\n  return res;\n}",
+    "difficulty": "medium",
+    "tags": ["backtracking", "string"],
+    "category": "backtracking"
+  },
+  {
+    "id": 107,
+    "question": "Word Search",
+    "answer": "1. Use DFS to explore the board from each cell.\n2. Mark cells as visited during search to avoid reuse.\n3. Backtrack when path invalid or word found.\n4. Time O(m*n*4^l), space O(l), l=len(word).",
+    "syntax": "// C++-style pseudocode\nbool exist(vector<vector<char>>& board, string word) {\n  int m = board.size(), n = board[0].size();\n  function<bool(int,int,int)> dfs = [&](int r, int c, int index) {\n    if (index == word.size()) return true;\n    if (r < 0 || c < 0 || r >= m || c >= n || board[r][c] != word[index]) return false;\n    char temp = board[r][c];\n    board[r][c] = '#';\n    bool found = dfs(r+1,c,index+1) || dfs(r-1,c,index+1) || dfs(r,c+1,index+1) || dfs(r,c-1,index+1);\n    board[r][c] = temp;\n    return found;\n  };\n  for (int i = 0; i < m; ++i)\n    for (int j = 0; j < n; ++j)\n      if (dfs(i, j, 0)) return true;\n  return false;\n}",
+    "difficulty": "medium",
+    "tags": ["dfs", "backtracking"],
+    "category": "backtracking"
+  },
+  {
+    "id": 108,
+    "question": "Convert Sorted Array to Binary Search Tree",
+    "answer": "1. Use recursion to pick middle element as root.\n2. Build left subtree from left half, right subtree from right half.\n3. Time O(n), space O(log n).",
+    "syntax": "// C++-style pseudocode\nTreeNode* sortedArrayToBST(vector<int>& nums) {\n  function<TreeNode*(int,int)> build = [&](int l, int r) {\n    if (l > r) return nullptr;\n    int m = l + (r - l) / 2;\n    TreeNode* root = new TreeNode(nums[m]);\n    root->left = build(l, m - 1);\n    root->right = build(m + 1, r);\n    return root;\n  };\n  return build(0, nums.size() -1);\n}",
+    "difficulty": "easy",
+    "tags": ["tree", "divide-and-conquer"],
+    "category": "trees"
+  },
+  {
+    "id": 109,
+    "question": "Sort List",
+    "answer": "1. Use merge sort: split list into halves recursively.\n2. Merge sorted halves.\n3. Time O(n log n), space O(log n) recursion.\n4. Can be done bottom-up for O(1) space.",
+    "syntax": "// C++-style pseudocode\nListNode* sortList(ListNode* head) {\n  if (!head || !head->next) return head;\n  ListNode* slow = head; ListNode* fast = head->next;\n  while (fast && fast->next) {\n    slow = slow->next;\n    fast = fast->next->next;\n  }\n  ListNode* mid = slow->next;\n  slow->next = nullptr;\n  ListNode* left = sortList(head);\n  ListNode* right = sortList(mid);\n  return merge(left, right);\n}\nListNode* merge(ListNode* l1, ListNode* l2) {\n  ListNode dummy; ListNode* tail = &dummy;\n  while (l1 && l2) {\n    if (l1->val < l2->val) { tail->next = l1; l1 = l1->next; }\n    else { tail->next = l2; l2 = l2->next; }\n    tail = tail->next;\n  }\n  tail->next = l1 ? l1 : l2;\n  return dummy.next;\n}",
+    "difficulty": "medium",
+    "tags": ["linked-list", "divide-and-conquer", "merge-sort"],
+    "category": "linked-list"
+  },
+  {
+    "id": 110,
+    "question": "Construct Quad Tree",
+    "answer": "1. Recursively divide grid into quadrants.\n2. If all values in region are same, return leaf node.\n3. Else create internal node pointing to four children.\n4. Time O(n^2), space O(log n).",
+    "syntax": "// C++-style pseudocode\nNode* construct(vector<vector<int>>& grid, int r0, int c0, int length) {\n  bool same = true;\n  int val = grid[r0][c0];\n  for (int i = r0; i < r0 + length && same; ++i)\n    for (int j = c0; j < c0 + length; ++j)\n      if (grid[i][j] != val) same = false;\n  if (same) return new Node(val == 1, true);\n  int half = length / 2;\n  return new Node(false, false, \n    construct(grid, r0, c0, half),\n    construct(grid, r0, c0 + half, half),\n    construct(grid, r0 + half, c0, half),\n    construct(grid, r0 + half, c0 + half, half));\n}\nNode* construct(vector<vector<int>>& grid) {\n  return construct(grid, 0, 0, grid.size());\n}",
+    "difficulty": "medium",
+    "tags": ["divide-and-conquer", "tree"],
+    "category": "advanced-trees"
+  },
+  {
+    "id": 111,
+    "question": "Merge k Sorted Lists",
+    "answer": "1. Use a min-heap (priority_queue) containing head nodes of all lists.\n2. Pop smallest node, append it to result, push next node.\n3. Repeat until all nodes merged.\n4. Time O(N log k), space O(k).",
+    "syntax": "// C++-style pseudocode\nListNode* mergeKLists(vector<ListNode*>& lists) {\n  auto cmp = [](ListNode* a, ListNode* b) { return a->val > b->val; };\n  priority_queue<ListNode*, vector<ListNode*>, decltype(cmp)> pq(cmp);\n  for (auto l : lists) if (l) pq.push(l);\n  ListNode dummy; ListNode* tail = &dummy;\n  while (!pq.empty()) {\n    ListNode* node = pq.top(); pq.pop();\n    tail->next = node; tail = node;\n    if (node->next) pq.push(node->next);\n  }\n  return dummy.next;\n}",
+    "difficulty": "hard",
+    "tags": ["linked-list", "heap", "divide-and-conquer"],
+    "category": "linked-list"
+  },
+  {
+    "id": 112,
+    "question": "Maximum Subarray",
+    "answer": "1. Use Kadane’s algorithm to track current and global max subarray sums.\n2. If current sum drops below zero, reset.\n3. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nint maxSubArray(vector<int>& nums) {\n  int maxSoFar = nums[0], currMax = 0;\n  for (int x : nums) {\n    currMax = max(x, currMax + x);\n    maxSoFar = max(maxSoFar, currMax);\n  }\n  return maxSoFar;\n}",
+    "difficulty": "easy",
+    "tags": ["dp", "array"],
+    "category": "dynamic-programming"
+  },
+  {
+    "id": 113,
+    "question": "Maximum Sum Circular Subarray",
+    "answer": "1. Calculate max subarray sum using Kadane’s algorithm.\n2. Calculate min subarray sum using Kadane’s algorithm on inverted array.\n3. Result is max of maxSum and totalSum - minSum (unless all negative).\n4. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nint maxSubarraySumCircular(vector<int>& nums) {\n  int total = 0, currMax = 0, maxSum = nums[0];\n  int currMin = 0, minSum = nums[0];\n  for (int x : nums) {\n    currMax = max(x, currMax + x); maxSum = max(maxSum, currMax);\n    currMin = min(x, currMin + x); minSum = min(minSum, currMin);\n    total += x;\n  }\n  return maxSum < 0 ? maxSum : max(maxSum, total - minSum);\n}",
+    "difficulty": "medium",
+    "tags": ["dp", "array"],
+    "category": "dynamic-programming"
+  },
+  {
+    "id": 114,
+    "question": "Search Insert Position",
+    "answer": "1. Binary search for the position where target fits.\n2. Return the left index when loop ends.\n3. Time O(log n), space O(1).",
+    "syntax": "// C++-style pseudocode\nint searchInsert(vector<int>& nums, int target) {\n  int left = 0, right = nums.size();\n  while (left < right) {\n    int mid = (left + right) / 2;\n    if (nums[mid] < target) left = mid + 1;\n    else right = mid;\n  }\n  return left;\n}",
+    "difficulty": "easy",
+    "tags": ["binary-search"],
+    "category": "sorting & searching"
+  },
+  {
+    "id": 115,
+    "question": "Search a 2D Matrix",
+    "answer": "1. Treat 2D matrix as 1D sorted array.\n2. Binary search and map indices to row and column.\n3. Time O(log(mn)), space O(1).",
+    "syntax": "// C++-style pseudocode\nbool searchMatrix(vector<vector<int>>& matrix, int target) {\n  if (matrix.empty() || matrix[0].empty()) return false;\n  int m = matrix.size(), n = matrix[0].size();\n  int left = 0, right = m * n - 1;\n  while (left <= right) {\n    int mid = left + (right - left) / 2;\n    int val = matrix[mid / n][mid % n];\n    if (val == target) return true;\n    else if (val < target) left = mid + 1;\n    else right = mid - 1;\n  }\n  return false;\n}",
+    "difficulty": "medium",
+    "tags": ["binary-search", "matrix"],
+    "category": "sorting & searching"
+  },
+  {
+    "id": 116,
+    "question": "Find Peak Element",
+    "answer": "1. Use binary search.\n2. Compare mid element with its next.\n3. Move right if mid < mid + 1; else move left.\n4. Time O(log n), space O(1).",
+    "syntax": "// C++-style pseudocode\nint findPeakElement(vector<int>& nums) {\n  int left = 0, right = nums.size() - 1;\n  while (left < right) {\n    int mid = left + (right - left) / 2;\n    if (nums[mid] < nums[mid + 1]) left = mid + 1;\n    else right = mid;\n  }\n  return left;\n}",
+    "difficulty": "medium",
+    "tags": ["binary-search"],
+    "category": "sorting & searching"
+  },
+  {
+    "id": 117,
+    "question": "Search in Rotated Sorted Array",
+    "answer": "1. Modify binary search.\n2. Check if left half is sorted.\n3. Decide search side accordingly.\n4. Time O(log n), space O(1).",
+    "syntax": "// C++-style pseudocode\nint search(vector<int>& nums, int target) {\n  int left = 0, right = nums.size() - 1;\n  while (left <= right) {\n    int mid = left + (right - left) / 2;\n    if (nums[mid] == target) return mid;\n    if (nums[left] <= nums[mid]) {\n      if (target >= nums[left] && target < nums[mid]) right = mid - 1;\n      else left = mid + 1;\n    } else {\n      if (target > nums[mid] && target <= nums[right]) left = mid + 1;\n      else right = mid - 1;\n    }\n  }\n  return -1;\n}",
+    "difficulty": "medium",
+    "tags": ["binary-search"],
+    "category": "sorting & searching"
+  },
+  {
+    "id": 118,
+    "question": "Find First and Last Position of Element in Sorted Array",
+    "answer": "1. Binary search to find left and right bounds.\n2. Return [-1, -1] if not found.\n3. Time O(log n), space O(1).",
+    "syntax": "// C++-style pseudocode\nvector<int> searchRange(vector<int>& nums, int target) {\n  auto findBound = [&](bool findFirst) {\n    int left = 0, right = nums.size() -1, bound = -1;\n    while (left <= right) {\n      int mid = left + (right - left)/2;\n      if (nums[mid] == target) {\n        bound = mid;\n        if (findFirst) right = mid -1;\n        else left = mid + 1;\n      } else if (nums[mid] < target) left = mid + 1;\n      else right = mid - 1;\n    }\n    return bound;\n  };\n  return {findBound(true), findBound(false)};\n}",
+    "difficulty": "medium",
+    "tags": ["binary-search"],
+    "category": "sorting & searching"
+  },
+  {
+    "id": 119,
+    "question": "Find Minimum in Rotated Sorted Array",
+    "answer": "1. Binary search.\n2. Compare mid with right; search side with smaller value.\n3. Time O(log n), space O(1).",
+    "syntax": "// C++-style pseudocode\nint findMin(vector<int>& nums) {\n  int left = 0, right = nums.size() - 1;\n  while (left < right) {\n    int mid = left + (right - left) / 2;\n    if (nums[mid] > nums[right]) left = mid + 1;\n    else right = mid;\n  }\n  return nums[left];\n}",
+    "difficulty": "medium",
+    "tags": ["binary-search"],
+    "category": "sorting & searching"
+  },
+  {
+    "id": 120,
+    "question": "Median of Two Sorted Arrays",
+    "answer": "1. Binary search on smaller array seeking partition.\n2. Partition arrays such that left max ≤ right min.\n3. Compute median from partition.\n4. Time O(log(min(m,n))), space O(1).",
+    "syntax": "// C++-style pseudocode\ndouble findMedianSortedArrays(vector<int>& A, vector<int>& B) {\n  if (A.size() > B.size()) swap(A, B);\n  int m = A.size(), n = B.size();\n  int left = 0, right = m;\n  while (left <= right) {\n    int i = (left + right) / 2;\n    int j = (m + n + 1) / 2 - i;\n    int Aleft = (i == 0) ? INT_MIN : A[i-1];\n    int Aright = (i == m) ? INT_MAX : A[i];\n    int Bleft = (j == 0) ? INT_MIN : B[j-1];\n    int Bright = (j == n) ? INT_MAX : B[j];\n    if (Aleft <= Bright && Bleft <= Aright) {\n      if ((m + n) % 2 == 1) return max(Aleft, Bleft);\n      else return (double)(max(Aleft, Bleft) + min(Aright, Bright)) / 2;\n    } else if (Aleft > Bright) right = i - 1;\n    else left = i + 1;\n  }\n  return 0.0;\n}",
+    "difficulty": "hard",
+    "tags": ["binary-search"],
+    "category": "sorting & searching"
+  },
+  {
+    "id": 121,
+    "question": "Kth Largest Element in an Array",
+    "answer": "1. Use Quickselect to find kth largest element.\n2. Alternatively, use min-heap of size k.\n3. Expected O(n), worst O(n^2).",
+    "syntax": "// C++-style pseudocode\nint findKthLargest(vector<int>& nums, int k) {\n  nth_element(nums.begin(), nums.end() - k, nums.end());\n  return nums[nums.size() - k];\n}",
+    "difficulty": "medium",
+    "tags": ["heap", "quickselect"],
+    "category": "sorting & searching"
+  },
+  {
+    "id": 122,
+    "question": "IPO",
+    "answer": "1. Sort projects by capital required.\n2. Use max-heap for profits of all affordable projects.\n3. Iteratively choose project with max profit and update current capital.\n4. Time O(n log n + k log n).",
+    "syntax": "// C++-style pseudocode\nint findMaximizedCapital(int k, int w, vector<int>& Profits, vector<int>& Capital) {\n  vector<pair<int,int>> projects;\n  int n = Profits.size();\n  for (int i = 0; i < n; ++i) projects.emplace_back(Capital[i], Profits[i]);\n  sort(projects.begin(), projects.end());\n  priority_queue<int> pq;\n  int index = 0;\n  for (int i = 0; i < k; ++i) {\n    while (index < n && projects[index].first <= w) pq.push(projects[index++].second);\n    if (pq.empty()) break;\n    w += pq.top(); pq.pop();\n  }\n  return w;\n}",
+    "difficulty": "hard",
+    "tags": ["greedy", "heap", "sorting"],
+    "category": "greedy"
+  },
+  {
+    "id": 123,
+    "question": "Find K Pairs with Smallest Sums",
+    "answer": "1. Use min-heap to track candidate pairs.\n2. Initialize with pairs (i, 0) for all i.\n3. Extract min and add next pair (i, j+1).\n4. Time O(k log k).",
+    "syntax": "// C++-style pseudocode\nvector<pair<int,int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {\n  vector<pair<int,int>> res;\n  if (nums1.empty() || nums2.empty() || k == 0) return res;\n  auto cmp = [&](tuple<int,int,int> a, tuple<int,int,int> b) { return get<0>(a) > get<0>(b); };\n  priority_queue<tuple<int,int,int>, vector<tuple<int,int,int>>, decltype(cmp)> pq(cmp);\n  for (int i=0; i < nums1.size() && i < k; ++i) pq.emplace(nums1[i] + nums2[0], i, 0);\n  while (k-- && !pq.empty()) {\n    auto [sum, i, j] = pq.top(); pq.pop();\n    res.emplace_back(nums1[i], nums2[j]);\n    if (j + 1 < nums2.size()) pq.emplace(nums1[i] + nums2[j+1], i, j+1);\n  }\n  return res;\n}",
+    "difficulty": "medium",
+    "tags": ["heap", "array"],
+    "category": "heap"
+  },
+  {
+    "id": 124,
+    "question": "Find Median from Data Stream",
+    "answer": "1. Use two heaps: max-heap for lower half, min-heap for upper half.\n2. Balance sizes after each insertion.\n3. Median is either top of max-heap (odd size) or average of tops.\n4. Time O(log n), space O(n).",
+    "syntax": "// C++-style pseudocode\nclass MedianFinder {\n  priority_queue<int> maxHeap;\n  priority_queue<int, vector<int>, greater<int>> minHeap;\npublic:\n  void addNum(int num) {\n    maxHeap.push(num);\n    minHeap.push(maxHeap.top()); maxHeap.pop();\n    if (minHeap.size() > maxHeap.size()) {\n      maxHeap.push(minHeap.top()); minHeap.pop();\n    }\n  }\n  double findMedian() {\n    return maxHeap.size() > minHeap.size() ? maxHeap.top() : (maxHeap.top() + minHeap.top()) / 2.0;\n  }\n};",
+    "difficulty": "medium",
+    "tags": ["heap", "design"],
+    "category": "design"
+  },
+  {
+    "id": 125,
+    "question": "Add Binary",
+    "answer": "1. Add bits from right to left maintaining a carry.\n2. Construct result string in reverse order.\n3. Reverse result at the end.\n4. Time O(n), space O(n).",
+    "syntax": "// C++-style pseudocode\nstring addBinary(string a, string b) {\n  string res;\n  int i = a.size() - 1, j = b.size() - 1, carry = 0;\n  while(i >= 0 || j >= 0 || carry) {\n    int sum = carry;\n    if (i >= 0) sum += a[i--] - '0';\n    if (j >= 0) sum += b[j--] - '0';\n    carry = sum > 1 ? 1 : 0;\n    res.push_back((sum % 2) + '0');\n  }\n  reverse(res.begin(), res.end());\n  return res;\n}",
+    "difficulty": "easy",
+    "tags": ["string", "bit-manipulation"],
+    "category": "string"
+  },
+  {
+    "id": 126,
+    "question": "Reverse Bits",
+    "answer": "1. For 32-bit integer, shift result and append LSB at each iteration.\n2. Time O(1), space O(1).",
+    "syntax": "// C++-style pseudocode\nuint32_t reverseBits(uint32_t n) {\n  uint32_t res = 0;\n  for (int i = 0; i < 32; ++i) {\n    res <<= 1;\n    res |= n & 1;\n    n >>= 1;\n  }\n  return res;\n}",
+    "difficulty": "easy",
+    "tags": ["bit-manipulation"],
+    "category": "bit-manipulation"
+  },
+  {
+    "id": 127,
+    "question": "Number of 1 Bits",
+    "answer": "1. Use n &= n - 1 trick to count set bits.\n2. Each operation clears the least significant bit.\n3. Time O(k), k=number of set bits.",
+    "syntax": "// C++-style pseudocode\nint hammingWeight(uint32_t n) {\n  int count = 0;\n  while (n) {\n    n &= n - 1;\n    count++;\n  }\n  return count;\n}",
+    "difficulty": "easy",
+    "tags": ["bit-manipulation"],
+    "category": "bit-manipulation"
+  },
+  {
+    "id": 128,
+    "question": "Single Number",
+    "answer": "1. XOR all numbers, duplicates cancel, remainder is unique.\n2. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nint singleNumber(vector<int>& nums) {\n  int res = 0;\n  for (int x : nums) res ^= x;\n  return res;\n}",
+    "difficulty": "easy",
+    "tags": ["bit-manipulation"],
+    "category": "bit-manipulation"
+  },
+  {
+    "id": 129,
+    "question": "Single Number II",
+    "answer": "1. Use bitwise counters to record bits appearing once and twice.\n2. Update bits using bitwise operations to eventually isolate unique number.\n3. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nint singleNumber(vector<int>& nums) {\n  int ones = 0, twos = 0;\n  for (int x : nums) {\n    ones = (ones ^ x) & ~twos;\n    twos = (twos ^ x) & ~ones;\n  }\n  return ones;\n}",
+    "difficulty": "hard",
+    "tags": ["bit-manipulation"],
+    "category": "bit-manipulation"
+  },
+  {
+    "id": 130,
+    "question": "Bitwise AND of Numbers Range",
+    "answer": "1. Right shift m and n until equal to remove differing bits.\n2. Left shift back the shift count.\n3. Time O(log n), space O(1).",
+    "syntax": "// C++-style pseudocode\nint rangeBitwiseAnd(int m, int n) {\n  int shift = 0;\n  while (m != n) {\n    m >>= 1;\n    n >>= 1;\n    shift++;\n  }\n  return m << shift;\n}",
+    "difficulty": "medium",
+    "tags": ["bit-manipulation"],
+    "category": "bit-manipulation"
+  },
+  {
+    "id": 131,
+    "question": "Palindrome Number",
+    "answer": "1. Reject negative numbers or numbers ending with zero but not zero itself.\n2. Reverse half the digits and compare with the other half.\n3. Time O(log n), space O(1).",
+    "syntax": "// C++-style pseudocode\nbool isPalindrome(int x) {\n  if (x < 0 || (x % 10 == 0 && x != 0)) return false;\n  int rev = 0;\n  while (x > rev) {\n    rev = rev * 10 + x % 10;\n    x /= 10;\n  }\n  return x == rev || x == rev / 10;\n}",
+    "difficulty": "easy",
+    "tags": ["math"],
+    "category": "math"
+  },
+  {
+    "id": 132,
+    "question": "Plus One",
+    "answer": "1. Add one starting from the last digit.\n2. Propagate carry backwards.\n3. If carry remains, insert 1 at front.",
+    "syntax": "// C++-style pseudocode\nvector<int> plusOne(vector<int>& digits) {\n  for (int i = digits.size() - 1; i >= 0; i--) {\n    if (++digits[i] < 10) return digits;\n    digits[i] = 0;\n  }\n  digits.insert(digits.begin(), 1);\n  return digits;\n}",
+    "difficulty": "easy",
+    "tags": ["array"],
+    "category": "array"
+  },
+  {
+    "id": 133,
+    "question": "Factorial Trailing Zeroes",
+    "answer": "1. Count factors of 5 in n! by summing floor(n/5^k).\n2. Time O(log n), space O(1).",
+    "syntax": "// C++-style pseudocode\nint trailingZeroes(int n) {\n  int count = 0;\n  while (n) {\n    n /= 5;\n    count += n;\n  }\n  return count;\n}",
+    "difficulty": "easy",
+    "tags": ["math"],
+    "category": "math"
+  },
+  {
+    "id": 134,
+    "question": "Sqrt(x)",
+    "answer": "1. Use binary search between 1 and x.\n2. Find largest mid with mid*mid <= x.\n3. Time O(log x), space O(1).",
+    "syntax": "// C++-style pseudocode\nint mySqrt(int x) {\n  int left = 1, right = x, ans = 0;\n  while (left <= right) {\n    int mid = left + (right - left) / 2;\n    if ((long long)mid * mid <= x) {\n      ans = mid;\n      left = mid + 1;\n    } else right = mid - 1;\n  }\n  return ans;\n}",
+    "difficulty": "easy",
+    "tags": ["binary-search", "math"],
+    "category": "math"
+  },
+  {
+    "id": 135,
+    "question": "Pow(x, n)",
+    "answer": "1. Use fast exponentiation (exponentiation by squaring).\n2. Handle negative n by inverting x.\n3. Time O(log n), space O(1).",
+    "syntax": "// C++-style pseudocode\ndouble myPow(double x, int n) {\n  long long N = n;\n  if (N < 0) {\n    x = 1 / x;\n    N = -N;\n  }\n  double res = 1;\n  while (N > 0) {\n    if (N & 1) res *= x;\n    x *= x;\n    N >>= 1;\n  }\n  return res;\n}",
+    "difficulty": "medium",
+    "tags": ["divide-and-conquer", "math"],
+    "category": "math"
+  },
+  {
+    "id": 136,
+    "question": "Max Points on a Line",
+    "answer": "1. For each point, compute slopes to other points.\n2. Use hash map to count points per slope.\n3. Track duplicate points.\n4. Return max count of points colinear with current point.\n5. Time O(n^2), space O(n).",
+    "syntax": "// C++-style pseudocode\nint maxPoints(vector<vector<int>>& points) {\n  int n = points.size(), res = 0;\n  for (int i = 0; i < n; ++i) {\n    unordered_map<string, int> slopeCount;\n    int duplicates = 1;\n    for (int j = i + 1; j < n; ++j) {\n      int dx = points[j][0] - points[i][0];\n      int dy = points[j][1] - points[i][1];\n      if (dx == 0 && dy == 0) duplicates++;\n      else {\n        int g = gcd(dx, dy);\n        dx /= g; dy /= g;\n        string key = to_string(dx) + \"/\" + to_string(dy);\n        slopeCount[key]++;\n      }\n    }\n    int currMax = 0;\n    for (auto& p : slopeCount) currMax = max(currMax, p.second);\n    res = max(res, currMax + duplicates);\n  }\n  return res;\n}",
+    "difficulty": "hard",
+    "tags": ["math", "hash-map", "geometry"],
+    "category": "math"
+  },
+  {
+    "id": 137,
+    "question": "Climbing Stairs",
+    "answer": "1. Ways to reach step n = ways[n-1] + ways[n-2].\n2. Use DP or iterative Fibonacci.\n3. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nint climbStairs(int n) {\n  int a = 1, b = 1;\n  for (int i = 2; i <= n; ++i) {\n    int temp = b;\n    b = a + b;\n    a = temp;\n  }\n  return b;\n}",
+    "difficulty": "easy",
+    "tags": ["dp"],
+    "category": "dynamic-programming"
+  },
+  {
+    "id": 138,
+    "question": "House Robber",
+    "answer": "1. At each house, decide whether to rob or skip.\n2. Use two variables to track max profit including/excluding current house.\n3. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nint rob(vector<int>& nums) {\n  int prev = 0, curr = 0;\n  for (int num : nums) {\n    int temp = curr;\n    curr = max(prev + num, curr);\n    prev = temp;\n  }\n  return curr;\n}",
+    "difficulty": "easy",
+    "tags": ["dp"],
+    "category": "dynamic-programming"
+  },
+  {
+    "id": 139,
+    "question": "Word Break",
+    "answer": "1. Use DP where dp[i] indicates if s[0:i] can be segmented.\n2. For each i, check substrings s[j:i] in dictionary.\n3. Time O(n^2), space O(n).",
+    "syntax": "// C++-style pseudocode\nbool wordBreak(string s, vector<string>& wordDict) {\n  unordered_set<string> dict(wordDict.begin(), wordDict.end());\n  vector<bool> dp(s.length() + 1, false);\n  dp[0] = true;\n  for (int i = 1; i <= s.length(); ++i) {\n    for (int j = 0; j < i; ++j) {\n      if (dp[j] && dict.count(s.substr(j, i - j))) {\n        dp[i] = true;\n        break;\n      }\n    }\n  }\n  return dp[s.length()];\n}",
+    "difficulty": "medium",
+    "tags": ["dp", "string"],
+    "category": "dynamic-programming"
+  },
+  {
+    "id": 140,
+    "question": "Coin Change",
+    "answer": "1. Use DP to store minimum coins to make amount i.\n2. For each coin, update dp arrays.\n3. Return dp[amount] or -1 if impossible.\n4. Time O(amount * coins), space O(amount).",
+    "syntax": "// C++-style pseudocode\nint coinChange(vector<int>& coins, int amount) {\n  vector<int> dp(amount + 1, amount + 1);\n  dp[0] = 0;\n  for (int i = 1; i <= amount; ++i) {\n    for (int c : coins) {\n      if (i >= c) dp[i] = min(dp[i], dp[i - c] + 1);\n    }\n  }\n  return dp[amount] > amount ? -1 : dp[amount];\n}",
+    "difficulty": "medium",
+    "tags": ["dp", "coin-change"],
+    "category": "dynamic-programming"
+  },
+  {
+    "id": 141,
+    "question": "Longest Increasing Subsequence",
+    "answer": "1. Use patience sorting idea with tails array storing ends of increasing subsequences.\n2. Use binary search to update tails.\n3. Length of tails is LIS length.\n4. Time O(n log n), space O(n).",
+    "syntax": "// C++-style pseudocode\nint lengthOfLIS(vector<int>& nums) {\n  vector<int> tails;\n  for (int x : nums) {\n    auto it = lower_bound(tails.begin(), tails.end(), x);\n    if (it == tails.end()) tails.push_back(x);\n    else *it = x;\n  }\n  return tails.size();\n}",
+    "difficulty": "medium",
+    "tags": ["dp", "binary-search"],
+    "category": "dynamic-programming"
+  },
+  {
+    "id": 142,
+    "question": "Triangle",
+    "answer": "1. Use bottom-up DP to accumulate minimum path sums.\n2. Update dp for each row using values from next row.\n3. Time O(n^2), space O(n).",
+    "syntax": "// C++-style pseudocode\nint minimumTotal(vector<vector<int>>& triangle) {\n  vector<int> dp = triangle.back();\n  for (int i = triangle.size() - 2; i >= 0; --i) {\n    for (int j = 0; j <= i; ++j) {\n      dp[j] = triangle[i][j] + min(dp[j], dp[j+1]);\n    }\n  }\n  return dp[0];\n}",
+    "difficulty": "medium",
+    "tags": ["dp"],
+    "category": "dynamic-programming"
+  },
+  {
+    "id": 143,
+    "question": "Minimum Path Sum",
+    "answer": "1. Use DP to accumulate sums from top-left to bottom-right.\n2. dp[i][j] = grid[i][j] plus min(dp from above and left).\n3. Time O(m*n), space O(1) if using grid in-place.",
+    "syntax": "// C++-style pseudocode\nint minPathSum(vector<vector<int>>& grid) {\n  int m = grid.size(), n = grid[0].size();\n  for (int i = 0; i < m; ++i) {\n    for (int j = 0; j < n; ++j) {\n      if (i > 0 && j > 0) grid[i][j] += min(grid[i-1][j], grid[i][j-1]);\n      else if (i > 0) grid[i][j] += grid[i-1][j];\n      else if (j > 0) grid[i][j] += grid[i][j-1];\n    }\n  }\n  return grid[m-1][n-1];\n}",
+    "difficulty": "medium",
+    "tags": ["dp", "grid"],
+    "category": "dynamic-programming"
+  },
+  {
+    "id": 144,
+    "question": "Unique Paths II",
+    "answer": "1. Similar to Unique Paths with obstacles.\n2. Use 1D DP array, update paths avoiding obstacles.\n3. Time O(m*n), space O(n).",
+    "syntax": "// C++-style pseudocode\nint uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {\n  int m = obstacleGrid.size(), n = obstacleGrid[0].size();\n  vector<long> dp(n, 0);\n  dp[0] = obstacleGrid[0][0] == 0 ? 1 : 0;\n  for (int i = 0; i < m; ++i) {\n    for (int j = 0; j < n; ++j) {\n      if (obstacleGrid[i][j] == 1) dp[j] = 0;\n      else if (j > 0) dp[j] += dp[j-1];\n    }\n  }\n  return dp[n-1];\n}",
+    "difficulty": "medium",
+    "tags": ["dp", "grid"],
+    "category": "dynamic-programming"
+  },
+  {
+    "id": 145,
+    "question": "Longest Palindromic Substring",
+    "answer": "1. Expand around center approach for each character.\n2. Check odd and even length palindromes.\n3. Track max palindrome found.\n4. Time O(n^2), space O(1).",
+    "syntax": "// C++-style pseudocode\nstring longestPalindrome(string s) {\n  int start = 0, maxLen = 1;\n  for (int i = 0; i < s.size(); ++i) {\n    int l = i, r = i;\n    while (l >= 0 && r < s.size() && s[l] == s[r]) {\n      if (r - l + 1 > maxLen) { start = l; maxLen = r - l + 1; }\n      --l; ++r;\n    }\n    l = i; r = i + 1;\n    while (l >= 0 && r < s.size() && s[l] == s[r]) {\n      if (r - l + 1 > maxLen) { start = l; maxLen = r - l + 1; }\n      --l; ++r;\n    }\n  }\n  return s.substr(start, maxLen);\n}",
+    "difficulty": "medium",
+    "tags": ["string", "two-pointer"],
+    "category": "string"
+  },
+  {
+    "id": 146,
+    "question": "Interleaving String",
+    "answer": "1. DP approach to check if s3 is formed by interleaving s1 and s2.\n2. dp[i][j] indicates if s3[0..i+j-1] is formed by s1[0..i-1] and s2[0..j-1].\n3. Time O(m*n), space O(m*n).",
+    "syntax": "// C++-style pseudocode\nbool isInterleave(string s1, string s2, string s3) {\n  if (s1.size() + s2.size() != s3.size()) return false;\n  vector<vector<bool>> dp(s1.size()+1, vector<bool>(s2.size()+1, false));\n  dp[0][0] = true;\n  for (int i = 0; i <= s1.size(); ++i) {\n    for (int j = 0; j <= s2.size(); ++j) {\n      if (i > 0) dp[i][j] = dp[i][j] || (dp[i-1][j] && s1[i-1] == s3[i+j-1]);\n      if (j > 0) dp[i][j] = dp[i][j] || (dp[i][j-1] && s2[j-1] == s3[i+j-1]);\n    }\n  }\n  return dp[s1.size()][s2.size()];\n}",
+    "difficulty": "medium",
+    "tags": ["dp", "string"],
+    "category": "dynamic-programming"
+  },
+  {
+    "id": 147,
+    "question": "Edit Distance",
+    "answer": "1. Classic DP for minimum insert, delete, replace to convert word1 to word2.\n2. dp[i][j] = min(insert, delete, replace) plus one operation.\n3. Time O(m*n), space O(m*n).",
+    "syntax": "// C++-style pseudocode\nint minDistance(string word1, string word2) {\n  int m = word1.size(), n = word2.size();\n  vector<vector<int>> dp(m+1, vector<int>(n+1, 0));\n  for (int i = 0; i <= m; ++i) dp[i][0] = i;\n  for (int j = 0; j <= n; ++j) dp[0][j] = j;\n  for (int i = 1; i <= m; ++i) {\n    for (int j = 1; j <= n; ++j) {\n      if (word1[i-1] == word2[j-1]) dp[i][j] = dp[i-1][j-1];\n      else dp[i][j] = 1 + min({dp[i-1][j], dp[i][j-1], dp[i-1][j-1]});\n    }\n  }\n  return dp[m][n];\n}",
+    "difficulty": "hard",
+    "tags": ["dp", "string"],
+    "category": "dynamic-programming"
+  },
+  {
+    "id": 148,
+    "question": "Best Time to Buy and Sell Stock III",
+    "answer": "1. Allow at most two transactions.\n2. Keep track of buy1, sell1, buy2, sell2.\n3. Update states for each price.\n4. Time O(n), space O(1).",
+    "syntax": "// C++-style pseudocode\nint maxProfit(vector<int>& prices) {\n  int buy1 = INT_MIN, sell1 = 0, buy2 = INT_MIN, sell2 = 0;\n  for (int p : prices) {\n    buy1 = max(buy1, -p);\n    sell1 = max(sell1, buy1 + p);\n    buy2 = max(buy2, sell1 - p);\n    sell2 = max(sell2, buy2 + p);\n  }\n  return sell2;\n}",
+    "difficulty": "hard",
+    "tags": ["dp", "greedy"],
+    "category": "dynamic-programming"
+  },
+  {
+    "id": 149,
+    "question": "Best Time to Buy and Sell Stock IV",
+    "answer": "1. Use DP for k transactions.\n2. For large k, treat as unlimited transactions problem.\n3. Time O(nk), space O(k).",
+    "syntax": "// C++-style pseudocode\nint maxProfit(int k, vector<int>& prices) {\n  int n = prices.size();\n  if (k >= n / 2) {\n    int profit = 0;\n    for (int i = 1; i < n; ++i) {\n      if (prices[i] > prices[i - 1]) profit += prices[i] - prices[i - 1];\n    }\n    return profit;\n  }\n  vector<int> buy(k + 1, INT_MIN), sell(k + 1, 0);\n  for (int p : prices) {\n    for (int i = 1; i <= k; ++i) {\n      buy[i] = max(buy[i], sell[i - 1] - p);\n      sell[i] = max(sell[i], buy[i] + p);\n    }\n  }\n  return sell[k];\n}",
+    "difficulty": "hard",
+    "tags": ["dp", "greedy"],
+    "category": "dynamic-programming"
+  },
+  {
+    "id": 150,
+    "question": "Maximal Square",
+    "answer": "1. Use DP where dp[i][j] is size of largest square ending at (i, j).\n2. dp[i][j] = 1 + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]) if cell is '1'.\n3. Track max side length.\n4. Time O(mn), space O(mn).",
+    "syntax": "// C++-style pseudocode\nint maximalSquare(vector<vector<char>>& matrix) {\n  int m = matrix.size(), n = matrix[0].size(), maxSide = 0;\n  vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));\n  for (int i = 1; i <= m; ++i) {\n    for (int j = 1; j <= n; ++j) {\n      if (matrix[i -1][j -1] == '1') {\n        dp[i][j] = 1 + min({dp[i-1][j], dp[i][j-1], dp[i-1][j-1]});\n        maxSide = max(maxSide, dp[i][j]);\n      }\n    }\n  }\n  return maxSide * maxSide;\n}",
+    "difficulty": "medium",
+    "tags": ["dp", "matrix"],
+    "category": "dynamic-programming"
+  }
+]
